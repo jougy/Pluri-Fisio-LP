@@ -1,0 +1,58 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeaderNav from '../components/home/HeaderNav.astro';
+import HeroSection from '../components/home/HeroSection.astro';
+import PlatformSection from '../components/home/PlatformSection.astro';
+import WorkflowSection from '../components/home/WorkflowSection.astro';
+import PricingSection from '../components/home/PricingSection.astro';
+import FeaturesModal from '../components/home/FeaturesModal.astro';
+---
+
+<Layout 
+  title="Pluri Fisio — Sistema para Fisioterapeutas e Clínicas"
+  description="Pluri Fisio: prontuário, agenda e financeiro em um só lugar. Feito exclusivamente para fisioterapeutas. Teste grátis por 7 dias."
+>
+  <a
+    href="#conteudo"
+    class="btn-primary t-small sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60]"
+  >
+    Pular para o conteúdo
+  </a>
+
+  <!-- Header Fixo -->
+  <HeaderNav />
+
+  <!-- Main Container com Snap de Página Inteira (100svh) -->
+  <main id="conteudo" class="snap-main-container">
+    <!-- 1 — Lançamento Pluri Fisio -->
+    <HeroSection />
+
+    <!-- 2 — O que é o Pluri Fisio (3 Opções de Visualização com Pesquisas Reais) -->
+    <PlatformSection />
+
+    <!-- 3 — Como funciona (Fluxo real Pluri Fisio em 6 etapas) -->
+    <WorkflowSection />
+
+    <!-- 4 — Planos (Com cálculo reativo) -->
+    <PricingSection />
+  </main>
+
+  <!-- Modal de Funcionalidades Práticas da Rotina Clínica -->
+  <FeaturesModal />
+</Layout>
+
+<script>
+  import { setupPricing, setupModal, setupWorkflowResponsiveCarousel } from '../scripts/home-interactions';
+
+  function init() {
+    setupPricing();
+    setupModal();
+    setupWorkflowResponsiveCarousel();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+</script>

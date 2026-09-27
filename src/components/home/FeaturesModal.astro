@@ -1,0 +1,603 @@
+---
+// FeaturesModal.astro - Modal com Detalhes Semióticos e Práticos do Card do Paciente
+---
+
+<div class="features-modal-overlay" id="featuresModalOverlay" aria-hidden="true">
+  <div class="features-modal-content">
+    <div class="modal-top">
+      <div>
+        <span class="modal-eyebrow">DIFERENCIAIS & RECURSOS AVANÇADOS</span>
+        <h3 class="t-title modal-heading">Tudo o que o Pluri Fisio entrega para você</h3>
+        <p class="t-small modal-subheading">Linearidade extrema, duplicação em 1 toque, autonomia profissional multiclínica e segurança LGPD.</p>
+      </div>
+      <button type="button" class="modal-close-btn" id="btnCloseFeaturesModal" aria-label="Fechar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Navegação de Abas Rápidas no Modal -->
+    <div class="modal-tabs-bar" role="tablist">
+      <button type="button" class="modal-tab-btn active" data-tab-target="tab-diferenciais">Diferenciais Chave</button>
+      <button type="button" class="modal-tab-btn" data-tab-target="tab-rotina">Semiótica & Rotina</button>
+      <button type="button" class="modal-tab-btn" data-tab-target="tab-seguranca">Autonomia & LGPD</button>
+    </div>
+
+    <!-- Aba 1: Os Grandes Diferenciais Explicados -->
+    <div class="modal-tab-content active" id="tab-diferenciais">
+      <div class="modal-grid">
+        <!-- 1: Duplicação de Atendimentos -->
+        <div class="modal-feature-box highlight-box">
+          <div class="feature-box-header">
+            <div class="feature-icon-badge badge-orange">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+            </div>
+            <strong>Duplicação Ultra-Rápida de Atendimentos</strong>
+          </div>
+          <p>
+            Em vez de preencher formulários inteiros em cada sessão de retorno, basta clicar em <strong>"Duplicar Atendimento"</strong>. O sistema replica a conduta anterior e você apenas anota a evolução real daquele dia em menos de 30 segundos.
+          </p>
+          <div class="feature-pill-badge">Economiza até 1h30 por dia de trabalho burocrático</div>
+        </div>
+
+        <!-- 2: Editor No-Code e Alta Modularidade -->
+        <div class="modal-feature-box highlight-box">
+          <div class="feature-box-header">
+            <div class="feature-icon-badge badge-blue">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            </div>
+            <strong>Editor de Formulários No-Code</strong>
+          </div>
+          <p>
+            Construa anamneses, questionários e escalas de avaliação com blocos visuais de arrastar e soltar. Adapte campos, opções de múltipla escolha e réguas numéricas para a sua especialidade exata sem precisar de programador.
+          </p>
+          <div class="feature-pill-badge">Personalização total para Fisioterapia, Nutrição, Psico e mais</div>
+        </div>
+
+        <!-- 3: Tratamentos Ágeis e Eficientes -->
+        <div class="modal-feature-box highlight-box">
+          <div class="feature-box-header">
+            <div class="feature-icon-badge badge-green">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            </div>
+            <strong>Prescrição de Condutas e Tratamentos</strong>
+          </div>
+          <p>
+            Preenchimento de protocolos terapêuticos e planos de cuidados desenhado especificamente para a velocidade da maca e da mesa de atendimento, sem telas poluídas.
+          </p>
+          <div class="feature-pill-badge">Zero cliques desnecessários durante a consulta</div>
+        </div>
+
+        <!-- 4: Estatísticas Limpas e Modulares -->
+        <div class="modal-feature-box highlight-box">
+          <div class="feature-box-header">
+            <div class="feature-icon-badge badge-purple">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            </div>
+            <strong>Estatísticas e Métricas Descomplicadas</strong>
+          </div>
+          <p>
+            Visão direta de indicadores que importam: comparecimento, taxa de renovação de pacotes, faturamento líquido e evolução clínica ao longo dos meses.
+          </p>
+          <div class="feature-pill-badge">Painéis limpos sem gráficos poluídos ou confusos</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Aba 2: Semiótica e Recursos de Rotina -->
+    <div class="modal-tab-content" id="tab-rotina">
+      <div class="modal-grid">
+        <!-- 1: Relógio do Agendamento & 4 Cores -->
+        <div class="modal-feature-box">
+          <div class="feature-box-header">
+            <div class="feature-icon-badge">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </div>
+            <strong>Relógio do Agendamento (4 Cores)</strong>
+          </div>
+          <p>
+            Muda de cor conforme o momento da consulta. Bateu o olho, sabe na hora o status da recepção sem ler listas ou perguntar para secretárias.
+          </p>
+          <div class="clock-mini-legend" aria-label="Significado das 4 cores do relógio">
+            <span class="clock-chip chip-green"><span class="chip-dot dot-green"></span>Verde: Hoje</span>
+            <span class="clock-chip chip-blue"><span class="chip-dot dot-blue"></span>Azul: Futuro</span>
+            <span class="clock-chip chip-orange"><span class="chip-dot dot-orange"></span>Laranja: Chegou</span>
+            <span class="clock-chip chip-red"><span class="chip-dot dot-red"></span>Vermelho: Atraso</span>
+          </div>
+        </div>
+
+        <!-- 2: Símbolo Financeiro ($) -->
+        <div class="modal-feature-box">
+          <div class="feature-box-header">
+            <div class="feature-icon-badge">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="1" x2="12" y2="23"></line>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+              </svg>
+            </div>
+            <strong>Símbolo Financeiro ($)</strong>
+          </div>
+          <p>
+            Exibe a situação financeira consolidada do paciente. Um clique no '$' abre o extrato rápido com débitos, pagamentos e recibos.
+          </p>
+          <div class="clock-mini-legend" aria-label="Situações do Símbolo Financeiro">
+            <span class="clock-chip chip-green"><span class="chip-dot dot-green"></span>Quitado</span>
+            <span class="clock-chip chip-orange"><span class="chip-dot dot-orange"></span>Pendente</span>
+            <span class="clock-chip chip-red"><span class="chip-dot dot-red"></span>Em Débito</span>
+            <span class="clock-chip chip-blue"><span class="chip-dot dot-blue"></span>Com Crédito</span>
+          </div>
+        </div>
+
+        <!-- 3: Pílula de Recorrência Semanal -->
+        <div class="modal-feature-box">
+          <div class="feature-box-header">
+            <div class="feature-icon-badge">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+            </div>
+            <strong>Recorrência Semanal (D, S, T, Q, Q, S, S)</strong>
+          </div>
+          <p>
+            Destaca os dias fixos da semana em que o paciente frequenta o tratamento (ex: Segundas, Quartas e Sextas), facilitando a gestão sem abrir o calendário.
+          </p>
+          <div class="recurrence-mini-preview" aria-label="Exemplo de dias fixos do paciente">
+            <span class="day-dot">D</span>
+            <span class="day-dot day-active">S</span>
+            <span class="day-dot">T</span>
+            <span class="day-dot day-active">Q</span>
+            <span class="day-dot">Q</span>
+            <span class="day-dot day-active">S</span>
+            <span class="day-dot">S</span>
+            <span class="recurrence-label">Seg, Qua e Sex</span>
+          </div>
+        </div>
+
+        <!-- 4: Tags de Linhas de Cuidado -->
+        <div class="modal-feature-box">
+          <div class="feature-box-header">
+            <div class="feature-icon-badge">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                <line x1="7" y1="7" x2="7.01" y2="7"></line>
+              </svg>
+            </div>
+            <strong>Tags de Linhas de Cuidado & Protocolos</strong>
+          </div>
+          <p>
+            Etiquetas coloridas personalizadas por queixa para bater o olho no card e saber exatamente qual protocolo o paciente está realizando.
+          </p>
+          <div class="tags-mini-preview" aria-hidden="true">
+            <span class="tag-pill tag-purple">Coluna Cervical</span>
+            <span class="tag-pill tag-peach">Liberação Miofascial</span>
+            <span class="tag-pill tag-blue">Reabilitação de Joelho</span>
+            <span class="tag-pill tag-violet">Pilates Clínico</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Aba 3: Autonomia & Segurança LGPD -->
+    <div class="modal-tab-content" id="tab-seguranca">
+      <div class="modal-grid">
+        <!-- 1: Liberdade Multiclínica -->
+        <div class="modal-feature-box highlight-box">
+          <div class="feature-box-header">
+            <div class="feature-icon-badge badge-blue">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+            </div>
+            <strong>Você Nunca Fica Preso a uma Clínica</strong>
+          </div>
+          <p>
+            Em sistemas tradicionais, se você sai de um consultório, seus prontuários ficam trancados lá. No Pluri Fisio, você pode atender em múltiplos consultórios com a mesma conta e seu portfólio de pacientes permanece sob sua custódia profissional.
+          </p>
+        </div>
+
+        <!-- 2: Gestão de Colaboradores e RBAC -->
+        <div class="modal-feature-box highlight-box">
+          <div class="feature-box-header">
+            <div class="feature-icon-badge badge-purple">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            </div>
+            <strong>Gestão de Colaboradores & Permissões</strong>
+          </div>
+          <p>
+            Cada membro da equipe visualiza somente o necessário: a recepção vê a agenda, o financeiro cuida dos pagamentos e o profissional tem acesso irrestrito aos prontuários clínicos autorizados.
+          </p>
+        </div>
+
+        <!-- 3: Respaldo Legal e LGPD -->
+        <div class="modal-feature-box highlight-box">
+          <div class="feature-box-header">
+            <div class="feature-icon-badge badge-green">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            </div>
+            <strong>Segurança e LGPD Nativa</strong>
+          </div>
+          <p>
+            Criptografia de ponta a ponta, registros inalteráveis de evolução com carimbo de tempo (timestamp) e total conformidade com conselhos federais de saúde e LGPD.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-bottom">
+      <a href="#planos" class="btn-clay t-small" id="modalCtaPlanos">
+        Experimentar com 20 atendimentos grátis
+      </a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .features-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background-color: rgba(20, 22, 25, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    align-items: center;
+    justify-content: center;
+    padding: clamp(1rem, 2vmin, 2rem);
+  }
+
+  .features-modal-overlay.is-active {
+    display: flex;
+  }
+
+  .features-modal-content {
+    background: var(--card);
+    width: 100%;
+    max-width: 860px;
+    max-height: 88vh;
+    border-radius: var(--radius-3xl);
+    border: 1px solid var(--border);
+    padding: clamp(1.5rem, 3.5vmin, 2.5rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    overflow-y: auto;
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.15);
+  }
+
+  .modal-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .modal-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--clay);
+    display: inline-block;
+    margin-bottom: 0.25rem;
+  }
+
+  .modal-heading {
+    font-size: clamp(1.4rem, 2.8vmin, 1.8rem);
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .modal-subheading {
+    color: var(--muted-foreground);
+    margin-top: 0.25rem;
+    max-width: 65ch;
+  }
+
+  .modal-close-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 999px;
+    background: var(--sand);
+    color: var(--foreground);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+  }
+
+  .modal-close-btn:hover {
+    background: var(--ink);
+    color: var(--bone);
+  }
+
+  .modal-tabs-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.75rem;
+    overflow-x: auto;
+  }
+
+  .modal-tab-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--muted-foreground);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .modal-tab-btn:hover {
+    color: var(--foreground);
+    background: rgba(0, 0, 0, 0.04);
+  }
+
+  .modal-tab-btn.active {
+    background: var(--ink);
+    color: var(--bone);
+    border-color: var(--ink);
+  }
+
+  .modal-tab-content {
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .modal-tab-content.active {
+    display: flex;
+  }
+
+  .highlight-box {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 1px solid rgba(0, 114, 255, 0.15) !important;
+    box-shadow: 0 4px 18px rgba(0, 114, 255, 0.04);
+  }
+
+  .feature-pill-badge {
+    align-self: flex-start;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--clay);
+    background: rgba(0, 114, 255, 0.08);
+    padding: 0.25rem 0.65rem;
+    border-radius: 6px;
+    margin-top: 0.25rem;
+  }
+
+  .badge-orange {
+    background: rgba(255, 115, 0, 0.12) !important;
+    color: #ea580c !important;
+  }
+
+  .badge-blue {
+    background: rgba(0, 114, 255, 0.12) !important;
+    color: var(--clay) !important;
+  }
+
+  .badge-green {
+    background: rgba(16, 185, 129, 0.12) !important;
+    color: #059669 !important;
+  }
+
+  .badge-purple {
+    background: rgba(139, 92, 246, 0.12) !important;
+    color: #7c3aed !important;
+  }
+
+  .modal-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .modal-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .modal-feature-box {
+    background: var(--background);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .modal-feature-box:hover {
+    border-color: rgba(0, 114, 255, 0.4);
+    transform: translateY(-2px);
+  }
+
+  .feature-box-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.92rem;
+    color: var(--foreground);
+  }
+
+  .feature-icon-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 8px;
+    background: rgba(0, 114, 255, 0.1);
+    color: var(--clay);
+    flex-shrink: 0;
+  }
+
+  .modal-feature-box p {
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: var(--muted-foreground);
+  }
+
+  .clock-mini-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.35rem;
+  }
+
+  .clock-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 600;
+  }
+
+  .chip-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+  }
+
+  .chip-green { background: #dcfce7; color: #15803d; }
+  .dot-green { background: #22c55e; }
+
+  .chip-blue { background: #dbeafe; color: #1d4ed8; }
+  .dot-blue { background: #3b82f6; }
+
+  .chip-orange { background: #ffedd5; color: #c2410c; }
+  .dot-orange { background: #f97316; }
+
+  .chip-red { background: #fee2e2; color: #b91c1c; }
+  .dot-red { background: #ef4444; }
+
+  .recurrence-mini-preview {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-top: 0.35rem;
+    background: #ffffff;
+    padding: 0.35rem 0.6rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    width: fit-content;
+  }
+
+  .day-dot {
+    width: 1.4rem;
+    height: 1.4rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    background: var(--sand);
+    color: var(--muted-foreground);
+  }
+
+  .day-dot.day-active {
+    background: var(--clay);
+    color: var(--bone);
+  }
+
+  .recurrence-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--muted-foreground);
+    margin-left: 0.35rem;
+  }
+
+  .tags-mini-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.35rem;
+  }
+
+  .tag-pill {
+    padding: 0.2rem 0.55rem;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 600;
+  }
+
+  .tag-purple { background: #f3e8ff; color: #7e22ce; }
+  .tag-peach { background: #ffedd5; color: #c2410c; }
+  .tag-blue { background: #e0f2fe; color: #0369a1; }
+  .tag-violet { background: #fae8ff; color: #86198f; }
+
+  .shortcuts-mini-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.35rem;
+  }
+
+  .shortcut-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.72rem;
+    color: var(--muted-foreground);
+  }
+
+  .shortcut-chip kbd {
+    font-family: ui-monospace, monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    background: var(--sand);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.1rem 0.35rem;
+    color: var(--foreground);
+  }
+
+  .whatsapp-mini-preview {
+    margin-top: 0.35rem;
+  }
+
+  .whatsapp-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #dcfce7;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
+    border-radius: 999px;
+    padding: 0.3rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .modal-bottom {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 0.5rem;
+  }
+
+  #modalCtaPlanos {
+    text-decoration: none;
+  }
+</style>

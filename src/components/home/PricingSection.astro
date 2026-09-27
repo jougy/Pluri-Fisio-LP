@@ -1,0 +1,685 @@
+---
+// PricingSection.astro - Seção 4: Planos com Seletor Profissional x Clínica e Enterprise
+interface Cycle {
+  id: string;
+  label: string;
+  note?: string;
+}
+
+interface Plan {
+  id: string;
+  name: string;
+  tagline: string;
+  monthly: number;
+  features: string[];
+  cta: string;
+  featured: boolean;
+  audience: "prof" | "clinic";
+  badge?: string;
+}
+
+const CYCLES: Cycle[] = [
+  { id: "free", label: "Teste gratuito (7 dias)" },
+  { id: "mensal", label: "Mensal" },
+  { id: "trimestral", label: "Trimestral", note: "-10%" },
+  { id: "anual", label: "Anual", note: "Até 33% OFF" },
+];
+
+// Planos para Profissional (Básico, Médio e Top)
+const PROF_PLANS: Plan[] = [
+  {
+    id: "prof-basico",
+    name: "Básico",
+    tagline: "Profissional autônomo iniciando consultório",
+    monthly: 39.99,
+    features: [
+      "1 acesso simultâneo individual",
+      "Pacientes e atendimentos ilimitados",
+      "Prontuário eletrônico & evolução rápida",
+      "Duplicação rápida: repete o atendimento anterior em 1 toque",
+      "1 formulário bloco padrão universal + 1 ficha complementar",
+      "Agenda com envio de mensagens no WhatsApp",
+    ],
+    cta: "Escolher Básico",
+    featured: false,
+    audience: "prof",
+  },
+  {
+    id: "prof-medio",
+    name: "Médio",
+    tagline: "Alta demanda e fichas personalizadas",
+    monthly: 59.99,
+    features: [
+      "1 acesso simultâneo individual",
+      "Pacientes e atendimentos ilimitados",
+      "Todos os recursos clínicos essenciais e duplicação rápida",
+      "Formulários e fichas de avaliação ilimitadas e personalizáveis",
+      "Seu histórico vai com você mesmo se mudar de consultório",
+      "Controle de pagamentos e pacotes de sessões",
+    ],
+    cta: "Escolher Médio",
+    featured: true,
+    audience: "prof",
+    badge: "Mais Popular",
+  },
+  {
+    id: "prof-top",
+    name: "Top",
+    tagline: "Máxima autonomia e apoio de secretária",
+    monthly: 89.99,
+    features: [
+      "2 acessos simultâneos (você + sua secretária ou assistente)",
+      "Pacientes e atendimentos ilimitados",
+      "Todos os recursos do plano Médio inclusos",
+      "Recibos e relatórios de receitas automáticos",
+      "Lembretes automáticos de agendamento por WhatsApp",
+      "Atendimento e suporte prioritário",
+    ],
+    cta: "Escolher Top",
+    featured: false,
+    audience: "prof",
+  },
+];
+
+// Planos para Clínica (Básico, Médio e Top)
+const CLINIC_PLANS: Plan[] = [
+  {
+    id: "clinica-basico",
+    name: "Básico",
+    tagline: "Consultórios e salas compartilhadas",
+    monthly: 99.00,
+    features: [
+      "2 acessos simultâneos ao mesmo tempo",
+      "Profissionais e colaboradores ilimitados para cadastrar",
+      "Dono da clínica como administrador principal absoluto",
+      "Permissões de acesso padrão e seguras para cada função",
+      "Agendas compartilhadas por salas e macas",
+      "Passamos suas fichas de papel para o sistema de graça",
+    ],
+    cta: "Escolher Básico",
+    featured: false,
+    audience: "clinic",
+  },
+  {
+    id: "clinica-medio",
+    name: "Médio",
+    tagline: "Clínicas consolidadas com equipe",
+    monthly: 139.00,
+    features: [
+      "4 acessos simultâneos ao mesmo tempo",
+      "Profissionais e colaboradores ilimitados para cadastrar",
+      "Dono da clínica no topo com controle total de segurança",
+      "Permissões editáveis: defina exatamente o que cada pessoa pode ver e mexer",
+      "Controle automático de repasses e divisão de atendimentos",
+      "Formulários e fichas personalizáveis para toda a clínica",
+    ],
+    cta: "Escolher Médio",
+    featured: true,
+    audience: "clinic",
+    badge: "Recomendado",
+  },
+  {
+    id: "clinica-top",
+    name: "Top",
+    tagline: "Grandes clínicas e alta rotatividade",
+    monthly: 199.00,
+    features: [
+      "8 acessos simultâneos ao mesmo tempo",
+      "Profissionais e colaboradores ilimitados para cadastrar",
+      "Dono com controle total sobre toda a estrutura da clínica",
+      "Personalização total de cargos, níveis de hierarquia e regras de acesso",
+      "Gestão integrada de várias salas e especialidades",
+      "Histórico completo de quem acessou e editou cada prontuário",
+    ],
+    cta: "Escolher Top",
+    featured: false,
+    audience: "clinic",
+  },
+];
+---
+
+<section
+  id="planos"
+  aria-labelledby="planos-titulo"
+  class="snap-page plans-section"
+>
+  <div class="plans-header">
+    <div class="plans-badge">
+      <span>TRANSPARÊNCIA TOTAL</span>
+    </div>
+    
+    <h2 id="planos-titulo" class="t-title plans-main-heading">
+      Planos que cabem no momento do seu trabalho.
+    </h2>
+
+    <!-- Seletor de Perfil: Profissional x Clínica -->
+    <div class="audience-toggle-wrapper" role="tablist" aria-label="Seletor de Perfil">
+      <button
+        type="button"
+        id="btnAudienceProf"
+        class="audience-toggle-btn active"
+        data-audience="prof"
+        role="tab"
+        aria-selected="true"
+      >
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <span>Para Profissional</span>
+      </button>
+
+      <button
+        type="button"
+        id="btnAudienceClinic"
+        class="audience-toggle-btn"
+        data-audience="clinic"
+        role="tab"
+        aria-selected="false"
+      >
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 21h18"></path><path d="M9 8h1"></path><path d="M9 12h1"></path><path d="M9 16h1"></path><path d="M14 8h1"></path><path d="M14 12h1"></path><path d="M14 16h1"></path><path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"></path></svg>
+        <span>Para Clínica</span>
+      </button>
+    </div>
+
+    <!-- Ciclos de Cobrança -->
+    <div
+      role="group"
+      aria-label="Ciclo de cobrança"
+      class="cycles-switcher"
+    >
+      {CYCLES.map((c) => (
+        <button
+          type="button"
+          data-cycle={c.id}
+          class={`t-small cycle-btn ${c.id === 'mensal' ? 'active' : ''}`}
+        >
+          {c.label}
+          {c.note ? <span class="cycle-note">{c.note}</span> : null}
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <!-- Grupo 1: Planos Profissional (Ativo por Padrão) -->
+  <ul class="plans-list audience-group" id="plansGroupProf">
+    {PROF_PLANS.map((p) => (
+      <li
+        id={`card-${p.id}`}
+        class={`plan-card ${p.featured ? 'plan-featured' : 'plan-standard'}`}
+        data-monthly={p.monthly}
+      >
+        <div class="plan-card-header">
+          <div class="plan-meta">
+            <h3 class="t-lead font-semibold">{p.name}</h3>
+            <p class="t-small text-muted">{p.tagline}</p>
+          </div>
+          {p.badge ? (
+            <span class="t-small recommended-tag">
+              {p.badge}
+            </span>
+          ) : null}
+        </div>
+
+        <p
+          class="t-title plan-price-main"
+          data-price-main
+          aria-label={`${p.name}: R$ ${p.monthly}/mês`}
+        >
+          R$&nbsp;{p.monthly.toFixed(2).replace('.', ',')}/mês
+        </p>
+        <p class="t-small text-muted plan-price-sub" data-price-sub>
+          Cancele quando quiser
+        </p>
+
+        <ul class="plan-features-list">
+          {p.features.map((f) => (
+            <li class="t-small feature-item">
+              <svg aria-hidden="true" class="icon-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>{f}</span>
+            </li>
+          ))}
+        </ul>
+
+        <a
+          href="https://plurifisio.com.br/planos"
+          target="_blank"
+          rel="noopener"
+          class={`t-small plan-cta-btn ${p.featured ? 'btn-clay' : 'btn-primary btn-primary-hoverable'}`}
+          data-cta-default={p.cta}
+        >
+          {p.cta}
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <!-- Grupo 2: Planos Clínica (Alternável) -->
+  <ul class="plans-list audience-group" id="plansGroupClinic" style="display: none;">
+    {CLINIC_PLANS.map((p) => (
+      <li
+        id={`card-${p.id}`}
+        class={`plan-card ${p.featured ? 'plan-featured' : 'plan-standard'}`}
+        data-monthly={p.monthly}
+      >
+        <div class="plan-card-header">
+          <div class="plan-meta">
+            <h3 class="t-lead font-semibold">{p.name}</h3>
+            <p class="t-small text-muted">{p.tagline}</p>
+          </div>
+          {p.badge ? (
+            <span class="t-small recommended-tag">
+              {p.badge}
+            </span>
+          ) : null}
+        </div>
+
+        <p
+          class="t-title plan-price-main"
+          data-price-main
+          aria-label={`${p.name}: R$ ${p.monthly}/mês`}
+        >
+          R$&nbsp;{p.monthly.toFixed(2).replace('.', ',')}/mês
+        </p>
+        <p class="t-small text-muted plan-price-sub" data-price-sub>
+          Cancele quando quiser
+        </p>
+
+        <ul class="plan-features-list">
+          {p.features.map((f) => (
+            <li class="t-small feature-item">
+              <svg aria-hidden="true" class="icon-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>{f}</span>
+            </li>
+          ))}
+        </ul>
+
+        <a
+          href="https://plurifisio.com.br/planos"
+          target="_blank"
+          rel="noopener"
+          class={`t-small plan-cta-btn ${p.featured ? 'btn-clay' : 'btn-primary btn-primary-hoverable'}`}
+          data-cta-default={p.cta}
+        >
+          {p.cta}
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <!-- Card / Banner Enterprise: Vamos Conversar -->
+  <div class="enterprise-banner">
+    <div class="enterprise-content">
+      <div class="enterprise-badge">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+        <span>PLANO ENTERPRISE</span>
+      </div>
+      <div class="enterprise-text">
+        <h4 class="enterprise-title">Redes de clínicas ou hospitais? Vamos conversar.</h4>
+        <p class="enterprise-desc">Múltiplas unidades integradas, migração dedicada de servidores antigos, SLAs personalizados e governança avançada.</p>
+      </div>
+    </div>
+    <div class="enterprise-action">
+      <a
+        href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20conversar%20sobre%20o%20Plano%20Enterprise%20do%20Pluri%20Fisio"
+        target="_blank"
+        rel="noopener"
+        class="enterprise-cta-btn"
+      >
+        <span>Vamos conversar</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </a>
+    </div>
+  </div>
+
+  <p class="t-small plans-footer-note">
+    <span class="mobile-only">Deslize para ver todos os planos · </span>Pagamento no PIX com 5% de desconto · Cancele quando quiser · Pluri Fisio
+  </p>
+</section>
+
+<style>
+  .plans-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5vmin;
+    background-color: var(--background);
+    padding-inline: max(1rem, 4vmin);
+    padding-bottom: 2vmin;
+    padding-top: max(4rem, 6vmin);
+    position: relative;
+    overflow-y: auto;
+  }
+
+  .plans-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1vmin;
+    text-align: center;
+  }
+
+  .plans-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    color: #0066FF;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .plans-main-heading {
+    font-size: clamp(1.4rem, 2.5vw, 2.1rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #0F172A;
+    line-height: 1.2;
+  }
+
+  /* Seletor de Perfil (Profissional x Clínica) */
+  .audience-toggle-wrapper {
+    display: flex;
+    gap: 0.35rem;
+    background: #F1F5F9;
+    padding: 0.3rem;
+    border-radius: 9999px;
+    border: 1px solid #E2E8F0;
+    margin-top: 0.25rem;
+  }
+
+  .audience-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 1.15rem;
+    border-radius: 9999px;
+    border: none;
+    background: transparent;
+    color: #64748B;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .audience-toggle-btn:hover {
+    color: #0F172A;
+  }
+
+  .audience-toggle-btn.active {
+    background: #FFFFFF;
+    color: #0066FF;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+  }
+
+  .cycles-switcher {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25rem;
+    border-radius: 999px;
+    background-color: var(--sand);
+    padding: 0.25rem;
+  }
+
+  .cycle-btn {
+    min-height: 2.4rem;
+    border-radius: 999px;
+    padding-inline: max(0.85rem, 1.5vmin);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .cycle-btn:hover {
+    color: var(--foreground);
+  }
+
+  .cycle-btn.active {
+    background-color: var(--ink);
+    color: var(--bone);
+  }
+
+  .cycle-note {
+    margin-left: 0.4rem;
+    color: var(--clay);
+  }
+
+  .cycle-btn.active .cycle-note {
+    color: var(--sage);
+  }
+
+  .plans-list {
+    margin-inline: auto;
+    display: flex;
+    width: 100%;
+    max-width: 1280px;
+    min-height: 0;
+    flex: 1;
+    scroll-snap-type: x mandatory;
+    gap: 1.5vmin;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 0.25rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  @media (min-width: 1024px) {
+    .plans-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      overflow-x: hidden;
+    }
+  }
+
+  .plan-card {
+    display: flex;
+    min-height: 0;
+    width: 86%;
+    flex-shrink: 0;
+    scroll-snap-align: center;
+    flex-direction: column;
+    gap: 1vmin;
+    border-radius: 1.25rem;
+    border: 1px solid var(--border);
+    padding: max(1rem, 2vmin);
+    background-color: var(--card);
+  }
+
+  @media (min-width: 640px) {
+    .plan-card {
+      width: 46%;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .plan-card {
+      width: auto;
+      flex-shrink: 1;
+    }
+  }
+
+  .plan-featured {
+    border-color: #0066FF;
+    background: linear-gradient(180deg, #F0F7FF 0%, #FFFFFF 100%);
+    box-shadow: 0 4px 18px rgba(0, 102, 255, 0.08);
+  }
+
+  .plan-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .text-muted {
+    color: var(--muted-foreground);
+  }
+
+  .font-semibold {
+    font-weight: 700;
+  }
+
+  .recommended-tag {
+    flex-shrink: 0;
+    border-radius: 999px;
+    background-color: #0066FF;
+    padding: 0.2rem 0.65rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #FFFFFF;
+  }
+
+  .plan-price-main {
+    font-size: clamp(1.4rem, 3.2vmin, 2.4rem);
+    font-weight: 800;
+    line-height: 1;
+    color: #0F172A;
+  }
+
+  .plan-features-list {
+    margin-bottom: 0.25vmin;
+    display: flex;
+    min-height: 0;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.75vmin;
+    overflow: hidden;
+    list-style: none;
+    padding: 0;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.45rem;
+    font-size: 0.8rem;
+    color: #475569;
+  }
+
+  .icon-check {
+    margin-top: 0.15rem;
+    flex-shrink: 0;
+    color: #10B981;
+  }
+
+  .plan-cta-btn {
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 0.65rem 1rem;
+    border-radius: 8px;
+  }
+
+  /* Enterprise Banner */
+  .enterprise-banner {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    background: #FFFFFF;
+    border: 1px dashed #CBD5E1;
+    border-radius: 12px;
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .enterprise-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .enterprise-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: #F1F5F9;
+    color: #334155;
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+
+  .enterprise-title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #0F172A;
+    margin-bottom: 0.1rem;
+  }
+
+  .enterprise-desc {
+    font-size: 0.75rem;
+    color: #64748B;
+    line-height: 1.35;
+  }
+
+  .enterprise-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #0F172A;
+    color: #FFFFFF;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.55rem 1.1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.15s ease;
+  }
+
+  .enterprise-cta-btn:hover {
+    background: #0066FF;
+  }
+
+  .plans-footer-note {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+  }
+
+  .mobile-only {
+    display: inline;
+  }
+
+  @media (max-width: 800px) {
+    .enterprise-banner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.65rem;
+    }
+
+    .enterprise-action {
+      width: 100%;
+    }
+
+    .enterprise-cta-btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .mobile-only {
+      display: none;
+    }
+  }
+</style>
