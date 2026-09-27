@@ -1,0 +1,306 @@
+/*
+ * Pluri Fisio design system - Exact Lovable implementation.
+ * Pure CSS with fluid vmin typography and full-screen 100svh snap.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Annapurna+SIL:wght@400;700&display=swap');
+
+:root {
+  --radius: 1.25rem;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+
+  --background: oklch(0.985 0.006 235);
+  --foreground: oklch(0.2 0.02 255);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0.02 255);
+  --primary: oklch(0.55 0.21 258);
+  --primary-foreground: oklch(0.99 0.005 230);
+  --secondary: oklch(0.93 0.03 235);
+  --secondary-foreground: oklch(0.22 0.04 258);
+  --muted: oklch(0.94 0.02 235);
+  --muted-foreground: oklch(0.45 0.05 255);
+  --border: oklch(0.9 0.025 238);
+  
+  --sand: oklch(0.94 0.035 232);
+  --clay: oklch(0.55 0.21 258);
+  --sage: oklch(0.68 0.15 222);
+  --ink: oklch(0.28 0.09 262);
+  --bone: oklch(0.985 0.008 235);
+
+  --font-display: "Figtree", ui-rounded, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: "Figtree", ui-rounded, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: "Annapurna SIL", "Figtree", ui-rounded, Georgia, serif;
+  --font-accessible: "Lexend", "Figtree", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+p {
+  font-family: var(--font-body);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+:focus-visible {
+  outline: 3px solid var(--clay);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Typography utilities */
+.t-display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: 0.005em;
+  word-spacing: 0.08em;
+  font-size: clamp(2.3rem, 7.8vmin, 6.4rem);
+}
+
+.t-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: 0.005em;
+  word-spacing: 0.08em;
+  font-size: clamp(1.8rem, 5.1vmin, 4rem);
+}
+
+.t-lead {
+  font-size: clamp(0.95rem, 2.1vmin, 1.4rem);
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  word-spacing: 0.08em;
+}
+
+.t-small {
+  font-size: clamp(0.78rem, 1.6vmin, 1rem);
+  line-height: 1.55;
+  letter-spacing: 0.015em;
+}
+
+/* Snap container & snap pages */
+.snap-main-container {
+  height: 100svh;
+  height: 100vh;
+  width: 100%;
+  scroll-snap-type: y mandatory;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.snap-page {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  height: 100svh;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* Button styles */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0 clamp(1.1rem, 2.4vmin, 2rem);
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--bone);
+  font-weight: 500;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.btn-primary-hoverable:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.btn-clay {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0 clamp(1.1rem, 2.4vmin, 2rem);
+  border-radius: 999px;
+  background: var(--clay);
+  color: var(--bone);
+  font-weight: 500;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.btn-clay:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-ink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0 clamp(1.1rem, 2.4vmin, 2rem);
+  border-radius: 999px;
+  background: oklch(0.16 0.01 255);
+  color: var(--bone);
+  font-weight: 500;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.btn-ink:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0 clamp(1.1rem, 2.4vmin, 2rem);
+  border-radius: 999px;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  font-weight: 500;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.btn-ghost:hover {
+  background: var(--ink);
+  color: var(--bone);
+}
+
+/* Hero animations & visuals */
+.hero-aurora {
+  position: relative;
+  isolation: isolate;
+  background: var(--bone);
+  overflow: hidden;
+}
+
+.hero-aurora::before,
+.hero-aurora::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  border-radius: 999px;
+  filter: blur(60px);
+  opacity: 0.55;
+}
+
+.hero-aurora::before {
+  inset: -25% 30% 35% -20%;
+  background: radial-gradient(circle at 40% 40%, oklch(0.93 0.05 235), transparent 65%);
+  animation: aurora-drift-a 22s ease-in-out infinite alternate;
+}
+
+.hero-aurora::after {
+  inset: 30% -20% -25% 35%;
+  background: radial-gradient(circle at 60% 60%, oklch(0.95 0.03 255), transparent 65%);
+  animation: aurora-drift-b 28s ease-in-out infinite alternate;
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(to right, oklch(0.2 0.02 255 / 4%) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.2 0.02 255 / 4%) 1px, transparent 1px);
+  background-size: 68px 68px;
+  mask-image: radial-gradient(ellipse at 50% 45%, #000 25%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 45%, #000 25%, transparent 75%);
+  animation: grid-pan 40s linear infinite;
+}
+
+.hero-orbit {
+  position: absolute;
+  z-index: -1;
+  border: 1px solid oklch(0.55 0.21 258 / 8%);
+  border-radius: 999px;
+  animation: orbit-pulse 18s ease-in-out infinite;
+}
+
+@keyframes aurora-drift-a {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(6%, 4%, 0) scale(1.15); }
+}
+
+@keyframes aurora-drift-b {
+  from { transform: translate3d(0, 0, 0) scale(1.1); }
+  to { transform: translate3d(-5%, -6%, 0) scale(1); }
+}
+
+@keyframes grid-pan {
+  from { background-position: 0 0; }
+  to { background-position: 68px 68px; }
+}
+
+@keyframes orbit-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.06); opacity: 1; }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

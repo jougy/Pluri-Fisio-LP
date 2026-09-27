@@ -1,0 +1,462 @@
+---
+import SectionHeader from './ui/SectionHeader.astro';
+---
+
+<section class="clinical-section clinical-section-alt" id="evidencias">
+  <div class="container">
+    
+    <!-- Section Header -->
+    <SectionHeader
+      badgeText="Estudos & Rotina de Quem Atende"
+      badgeVariant="teal"
+      title="O Custo Real da Desorganização no Consultório"
+      subtitle="Grandes pesquisas na área da saúde comprovam o que você sente na prática: a papelada e a falta de lembretes roubam seu tempo e diminuem o faturamento da sua clínica."
+    />
+
+    <!-- Scientific Evidence 3-Column Grid -->
+    <div class="evidence-grid">
+      
+      <!-- Card 1: Time Burden (2h : 1h) -->
+      <div class="evidence-card">
+        <div class="evidence-header">
+          <div class="evidence-source">
+            <span class="badge badge-teal">Tempo Gasto</span>
+            <span class="source-journal">Pesquisa Médica • Annals of Internal Medicine</span>
+          </div>
+          <div class="evidence-metric text-teal">2h : 1h</div>
+        </div>
+
+        <h3 class="evidence-title">
+          2 Horas Preenchendo Papéis para Cada 1 Hora com o Paciente
+        </h3>
+
+        <p class="evidence-desc">
+          Profissionais de saúde gastam quase metade do dia anotando fichas manuais, em vez de estarem atendendo e cuidando de mais pessoas.
+        </p>
+
+        <!-- Micro Distribution Visualizer -->
+        <div class="visualizer-box">
+          <div class="visualizer-labels">
+            <span class="text-coral"><strong>49,2%</strong> Anotando papéis</span>
+            <span class="text-teal"><strong>27,0%</strong> Atendimento</span>
+          </div>
+          <div class="visualizer-bar">
+            <div class="bar-segment bar-coral" style="width: 49.2%;"></div>
+            <div class="bar-segment bar-teal" style="width: 27%;"></div>
+            <div class="bar-segment bar-neutral" style="width: 23.8%;"></div>
+          </div>
+        </div>
+
+        <div class="evidence-footer">
+          <strong>Estudo realizado com:</strong> 57 profissionais durante 430 horas de atendimentos reais.
+        </div>
+      </div>
+
+      <!-- Card 2: Burnout (62%) -->
+      <div class="evidence-card">
+        <div class="evidence-header">
+          <div class="evidence-source">
+            <span class="badge badge-amber">Cansaço Mental</span>
+            <span class="source-journal">Relatório de Saúde • Medscape</span>
+          </div>
+          <div class="evidence-metric text-amber">62%</div>
+        </div>
+
+        <h3 class="evidence-title">
+          Papelada é a Causa Nº 1 de Cansaço e Estresse
+        </h3>
+
+        <p class="evidence-desc">
+          Levar fichas para terminar à noite em casa após o consultório é o principal motivo de esgotamento e desânimo entre os profissionais.
+        </p>
+
+        <!-- Micro Distribution Visualizer -->
+        <div class="visualizer-box">
+          <div class="visualizer-labels">
+            <span class="text-secondary">Sentem sobrecarga</span>
+            <span class="text-amber"><strong>62% dos profissionais</strong></span>
+          </div>
+          <div class="visualizer-bar">
+            <div class="bar-segment bar-amber" style="width: 62%;"></div>
+            <div class="bar-segment bar-neutral" style="width: 38%;"></div>
+          </div>
+        </div>
+
+        <div class="evidence-footer">
+          <strong>Estudo realizado com:</strong> 9.226 profissionais de saúde em 29 especialidades.
+        </div>
+      </div>
+
+      <!-- Card 3: Absenteeism & Financial Impact (-50%) -->
+      <div class="evidence-card">
+        <div class="evidence-header">
+          <div class="evidence-source">
+            <span class="badge badge-sage">Presença & Agenda</span>
+            <span class="source-journal">Revisão Clínica • Cochrane</span>
+          </div>
+          <div class="evidence-metric text-sage">-50%</div>
+        </div>
+
+        <h3 class="evidence-title">
+          Faltas Caem pela Metade com Lembretes e Contato Rápido
+        </h3>
+
+        <p class="evidence-desc">
+          Quando o paciente recebe um lembrete antes do horário da consulta, o número de faltas e buracos na sua grade de atendimentos despenca.
+        </p>
+
+        <!-- Micro Distribution Visualizer -->
+        <div class="visualizer-box">
+          <div class="visualizer-labels">
+            <span class="text-secondary">Redução de faltas</span>
+            <span class="text-sage"><strong>Até 50% menos ausências</strong></span>
+          </div>
+          <div class="visualizer-bar">
+            <div class="bar-segment bar-sage" style="width: 50%;"></div>
+            <div class="bar-segment bar-neutral" style="width: 50%;"></div>
+          </div>
+        </div>
+
+        <div class="evidence-footer">
+          <strong>Estudo realizado com:</strong> 6.615 pacientes acompanhados em consultas clínicas.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Comparative Matrix: Traditional vs Pluri Fisio -->
+    <div class="comparison-wrapper">
+      <div class="comparison-intro">
+        <h3 class="comparison-title">A Sua Rotina Antes e Depois do Pluri Fisio</h3>
+        <p class="comparison-subtitle">Veja a diferença entre continuar no papel ou usar o Pluri Fisio direto no seu celular:</p>
+      </div>
+
+      <div class="comparison-grid">
+        
+        <!-- Column 1: Rotina Tradicional -->
+        <div class="comparison-card card-traditional">
+          <div class="comparison-card-header text-coral">
+            <div class="comparison-icon icon-coral">✕</div>
+            <h4>No Papel e Cadernos Físicos</h4>
+          </div>
+          <ul class="comparison-list">
+            <li>
+              <span class="list-bullet text-coral">✕</span>
+              <span><strong>Fichas de papel que rasgam e se perdem:</strong> você perde o histórico do paciente e gasta horas anotando tudo à mão.</span>
+            </li>
+            <li>
+              <span class="list-bullet text-coral">✕</span>
+              <span><strong>Pacientes que esquecem e não aparecem:</strong> você perde tempo procurando o contato e salvando números para mandar mensagem.</span>
+            </li>
+            <li>
+              <span class="list-bullet text-coral">✕</span>
+              <span><strong>Financeiro desorganizado:</strong> você não sabe ao certo quantas sessões de pacote o paciente ainda tem direito ou quem já pagou.</span>
+            </li>
+            <li>
+              <span class="list-bullet text-coral">✕</span>
+              <span><strong>Risco de perder tudo:</strong> se um caderno molhar, sumir ou estragar, todo o histórico dos seus pacientes é perdido para sempre.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Column 2: Com o Pluri Fisio -->
+        <div class="comparison-card card-pluri">
+          <div class="comparison-card-header text-sage">
+            <div class="comparison-icon icon-sage">✓</div>
+            <h4>Com o Pluri Fisio no Celular</h4>
+          </div>
+          <ul class="comparison-list">
+            <li>
+              <span class="list-bullet text-sage">✓</span>
+              <span><strong>Anotações rápidas em menos de 90 segundos:</strong> com poucos toques no celular você registra a evolução e acha qualquer paciente na hora.</span>
+            </li>
+            <li>
+              <span class="list-bullet text-sage">✓</span>
+              <span><strong>Botão de WhatsApp em 1 clique:</strong> chame o paciente e mande lembretes na hora sem precisar salvar o número na agenda do celular.</span>
+            </li>
+            <li>
+              <span class="list-bullet text-sage">✓</span>
+              <span><strong>Controle fácil de pagamentos e pacotes:</strong> veja na hora o saldo de sessões de cada pessoa e acompanhe seus recebimentos via PIX.</span>
+            </li>
+            <li>
+              <span class="list-bullet text-sage">✓</span>
+              <span><strong>Tudo seguro e protegido na nuvem (LGPD):</strong> mesmo se você trocar de celular ou o aparelho quebrar, suas fichas continuam salvas e seguras.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .evidence-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+    margin-bottom: 4rem;
+  }
+
+  /* Clean Clinical Evidence Card */
+  .evidence-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-xl);
+    padding: 2rem 1.75rem;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    cursor: default;
+    transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+  }
+
+  .evidence-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-primary-border);
+    box-shadow: var(--shadow-md);
+  }
+
+  .evidence-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .evidence-source {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .source-journal {
+    font-size: 0.775rem;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  .evidence-metric {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.85rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .evidence-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--text-primary);
+    margin-bottom: 0.85rem;
+    letter-spacing: -0.015em;
+  }
+
+  .evidence-desc {
+    font-size: 0.925rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1.35rem;
+  }
+
+  /* Visualizer Box */
+  .visualizer-box {
+    background-color: var(--bg-subtle);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 0.875rem;
+    margin-bottom: 1.35rem;
+  }
+
+  .visualizer-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.775rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  .visualizer-bar {
+    width: 100%;
+    height: 8px;
+    background-color: var(--border-light);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    display: flex;
+    gap: 2px;
+  }
+
+  .bar-segment {
+    height: 100%;
+    border-radius: var(--radius-full);
+  }
+
+  .bar-coral { 
+    background-color: var(--color-coral); 
+  }
+  .bar-teal { 
+    background-color: var(--color-primary); 
+  }
+  .bar-amber { 
+    background-color: var(--color-amber); 
+  }
+  .bar-sage { 
+    background-color: var(--color-sage); 
+  }
+  .bar-neutral { 
+    background-color: var(--border-medium); 
+  }
+
+  .evidence-footer {
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-light);
+    font-size: 0.775rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+  }
+
+  .text-teal { color: var(--color-primary); }
+  .text-amber { color: var(--color-amber); }
+  .text-sage { color: var(--color-sage); }
+  .text-coral { color: var(--color-coral); }
+
+  /* Comparison Matrix Styles */
+  .comparison-wrapper {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-2xl);
+    padding: 3.5rem 3rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .comparison-intro {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 3rem auto;
+  }
+
+  .comparison-title {
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 0.65rem;
+    letter-spacing: -0.025em;
+  }
+
+  .comparison-subtitle {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+  }
+
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .comparison-card {
+    border-radius: var(--radius-xl);
+    padding: 2.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .card-traditional {
+    background-color: #fff1f2;
+    border: 1px solid #fecdd3;
+  }
+
+  .card-traditional:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px -2px rgba(244, 63, 94, 0.1);
+  }
+
+  .card-pluri {
+    background-color: var(--color-sage-light);
+    border: 1px solid var(--color-sage-border);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .card-pluri:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-sage);
+    box-shadow: var(--shadow-md);
+  }
+
+  .comparison-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .comparison-card-header h4 {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: inherit;
+  }
+
+  .comparison-icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.05rem;
+  }
+
+  .icon-coral {
+    background-color: #ffffff;
+    color: var(--color-coral);
+    border: 1px solid var(--color-coral-border);
+  }
+
+  .icon-sage {
+    background-color: #ffffff;
+    color: var(--color-sage);
+    border: 1px solid var(--color-sage-border);
+  }
+
+  .comparison-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+  }
+
+  .comparison-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    line-height: 1.55;
+  }
+
+  .list-bullet {
+    font-weight: 800;
+    font-size: 1.05rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  @media (max-width: 960px) {
+    .evidence-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    .comparison-grid {
+      grid-template-columns: 1fr;
+    }
+    .comparison-wrapper {
+      padding: 2rem 1.5rem;
+    }
+  }
+</style>

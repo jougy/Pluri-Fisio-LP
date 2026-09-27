@@ -1,0 +1,212 @@
+---
+// PlanCard.astro - Componente atômico para renderizar cada card de plano na PricingSection
+import type { Plan } from '../../data/pricing-plans';
+
+interface Props {
+  plan: Plan;
+}
+
+const { plan } = Astro.props;
+---
+
+<div
+  class:list={["plan-card", { featured: plan.featured }]}
+  id={plan.id}
+  data-monthly={plan.monthly}
+  data-audience={plan.audience}
+>
+  {plan.badge && (
+    <div class="card-badge">{plan.badge}</div>
+  )}
+
+  <div class="card-header">
+    <h3 class="plan-name">{plan.name}</h3>
+    <p class="plan-tagline">{plan.tagline}</p>
+  </div>
+
+  <div class="price-wrapper">
+    <div class="price-main-row">
+      <span class="currency-symbol">R$</span>
+      <span class="price-number" data-price-main>{plan.monthly.toFixed(2).replace('.', ',')}</span>
+      <span class="billing-period" data-billing-period>/mês</span>
+    </div>
+    <div class="price-sub-note" data-price-sub>Cobrado mensalmente</div>
+  </div>
+
+  <ul class="features-list" role="list">
+    {plan.features.map(feature => (
+      <li class="feature-item">
+        <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        <span>{feature}</span>
+      </li>
+    ))}
+  </ul>
+
+  <div class="card-footer">
+    <a
+      href="https://plurifisio.com.br"
+      class:list={["plan-cta-btn", plan.featured ? "btn-featured" : "btn-standard"]}
+      data-cta-default={plan.cta}
+    >
+      {plan.cta}
+    </a>
+  </div>
+</div>
+
+<style>
+  .plan-card {
+    position: relative;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: clamp(16px, 2vmin, 22px);
+    padding: clamp(1rem, 2.2vmin, 1.8rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    box-sizing: border-box;
+    height: 100%;
+    min-height: 0;
+  }
+
+  .plan-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 36px -8px rgba(15, 23, 42, 0.08);
+  }
+
+  .plan-card.featured {
+    border: 2px solid #0072FF;
+    box-shadow: 0 12px 32px -6px rgba(0, 114, 255, 0.15);
+  }
+
+  .card-badge {
+    position: absolute;
+    top: -12px;
+    right: 20px;
+    background: linear-gradient(135deg, #0072FF, #00C6FF);
+    color: #FFFFFF;
+    font-size: clamp(0.65rem, 1vmin, 0.72rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    box-shadow: 0 4px 10px rgba(0, 114, 255, 0.3);
+  }
+
+  .plan-name {
+    font-size: clamp(1.15rem, 1.8vmin, 1.4rem);
+    font-weight: 800;
+    color: #0F172A;
+    margin: 0 0 0.25rem 0;
+  }
+
+  .plan-tagline {
+    font-size: clamp(0.75rem, 1.1vmin, 0.84rem);
+    color: #64748B;
+    margin: 0 0 clamp(0.6rem, 1.4vmin, 1rem) 0;
+    line-height: 1.35;
+    min-height: 2.7em;
+  }
+
+  .price-wrapper {
+    background: #F8FAFC;
+    border-radius: 14px;
+    padding: clamp(0.6rem, 1.2vmin, 0.85rem) 1rem;
+    margin-bottom: clamp(0.8rem, 1.5vmin, 1.2rem);
+  }
+
+  .price-main-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+  }
+
+  .currency-symbol {
+    font-size: clamp(0.85rem, 1.2vmin, 1rem);
+    font-weight: 700;
+    color: #334155;
+  }
+
+  .price-number {
+    font-size: clamp(1.6rem, 2.8vmin, 2.2rem);
+    font-weight: 800;
+    color: #0F172A;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .billing-period {
+    font-size: clamp(0.72rem, 1vmin, 0.82rem);
+    color: #64748B;
+    font-weight: 500;
+  }
+
+  .price-sub-note {
+    font-size: clamp(0.68rem, 0.95vmin, 0.75rem);
+    color: #64748B;
+    margin-top: 0.2rem;
+  }
+
+  .features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 clamp(0.8rem, 1.8vmin, 1.4rem) 0;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.4rem, 0.9vmin, 0.65rem);
+    flex: 1;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: clamp(0.74rem, 1.1vmin, 0.83rem);
+    color: #334155;
+    line-height: 1.35;
+  }
+
+  .check-icon {
+    color: #10B981;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .plan-cta-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: clamp(0.6rem, 1.2vmin, 0.85rem) 1rem;
+    border-radius: 9999px;
+    font-size: clamp(0.8rem, 1.2vmin, 0.9rem);
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+  }
+
+  .btn-featured {
+    background: #0072FF;
+    color: #FFFFFF;
+    box-shadow: 0 4px 14px rgba(0, 114, 255, 0.25);
+  }
+
+  .btn-featured:hover {
+    background: #005FD8;
+    transform: translateY(-1px);
+  }
+
+  .btn-standard {
+    background: #F1F5F9;
+    color: #1E293B;
+  }
+
+  .btn-standard:hover {
+    background: #E2E8F0;
+    color: #0F172A;
+  }
+</style>

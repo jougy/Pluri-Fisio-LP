@@ -1,0 +1,322 @@
+---
+---
+
+<header class="clinical-header" id="mainHeader">
+  <div class="container clinical-header-inner">
+    <!-- Logo Institucional -->
+    <a href="/" class="clinical-logo" aria-label="Pluri Fisio - Início">
+      <img 
+        src="/branding/logo/pluri_health_icon_gradient.svg" 
+        alt="Pluri Fisio" 
+        class="clinical-logo-icon" 
+        width="32" 
+        height="32"
+      />
+      <span class="clinical-logo-text">Pluri <strong>Fisio</strong></span>
+    </a>
+
+    <!-- Desktop Navigation: 3 Essential Sections -->
+    <nav class="clinical-nav-desktop" aria-label="Navegação Principal">
+      <ul class="clinical-nav-list">
+        <li><a href="#plataforma" class="clinical-nav-link">A plataforma</a></li>
+        <li><a href="#como-funciona" class="clinical-nav-link">Como funciona</a></li>
+        <li><a href="#planos" class="clinical-nav-link">Planos</a></li>
+      </ul>
+    </nav>
+
+    <!-- Header Actions (Apple / Lovable Blue Pill Style) -->
+    <div class="clinical-header-actions">
+      <a href="#planos" class="btn btn-pill btn-pill-apple btn-header-cta">
+        Testar grátis
+      </a>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button 
+        class="clinical-mobile-toggle" 
+        id="mobileMenuToggle" 
+        aria-label="Abrir menu de navegação" 
+        aria-expanded="false"
+        aria-controls="mobileMenuNav"
+      >
+        <svg class="icon-menu" aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+        <svg class="icon-close" aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Dropdown Navigation & Backdrop -->
+  <div class="clinical-mobile-backdrop" id="mobileBackdrop" aria-hidden="true"></div>
+  <nav class="clinical-mobile-nav" id="mobileMenuNav" aria-label="Menu Mobile" aria-hidden="true">
+    <div class="container mobile-nav-container">
+      <ul class="mobile-nav-list">
+        <li><a href="#plataforma" class="mobile-nav-link">A plataforma</a></li>
+        <li><a href="#como-funciona" class="mobile-nav-link">Como funciona</a></li>
+        <li><a href="#planos" class="mobile-nav-link">Planos</a></li>
+      </ul>
+      <div class="mobile-nav-actions">
+        <a href="#planos" class="btn btn-pill btn-pill-apple w-full">
+          Testar grátis
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<style>
+  .clinical-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    z-index: 100;
+    background-color: rgba(247, 246, 243, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(20, 21, 23, 0.08);
+    transition: background-color 200ms ease, border-color 200ms ease;
+  }
+
+  .clinical-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 3.5rem;
+  }
+
+  .clinical-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+
+  .clinical-logo-icon {
+    width: 1.85rem;
+    height: 1.85rem;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  .clinical-logo-text {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+  }
+
+  .clinical-logo-text strong {
+    font-weight: 800;
+    color: var(--color-primary);
+  }
+
+  .clinical-nav-desktop {
+    display: flex;
+    align-items: center;
+  }
+
+  .clinical-nav-list {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+    list-style: none;
+  }
+
+  .clinical-nav-link {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: color 150ms ease;
+    padding: 0.4rem 0;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .clinical-nav-link:hover {
+    color: var(--text-primary);
+  }
+
+  .nav-highlight {
+    color: var(--tonal-fisio-accent);
+    font-weight: 600;
+  }
+
+  .nav-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.15rem 0.45rem;
+    border-radius: var(--radius-pill);
+    background-color: var(--tonal-fisio-bg);
+    color: var(--tonal-fisio-accent);
+    border: 1px solid var(--tonal-fisio-border);
+  }
+
+  .clinical-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+  }
+
+  .clinical-login-link {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    transition: color 150ms ease;
+    text-decoration: none;
+  }
+
+  .clinical-login-link:hover {
+    color: var(--text-primary);
+  }
+
+  .btn-header-cta {
+    font-size: 0.85rem;
+    padding: 0.45rem 1.15rem;
+  }
+
+  .clinical-mobile-toggle {
+    display: none;
+    padding: 0.4rem;
+    color: var(--text-primary);
+    border-radius: var(--radius-sm);
+  }
+
+  .clinical-mobile-toggle .icon-close {
+    display: none;
+  }
+
+  .clinical-mobile-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    top: 3.75rem;
+    background-color: rgba(20, 21, 23, 0.4);
+    z-index: 98;
+  }
+
+  .clinical-mobile-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--bg-canvas);
+    border-bottom: 1px solid var(--border-light);
+    box-shadow: var(--shadow-lg);
+    z-index: 99;
+    padding: 1.5rem 0;
+  }
+
+  .mobile-nav-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .mobile-nav-link {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border-light);
+    text-decoration: none;
+  }
+
+  .mobile-nav-highlight {
+    color: var(--tonal-fisio-accent);
+  }
+
+  .mobile-nav-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .mobile-login-link {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    padding: 0.5rem;
+    text-decoration: none;
+  }
+
+  .w-full {
+    width: 100%;
+  }
+
+  @media (max-width: 960px) {
+    .clinical-nav-desktop {
+      display: none;
+    }
+    .clinical-mobile-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .clinical-header.is-open .clinical-mobile-backdrop {
+      display: block;
+    }
+    .clinical-header.is-open .clinical-mobile-nav {
+      display: block;
+    }
+    .clinical-header.is-open .clinical-mobile-toggle .icon-menu {
+      display: none;
+    }
+    .clinical-header.is-open .clinical-mobile-toggle .icon-close {
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  const header = document.getElementById('mainHeader');
+  const toggleBtn = document.getElementById('mobileMenuToggle');
+  const backdrop = document.getElementById('mobileBackdrop');
+  const mobileNav = document.getElementById('mobileMenuNav');
+  const navLinks = document.querySelectorAll('.mobile-nav-link');
+
+  function toggleMenu() {
+    const isOpen = header?.classList.toggle('is-open');
+    const expanded = !!isOpen;
+    toggleBtn?.setAttribute('aria-expanded', String(expanded));
+    mobileNav?.setAttribute('aria-hidden', String(!expanded));
+    document.body.style.overflow = expanded ? 'hidden' : '';
+  }
+
+  function closeMenu() {
+    header?.classList.remove('is-open');
+    toggleBtn?.setAttribute('aria-expanded', 'false');
+    mobileNav?.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  toggleBtn?.addEventListener('click', toggleMenu);
+  backdrop?.addEventListener('click', closeMenu);
+  navLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+  const mql = window.matchMedia('(min-width: 961px)');
+  mql.addEventListener('change', (e) => {
+    if (e.matches) {
+      closeMenu();
+    }
+  });
+</script>

@@ -1,0 +1,130 @@
+---
+import Badge from './ui/Badge.astro';
+import Button from './ui/Button.astro';
+---
+
+<section class="clinical-section hero-section" id="inicio">
+  <div class="container hero-container">
+    
+    <!-- Hero Text & Value Proposition -->
+    <div class="hero-content">
+      
+      <!-- Authority & Trust Badges -->
+      <div class="hero-badges">
+        <Badge variant="teal">
+          📱 Use no Celular ou Computador
+        </Badge>
+        <Badge variant="sage">
+          Plano Gratuito Vitalício por Uso
+        </Badge>
+        <Badge variant="neutral">
+          Sem Cartão de Crédito
+        </Badge>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="hero-title">
+        Você se dedicou para cuidar de vidas. Não para ser refém de fichas perdidas.
+      </h1>
+
+      <!-- Subtitle / Value Prop -->
+      <p class="hero-subtitle">
+        Chega de cadernos rasgando, horas perdidas anotando tudo à mão e noites de estresse com papelada. Tenha a ficha do paciente em 90 segundos, botão de WhatsApp em 1 clique sem salvar contato e todo o seu consultório direto no celular.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="hero-actions">
+        <Button href="#planos" variant="primary" size="lg">
+          Começar Grátis sem Cartão
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"></path>
+          </svg>
+        </Button>
+        <Button href="#recursos" variant="secondary" size="lg">
+          Ver Como Funciona
+        </Button>
+      </div>
+
+      <!-- Trust Subtext -->
+      <p class="hero-trust-info">
+        ⚡ 20 atendimentos gratuitos inclusos • Passamos suas fichas antigas de papel de graça para o sistema • Comece agora
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .hero-section {
+    padding-top: 5rem;
+    padding-bottom: 5.5rem;
+  }
+
+  .hero-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-content {
+    max-width: 900px;
+    margin-bottom: 0;
+  }
+
+  .hero-badges {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2.1rem, 4.5vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--text-primary);
+    margin-bottom: 1.35rem;
+    letter-spacing: -0.035em;
+  }
+
+  .hero-subtitle {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    max-width: 780px;
+    margin: 0 auto 2.25rem auto;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-trust-info {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 640px) {
+    .hero-title {
+      font-size: 1.85rem;
+    }
+    .hero-subtitle {
+      font-size: 1rem;
+    }
+    .hero-actions {
+      flex-direction: column;
+      width: 100%;
+    }
+    .hero-actions :global(.btn) {
+      width: 100%;
+    }
+  }
+</style>
