@@ -1,5 +1,11 @@
 ---
-// WorkflowSection.astro - Seção 3: Seis etapas. Nenhuma fricção (Design Navy Profundo & Responsividade Dinâmica com Carrossel)
+// WorkflowSection.astro - Seção 3: Seis etapas. Nenhuma fricção (Refatorado & Modular)
+import { WORKFLOW_STEPS } from '../../data/workflow-steps';
+import WorkflowCard from '../workflow/WorkflowCard.astro';
+
+// Dividir as etapas em 2 slides de 3 cards para o carrossel responsivo
+const slide1 = WORKFLOW_STEPS.slice(0, 3);
+const slide2 = WORKFLOW_STEPS.slice(3, 6);
 ---
 
 <section
@@ -40,97 +46,29 @@
 
       <!-- Trilho de Cards Organizados por Slides Dinâmicos -->
       <div class="workflow-cards-track" id="workflowCardsTrack">
-        
         <!-- Slide 1 (Cards 01 a 03) -->
         <div class="workflow-carousel-slide" data-slide-index="0">
-          <!-- Passo 1: Auto-cadastro -->
-          <div class="workflow-navy-card">
-            <div class="card-top-row">
-              <div class="card-icon-container">
-                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
-              </div>
-              <span class="card-step-num">01</span>
-            </div>
-            <h3 class="card-title">Auto-cadastro</h3>
-            <p class="card-text">
-              O paciente preenche a ficha no celular antes de chegar, poupando tempo na maca.
-            </p>
-          </div>
-
-          <!-- Passo 2: Agenda Ágil -->
-          <div class="workflow-navy-card">
-            <div class="card-top-row">
-              <div class="card-icon-container">
-                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-              </div>
-              <span class="card-step-num">02</span>
-            </div>
-            <h3 class="card-title">Agenda Ágil</h3>
-            <p class="card-text">
-              Marcação rápida com visão clara de quem chegou, aguarda ou está em atraso.
-            </p>
-          </div>
-
-          <!-- Passo 3: Anamnese Sob Medida -->
-          <div class="workflow-navy-card">
-            <div class="card-top-row">
-              <div class="card-icon-container">
-                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-              </div>
-              <span class="card-step-num">03</span>
-            </div>
-            <h3 class="card-title">Anamnese Sob Medida</h3>
-            <p class="card-text">
-              Crie formulários em blocos visuais ou use modelos prontos da nossa biblioteca.
-            </p>
-          </div>
+          {slide1.map(item => (
+            <WorkflowCard
+              step={item.step}
+              title={item.title}
+              text={item.text}
+              icon={item.icon}
+            />
+          ))}
         </div>
 
         <!-- Slide 2 (Cards 04 a 06) -->
         <div class="workflow-carousel-slide" data-slide-index="1">
-          <!-- Passo 4: Tratamento Facilitado -->
-          <div class="workflow-navy-card">
-            <div class="card-top-row">
-              <div class="card-icon-container">
-                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-              </div>
-              <span class="card-step-num">04</span>
-            </div>
-            <h3 class="card-title">Tratamento Facilitado</h3>
-            <p class="card-text">
-              Prescreva condutas, exercícios e ciclos terapêuticos de forma ágil ao lado da maca.
-            </p>
-          </div>
-
-          <!-- Passo 5: Pagamentos & Planos -->
-          <div class="workflow-navy-card">
-            <div class="card-top-row">
-              <div class="card-icon-container">
-                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
-              </div>
-              <span class="card-step-num">05</span>
-            </div>
-            <h3 class="card-title">Pagamentos & Planos</h3>
-            <p class="card-text">
-              Sessões avulsas, pacotes com dedução automática e controle financeiro em dia.
-            </p>
-          </div>
-
-          <!-- Passo 6: Evolução & Métricas -->
-          <div class="workflow-navy-card">
-            <div class="card-top-row">
-              <div class="card-icon-container">
-                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
-              </div>
-              <span class="card-step-num">06</span>
-            </div>
-            <h3 class="card-title">Evolução & Métricas</h3>
-            <p class="card-text">
-              Evolua rapidamente puxando a última sessão e acompanhe a linha do tempo e estatísticas.
-            </p>
-          </div>
+          {slide2.map(item => (
+            <WorkflowCard
+              step={item.step}
+              title={item.title}
+              text={item.text}
+              icon={item.icon}
+            />
+          ))}
         </div>
-
       </div>
 
       <!-- Botão Avançar -->
@@ -162,7 +100,7 @@
 <style>
   .workflow-navy-section {
     position: relative;
-    width: 100%;
+    width: 100vw;
     height: 100svh;
     min-height: 100svh;
     max-height: 100svh;
@@ -194,7 +132,7 @@
     box-sizing: border-box;
   }
 
-  /* Header com Título Gigante e Botão Estilo Pílula */
+  /* Header com Título e Botão Lateral */
   .workflow-navy-header {
     display: flex;
     align-items: flex-end;
@@ -253,7 +191,7 @@
     min-height: 0;
   }
 
-  /* Trilho de Cards: no Desktop é grid de 2 linhas x 3 colunas (flattening dos slides com display: contents) */
+  /* Trilho de Cards: Grid 3x2 no Desktop */
   .workflow-cards-track {
     width: 100%;
     display: grid;
@@ -264,64 +202,7 @@
   }
 
   .workflow-carousel-slide {
-    display: contents; /* Em desktop, os cards de cada slide fluem livremente no grid 3x2 */
-  }
-
-  /* Cards Elegantes e Transparentes com Borda Suave */
-  .workflow-navy-card {
-    background: transparent;
-    border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
-    padding-top: clamp(0.6rem, 1.4vh, 1.15rem);
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-  }
-
-  .card-top-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: clamp(0.4rem, 1vh, 0.75rem);
-  }
-
-  .card-icon-container {
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
-    background: rgba(0, 114, 255, 0.25) !important;
-    border: 1px solid rgba(0, 198, 255, 0.4) !important;
-    color: #38BDF8 !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .card-icon-container svg {
-    stroke: #38BDF8 !important;
-    color: #38BDF8 !important;
-  }
-
-  .card-step-num {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.45) !important;
-    letter-spacing: 0.05em;
-  }
-
-  .card-title {
-    font-size: clamp(0.95rem, 1.25vw, 1.2rem) !important;
-    font-weight: 700 !important;
-    letter-spacing: -0.02em !important;
-    color: #FFFFFF !important;
-    line-height: 1.25 !important;
-    margin-bottom: 0.3rem !important;
-  }
-
-  .card-text {
-    font-size: clamp(0.78rem, 0.9vw, 0.88rem) !important;
-    color: rgba(255, 255, 255, 0.78) !important;
-    line-height: 1.4 !important;
-    margin: 0 !important;
+    display: contents;
   }
 
   /* Setas do Carrossel */
@@ -400,7 +281,7 @@
     color: rgba(255, 255, 255, 0.55) !important;
   }
 
-  /* ESTADO CARROSSEL (Telas compactas ou com restrição de altura/largura) */
+  /* ESTADO CARROSSEL (Telas compactas com altura/largura contida) */
   .workflow-carousel-viewport.is-carousel .workflow-cards-track {
     display: flex;
     grid-template-columns: none;
@@ -418,7 +299,6 @@
     display: none;
   }
 
-  /* Cada Slide no Carrossel: agrupa 2 a 3 cards alinhados em linhas/colunas para preencher bem a tela */
   .workflow-carousel-viewport.is-carousel .workflow-carousel-slide {
     display: flex;
     flex-direction: column;
@@ -430,16 +310,6 @@
     box-sizing: border-box;
   }
 
-  .workflow-carousel-viewport.is-carousel .workflow-navy-card {
-    min-width: 100%;
-    max-width: 100%;
-    border-top: none !important;
-    background: rgba(255, 255, 255, 0.08) !important;
-    border: 1px solid rgba(255, 255, 255, 0.18) !important;
-    border-radius: 16px;
-    padding: clamp(0.75rem, 1.6vh, 1.15rem);
-  }
-
   .workflow-carousel-viewport.is-carousel .workflow-carousel-arrow {
     display: flex;
   }
@@ -448,7 +318,7 @@
     display: flex;
   }
 
-  /* Responsivo Mobile e telas compactas */
+  /* Mobile e Telas Compactas */
   @media (max-width: 768px) {
     .workflow-navy-section {
       padding-top: calc(3.5rem + 0.75rem) !important;
@@ -501,36 +371,6 @@
       box-sizing: border-box !important;
     }
 
-    .workflow-navy-card {
-      min-width: 100% !important;
-      max-width: 100% !important;
-      border-top: none !important;
-      background: rgba(255, 255, 255, 0.08) !important;
-      border: 1px solid rgba(255, 255, 255, 0.18) !important;
-      border-radius: 14px !important;
-      padding: 0.75rem 1rem !important;
-    }
-
-    .card-top-row {
-      margin-bottom: 0.35rem !important;
-    }
-
-    .card-icon-container {
-      width: 34px !important;
-      height: 34px !important;
-      border-radius: 8px !important;
-    }
-
-    .card-title {
-      font-size: 0.95rem !important;
-      margin-bottom: 0.2rem !important;
-    }
-
-    .card-text {
-      font-size: 0.8rem !important;
-      line-height: 1.35 !important;
-    }
-
     .workflow-carousel-arrow {
       display: flex !important;
     }
@@ -548,16 +388,12 @@
     }
   }
 
-  /* Em telas muito curtas, ajusta para 2 cards ou rolagem suave sem quebrar */
   @media (max-height: 680px) and (max-width: 768px) {
     .workflow-navy-container {
       gap: 0.5rem !important;
     }
     .workflow-carousel-slide {
       gap: 0.5rem !important;
-    }
-    .workflow-navy-card {
-      padding: 0.6rem 0.85rem !important;
     }
   }
 </style>
