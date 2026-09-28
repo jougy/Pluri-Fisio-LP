@@ -123,24 +123,15 @@ ul, ol {
   letter-spacing: 0.015em;
 }
 
-/* Snap container & snap pages */
+/* Main container & seções com scroll natural fluido */
 .snap-main-container {
-  height: 100svh;
-  height: 100vh;
   width: 100%;
-  scroll-snap-type: y mandatory;
-  overflow-y: auto;
+  min-height: 100vh;
   overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
 }
 
 .snap-page {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  height: 100svh;
-  height: 100vh;
   width: 100%;
-  overflow: hidden;
   position: relative;
   box-sizing: border-box;
 }

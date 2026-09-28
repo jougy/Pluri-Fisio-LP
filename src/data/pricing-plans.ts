@@ -1,4 +1,4 @@
-// pricing-plans.ts - Dados tipados dos planos e ciclos de faturamento
+// pricing-plans.ts - Dados tipados dos planos, ciclos de faturamento e enterprise
 
 export interface Cycle {
   id: string;
@@ -18,11 +18,11 @@ export interface Plan {
   badge?: string;
 }
 
+// 3 opções de frequência compactas e claras (cabe perfeitamente no mobile)
 export const BILLING_CYCLES: Cycle[] = [
-  { id: "free", label: "Teste gratuito (7 dias)" },
   { id: "mensal", label: "Mensal" },
   { id: "trimestral", label: "Trimestral", note: "-10%" },
-  { id: "anual", label: "Anual", note: "Até 33% OFF" },
+  { id: "anual", label: "Anual", note: "-25% OFF" },
 ];
 
 export const PROF_PLANS: Plan[] = [

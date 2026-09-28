@@ -1,5 +1,5 @@
 ---
-// WorkflowSection.astro - Seção 3: Seis etapas. Nenhuma fricção (Refatorado & Modular)
+// WorkflowSection.astro - Seção 3: Seis etapas. Nenhuma fricção (Scroll Natural & Zero Setas Invasivas)
 import { WORKFLOW_STEPS } from '../../data/workflow-steps';
 import WorkflowCard from '../workflow/WorkflowCard.astro';
 
@@ -17,33 +17,23 @@ const slide2 = WORKFLOW_STEPS.slice(3, 6);
   <div class="workflow-navy-container">
     <!-- Header com Título e Botão Lateral de Funcionalidades -->
     <div class="workflow-navy-header">
-      <h2 id="como-titulo" class="workflow-navy-title">
-        Seis etapas. Nenhuma<br />fricção.
-      </h2>
+      <div>
+        <span class="workflow-tag-pill">FLUXO CLÍNICO COMPLETO</span>
+        <h2 id="como-titulo" class="workflow-navy-title">
+          Seis etapas.<br class="hide-mobile" /> Nenhuma fricção.
+        </h2>
+      </div>
 
       <button type="button" class="btn-navy-features-trigger" id="btnOpenFeaturesModal">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
         </svg>
-        <span>Conheça as principais funcionalidades</span>
+        <span>Ver todos os recursos</span>
       </button>
     </div>
 
     <!-- Wrapper do Carrossel Dinâmico / Grid -->
     <div class="workflow-carousel-viewport" id="workflowCarouselViewport">
-      <!-- Botão Voltar -->
-      <button
-        type="button"
-        id="btnWorkflowPrev"
-        class="workflow-carousel-arrow arrow-prev"
-        aria-label="Voltar etapas anteriores"
-        title="Voltar"
-      >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="15 18 9 12 15 6"></polyline>
-        </svg>
-      </button>
-
       <!-- Trilho de Cards Organizados por Slides Dinâmicos -->
       <div class="workflow-cards-track" id="workflowCardsTrack">
         <!-- Slide 1 (Cards 01 a 03) -->
@@ -70,28 +60,15 @@ const slide2 = WORKFLOW_STEPS.slice(3, 6);
           ))}
         </div>
       </div>
-
-      <!-- Botão Avançar -->
-      <button
-        type="button"
-        id="btnWorkflowNext"
-        class="workflow-carousel-arrow arrow-next"
-        aria-label="Avançar próximas etapas"
-        title="Avançar"
-      >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="9 18 15 12 9 6"></polyline>
-        </svg>
-      </button>
     </div>
 
-    <!-- Indicador Dinâmico / Controles Móveis (Slide 1 e Slide 2) -->
+    <!-- Indicador Dinâmico / Controles Móveis (Bolinhas limpas sem setas invasivas) -->
     <div class="workflow-carousel-pagination" id="workflowPagination">
       <div class="carousel-dots-list" id="workflowDotsList">
         <button type="button" class="carousel-dot active" aria-label="Ver etapas 1 a 3" data-slide-to="0"></button>
         <button type="button" class="carousel-dot" aria-label="Ver etapas 4 a 6" data-slide-to="1"></button>
       </div>
-      <span class="swipe-hint-text">Deslize para ver as próximas etapas</span>
+      <span class="swipe-hint-text">👉 Deslize para o lado para ver as etapas 4 a 6</span>
     </div>
 
   </div>
@@ -100,35 +77,27 @@ const slide2 = WORKFLOW_STEPS.slice(3, 6);
 <style>
   .workflow-navy-section {
     position: relative;
-    width: 100vw;
-    height: 100svh;
-    min-height: 100svh;
-    max-height: 100svh;
+    width: 100%;
+    min-height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #0E2246 !important;
     color: #FFFFFF !important;
-    padding-top: calc(3.5rem + clamp(0.75rem, 2vh, 1.75rem)) !important;
-    padding-bottom: clamp(1rem, 2vh, 2rem) !important;
-    padding-left: clamp(1.25rem, 4vw, 4rem) !important;
-    padding-right: clamp(1.25rem, 4vw, 4rem) !important;
-    overflow: hidden;
+    padding: clamp(3.5rem, 6vw, 6rem) clamp(1.25rem, 4vw, 3.5rem);
     box-sizing: border-box;
+    overflow: hidden;
   }
 
   .workflow-navy-container {
     position: relative;
     z-index: 2;
     width: 100%;
-    max-width: 1280px;
-    height: 100%;
-    max-height: calc(100svh - 4.5rem);
+    max-width: 1240px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: clamp(0.75rem, 1.8vh, 1.75rem);
+    gap: clamp(1.5rem, 3vw, 2.5rem);
     box-sizing: border-box;
   }
 
@@ -142,11 +111,21 @@ const slide2 = WORKFLOW_STEPS.slice(3, 6);
     flex-shrink: 0;
   }
 
+  .workflow-tag-pill {
+    display: inline-block;
+    color: #38BDF8;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
   .workflow-navy-title {
-    font-size: clamp(1.75rem, 3.6vw, 3.1rem) !important;
+    font-size: clamp(1.8rem, 3.4vw, 2.8rem) !important;
     font-weight: 800 !important;
-    letter-spacing: -0.035em !important;
-    line-height: 1.1 !important;
+    letter-spacing: -0.03em !important;
+    line-height: 1.15 !important;
     color: #FFFFFF !important;
     margin: 0 !important;
   }
@@ -156,11 +135,11 @@ const slide2 = WORKFLOW_STEPS.slice(3, 6);
     align-items: center;
     gap: 0.55rem;
     background: rgba(255, 255, 255, 0.08) !important;
-    border: 1px solid rgba(255, 255, 255, 0.28) !important;
+    border: 1px solid rgba(255, 255, 255, 0.22) !important;
     color: #FFFFFF !important;
-    font-size: clamp(0.76rem, 0.92vw, 0.86rem);
+    font-size: clamp(0.78rem, 1vw, 0.88rem);
     font-weight: 600;
-    padding: 0.6rem 1.25rem;
+    padding: 0.65rem 1.35rem;
     border-radius: 9999px;
     cursor: pointer;
     backdrop-filter: blur(10px);
@@ -171,13 +150,13 @@ const slide2 = WORKFLOW_STEPS.slice(3, 6);
   }
 
   .btn-navy-features-trigger svg {
-    color: #FFFFFF !important;
-    stroke: #FFFFFF !important;
+    color: #38BDF8 !important;
+    stroke: #38BDF8 !important;
   }
 
   .btn-navy-features-trigger:hover {
-    background: rgba(255, 255, 255, 0.18) !important;
-    border-color: rgba(255, 255, 255, 0.5) !important;
+    background: rgba(255, 255, 255, 0.16) !important;
+    border-color: rgba(255, 255, 255, 0.45) !important;
     transform: translateY(-1px);
   }
 
@@ -185,9 +164,6 @@ const slide2 = WORKFLOW_STEPS.slice(3, 6);
   .workflow-carousel-viewport {
     position: relative;
     width: 100%;
-    display: flex;
-    align-items: center;
-    flex: 1;
     min-height: 0;
   }
 
@@ -196,7 +172,7 @@ const slide2 = WORKFLOW_STEPS.slice(3, 6);
     width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: clamp(0.75rem, 2.2vw, 2.25rem);
+    gap: clamp(1rem, 2vw, 1.8rem);
     box-sizing: border-box;
     transition: transform 0.3s ease;
   }
@@ -205,66 +181,28 @@ const slide2 = WORKFLOW_STEPS.slice(3, 6);
     display: contents;
   }
 
-  /* Setas do Carrossel */
-  .workflow-carousel-arrow {
-    position: absolute;
-    z-index: 10;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    background: rgba(14, 34, 70, 0.9) !important;
-    border: 1px solid rgba(255, 255, 255, 0.4) !important;
-    color: #FFFFFF !important;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
-    cursor: pointer;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    transition: all 0.2s ease;
-  }
-
-  .workflow-carousel-arrow svg {
-    stroke: #FFFFFF !important;
-  }
-
-  .workflow-carousel-arrow:hover {
-    background: #0072FF !important;
-    border-color: #0072FF !important;
-  }
-
-  .workflow-carousel-arrow.arrow-prev {
-    left: -12px;
-  }
-
-  .workflow-carousel-arrow.arrow-next {
-    right: -12px;
-  }
-
   /* Paginação / Bolinhas */
   .workflow-carousel-pagination {
     display: none;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap: 0.35rem;
+    gap: 0.5rem;
     flex-shrink: 0;
+    margin-top: 0.5rem;
   }
 
   .carousel-dots-list {
     display: flex;
     align-items: center;
-    gap: 0.45rem;
+    gap: 0.5rem;
   }
 
   .carousel-dot {
     width: 8px;
     height: 8px;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.25);
     border: none;
     padding: 0;
     cursor: pointer;
@@ -272,76 +210,41 @@ const slide2 = WORKFLOW_STEPS.slice(3, 6);
   }
 
   .carousel-dot.active {
-    width: 24px;
+    width: 28px;
     background: #38BDF8 !important;
   }
 
   .swipe-hint-text {
-    font-size: 0.72rem;
-    color: rgba(255, 255, 255, 0.55) !important;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.65) !important;
+    font-weight: 500;
   }
 
-  /* ESTADO CARROSSEL (Telas compactas com altura/largura contida) */
-  .workflow-carousel-viewport.is-carousel .workflow-cards-track {
-    display: flex;
-    grid-template-columns: none;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    padding: 0.5rem 0.25rem 0.75rem;
-    gap: 1.25rem;
-    width: 100%;
-  }
-
-  .workflow-carousel-viewport.is-carousel .workflow-cards-track::-webkit-scrollbar {
-    display: none;
-  }
-
-  .workflow-carousel-viewport.is-carousel .workflow-carousel-slide {
-    display: flex;
-    flex-direction: column;
-    gap: 0.85rem;
-    min-width: 100%;
-    max-width: 100%;
-    flex-shrink: 0;
-    scroll-snap-align: center;
-    box-sizing: border-box;
-  }
-
-  .workflow-carousel-viewport.is-carousel .workflow-carousel-arrow {
-    display: flex;
-  }
-
-  .workflow-carousel-viewport.is-carousel + .workflow-carousel-pagination {
-    display: flex;
-  }
-
-  /* Mobile e Telas Compactas */
-  @media (max-width: 768px) {
+  /* Mobile e Telas Compactas: Scroll Horizontal Nativo Limpo e Sem Setas */
+  @media (max-width: 860px) {
     .workflow-navy-section {
-      padding-top: calc(3.5rem + 0.75rem) !important;
-      padding-bottom: 1rem !important;
-      padding-left: 1rem !important;
-      padding-right: 1rem !important;
+      padding: 3rem 1.25rem;
     }
 
     .workflow-navy-header {
       flex-direction: column;
       align-items: flex-start;
-      gap: 0.65rem;
+      gap: 1rem;
+    }
+
+    .hide-mobile {
+      display: none;
     }
 
     .workflow-navy-title {
-      font-size: 1.65rem !important;
+      font-size: 1.7rem !important;
     }
 
     .btn-navy-features-trigger {
       width: 100%;
       justify-content: center;
-      font-size: 0.78rem;
-      padding: 0.5rem 1rem;
+      font-size: 0.82rem;
+      padding: 0.6rem 1rem;
     }
 
     .workflow-cards-track {
@@ -350,8 +253,9 @@ const slide2 = WORKFLOW_STEPS.slice(3, 6);
       overflow-x: auto !important;
       scroll-snap-type: x mandatory !important;
       scroll-behavior: smooth !important;
+      -webkit-overflow-scrolling: touch;
       scrollbar-width: none !important;
-      gap: 1.25rem !important;
+      gap: 1rem !important;
       padding: 0.25rem 0 !important;
       width: 100% !important;
     }
@@ -363,7 +267,7 @@ const slide2 = WORKFLOW_STEPS.slice(3, 6);
     .workflow-carousel-slide {
       display: flex !important;
       flex-direction: column !important;
-      gap: 0.75rem !important;
+      gap: 0.85rem !important;
       min-width: 100% !important;
       max-width: 100% !important;
       flex-shrink: 0 !important;
@@ -371,29 +275,8 @@ const slide2 = WORKFLOW_STEPS.slice(3, 6);
       box-sizing: border-box !important;
     }
 
-    .workflow-carousel-arrow {
-      display: flex !important;
-    }
-
-    .workflow-carousel-arrow.arrow-prev {
-      left: 2px !important;
-    }
-
-    .workflow-carousel-arrow.arrow-next {
-      right: 2px !important;
-    }
-
     .workflow-carousel-pagination {
       display: flex !important;
-    }
-  }
-
-  @media (max-height: 680px) and (max-width: 768px) {
-    .workflow-navy-container {
-      gap: 0.5rem !important;
-    }
-    .workflow-carousel-slide {
-      gap: 0.5rem !important;
     }
   }
 </style>

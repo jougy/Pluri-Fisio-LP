@@ -12,29 +12,40 @@ export function setupPricing() {
   const cards = document.querySelectorAll<HTMLElement>(".plan-card");
   const btnProf = document.getElementById("btnAudienceProf") as HTMLButtonElement | null;
   const btnClinic = document.getElementById("btnAudienceClinic") as HTMLButtonElement | null;
+  const btnEnterprise = document.getElementById("btnAudienceEnterprise") as HTMLButtonElement | null;
   const groupProf = document.getElementById("plansGroupProf");
   const groupClinic = document.getElementById("plansGroupClinic");
+  const groupEnterprise = document.getElementById("plansGroupEnterprise");
+  const cyclesGroup = document.getElementById("cyclesSwitcherGroup");
 
-  // Seletor de Perfil (Profissional x Clínica)
-  if (btnProf && btnClinic && groupProf && groupClinic) {
-    btnProf.addEventListener("click", () => {
-      btnProf.classList.add("active");
-      btnProf.setAttribute("aria-selected", "true");
-      btnClinic.classList.remove("active");
-      btnClinic.setAttribute("aria-selected", "false");
-      groupProf.style.display = "";
-      groupClinic.style.display = "none";
-    });
+  // Seletor de Perfil Master (Profissional x Clínica x Enterprise)
+  function selectAudience(target: "prof" | "clinic" | "enterprise") {
+    if (btnProf) {
+      btnProf.classList.toggle("active", target === "prof");
+      btnProf.setAttribute("aria-selected", target === "prof" ? "true" : "false");
+    }
+    if (btnClinic) {
+      btnClinic.classList.toggle("active", target === "clinic");
+      btnClinic.setAttribute("aria-selected", target === "clinic" ? "true" : "false");
+    }
+    if (btnEnterprise) {
+      btnEnterprise.classList.toggle("active", target === "enterprise");
+      btnEnterprise.setAttribute("aria-selected", target === "enterprise" ? "true" : "false");
+    }
 
-    btnClinic.addEventListener("click", () => {
-      btnClinic.classList.add("active");
-      btnClinic.setAttribute("aria-selected", "true");
-      btnProf.classList.remove("active");
-      btnProf.setAttribute("aria-selected", "false");
-      groupClinic.style.display = "";
-      groupProf.style.display = "none";
-    });
+    if (groupProf) groupProf.style.display = target === "prof" ? "" : "none";
+    if (groupClinic) groupClinic.style.display = target === "clinic" ? "" : "none";
+    if (groupEnterprise) groupEnterprise.style.display = target === "enterprise" ? "" : "none";
+
+    // Ocultar seletor de ciclos quando estiver na aba Enterprise (que possui proposta customizada)
+    if (cyclesGroup) {
+      cyclesGroup.style.display = target === "enterprise" ? "none" : "flex";
+    }
   }
+
+  if (btnProf) btnProf.addEventListener("click", () => selectAudience("prof"));
+  if (btnClinic) btnClinic.addEventListener("click", () => selectAudience("clinic"));
+  if (btnEnterprise) btnEnterprise.addEventListener("click", () => selectAudience("enterprise"));
 
   if (!cycleButtons.length || !cards.length) return;
 
