@@ -83,6 +83,10 @@ const navItems = [
             alt="Avaliação de paciente na maca em consultório de fisioterapia" 
             class="fisio-clean-photo img-fade-bottom" 
             loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            width="700"
+            height="467"
           />
         </div>
 
@@ -211,9 +215,7 @@ const navItems = [
     right: 0;
     width: 100vw;
     z-index: 95;
-    background-color: rgba(247, 246, 243, 0.92);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    background-color: rgba(247, 246, 243, 0.97);
     border-bottom: 1px solid var(--border-light);
     height: 3rem;
   }

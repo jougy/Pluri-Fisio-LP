@@ -200,7 +200,12 @@ const { items } = Astro.props;
     sections.forEach(section => observer.observe(section));
   }
 
-  // Setup on page load & Astro page transitions if any
-  document.addEventListener('DOMContentLoaded', setupSideNav);
-  document.addEventListener('astro:page-load', setupSideNav);
+  // Setup once — astro:page-load fires on initial load too (covers both SPA and MPA)
+  document.addEventListener('astro:page-load', setupSideNav, { once: true });
+  // Fallback for pages without Astro View Transitions
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupSideNav, { once: true });
+  } else {
+    setupSideNav();
+  }
 </script>

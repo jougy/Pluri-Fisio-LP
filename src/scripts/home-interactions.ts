@@ -1,11 +1,4 @@
-// home-interactions.ts - Scripts essenciais para preços e modal de funcionalidades
-
-// Cache formatador de BRL
-const brlFormatter = new Intl.NumberFormat("pt-BR", {
-  style: "currency",
-  currency: "BRL",
-  minimumFractionDigits: 0,
-});
+// home-interactions.ts - Scripts essenciais para preços, sanfona/accordion dos recursos e carrossel responsivo
 
 export function setupPricing() {
   const cycleButtons = document.querySelectorAll<HTMLButtonElement>(".cycle-btn");
@@ -17,9 +10,16 @@ export function setupPricing() {
   const groupClinic = document.getElementById("plansGroupClinic");
   const groupEnterprise = document.getElementById("plansGroupEnterprise");
   const cyclesGroup = document.getElementById("cyclesSwitcherGroup");
+  const freeHighlightPane = document.getElementById("freePlanHighlightPane");
+  const plansMobileNav = document.getElementById("plansMobileNav");
+
+  let currentAudience: "prof" | "clinic" | "enterprise" = "prof";
+  let currentCycle: string = "mensal";
 
   // Seletor de Perfil Master (Profissional x Clínica x Enterprise)
   function selectAudience(target: "prof" | "clinic" | "enterprise") {
+    currentAudience = target;
+
     if (btnProf) {
       btnProf.classList.toggle("active", target === "prof");
       btnProf.setAttribute("aria-selected", target === "prof" ? "true" : "false");
@@ -33,13 +33,29 @@ export function setupPricing() {
       btnEnterprise.setAttribute("aria-selected", target === "enterprise" ? "true" : "false");
     }
 
-    if (groupProf) groupProf.style.display = target === "prof" ? "" : "none";
-    if (groupClinic) groupClinic.style.display = target === "clinic" ? "" : "none";
-    if (groupEnterprise) groupEnterprise.style.display = target === "enterprise" ? "" : "none";
+    if (target === "enterprise") {
+      if (groupProf) groupProf.style.display = "none";
+      if (groupClinic) groupClinic.style.display = "none";
+      if (groupEnterprise) groupEnterprise.style.display = "";
+      if (cyclesGroup) cyclesGroup.style.display = "none";
+      if (freeHighlightPane) freeHighlightPane.style.display = "none";
+    } else {
+      if (cyclesGroup) cyclesGroup.style.display = "flex";
+      if (groupEnterprise) groupEnterprise.style.display = "none";
 
-    // Ocultar seletor de ciclos quando estiver na aba Enterprise (que possui proposta customizada)
-    if (cyclesGroup) {
-      cyclesGroup.style.display = target === "enterprise" ? "none" : "flex";
+      if (currentCycle === "free") {
+        if (groupProf) groupProf.style.display = "none";
+        if (groupClinic) groupClinic.style.display = "none";
+        if (freeHighlightPane) freeHighlightPane.style.display = "";
+      } else {
+        if (freeHighlightPane) freeHighlightPane.style.display = "none";
+        if (groupProf) groupProf.style.display = target === "prof" ? "" : "none";
+      }
+    }
+
+    // Ocultar/Exibir o indicador mobile de planos dependendo se está em enterprise ou free
+    if (plansMobileNav) {
+      plansMobileNav.style.display = (target === "enterprise" || currentCycle === "free") ? "none" : "";
     }
   }
 
@@ -52,7 +68,7 @@ export function setupPricing() {
   const formatBRL = (val: number) =>
     Number.isInteger(val) ? `R$ ${val}` : `R$ ${val.toFixed(2).replace(".", ",")}`;
 
-  // Pré-computar valores em O(1) lookup para todos os cards
+  // Pré-computar valores para todos os cards
   const cardData = Array.from(cards).map(card => {
     const cardId = card.id;
     const monthlyVal = parseFloat(card.getAttribute("data-monthly") || "0");
@@ -72,10 +88,10 @@ export function setupPricing() {
       defaultCta,
       priceCache: {
         free: {
-          main: "Grátis",
-          sub: "7 dias ou até 20 atendimentos",
+          main: "7 Dias Grátis",
+          sub: "Experimente com 20 atendimentos inclusos",
         },
-        mensal: { main: `${formatBRL(monthlyVal)}/mês`, sub: "Cancele quando quiser" },
+        mensal: { main: `${formatBRL(monthlyVal)}/mês`, sub: "Cobrado mensalmente" },
         trimestral: {
           main: `${formatBRL(quarterlyVal)}/mês`,
           sub: `Total ${formatBRL(quarterlyVal * 3)} por trimestre`,
@@ -89,9 +105,29 @@ export function setupPricing() {
   });
 
   function setCycle(cycleId: string) {
+    currentCycle = cycleId;
+
     cycleButtons.forEach(btn => {
       btn.classList.toggle("active", btn.getAttribute("data-cycle") === cycleId);
     });
+
+    if (cycleId === "free") {
+      // Exibe card especial de 7 dias grátis em destaque limpo
+      if (freeHighlightPane) freeHighlightPane.style.display = "";
+      if (groupProf) groupProf.style.display = "none";
+      if (groupClinic) groupClinic.style.display = "none";
+      if (plansMobileNav) plansMobileNav.style.display = "none";
+    } else {
+      if (freeHighlightPane) freeHighlightPane.style.display = "none";
+      if (plansMobileNav && currentAudience !== "enterprise") plansMobileNav.style.display = "";
+      if (currentAudience === "prof") {
+        if (groupProf) groupProf.style.display = "";
+        if (groupClinic) groupClinic.style.display = "none";
+      } else if (currentAudience === "clinic") {
+        if (groupProf) groupProf.style.display = "none";
+        if (groupClinic) groupClinic.style.display = "";
+      }
+    }
 
     for (let i = 0; i < cardData.length; i++) {
       const data = cardData[i];
@@ -100,7 +136,7 @@ export function setupPricing() {
       if (data.subEl) data.subEl.textContent = price.sub;
       if (data.ctaBtn) {
         if (cycleId === "free") {
-          data.ctaBtn.textContent = "Testar 7 dias grátis";
+          data.ctaBtn.textContent = "Iniciar 7 Dias Grátis";
           data.ctaBtn.href = "https://plurifisio.com.br/planos?cycle=free";
         } else {
           data.ctaBtn.textContent = data.defaultCta;
@@ -116,6 +152,75 @@ export function setupPricing() {
       if (c) setCycle(c);
     });
   });
+
+  // Sincronizar dots de navegação mobile com o scroll dos cards
+  const planDots = document.querySelectorAll<HTMLButtonElement>("#plansDotsTrack .plan-nav-dot");
+  function syncPlanCarousel(track: HTMLElement | null) {
+    if (!track) return;
+
+    function updateDots() {
+      if (!track) return;
+      const scrollLeft = track.scrollLeft;
+      const cardWidth = track.firstElementChild ? (track.firstElementChild as HTMLElement).offsetWidth : track.clientWidth;
+      const activeIdx = Math.min(Math.max(0, Math.round(scrollLeft / (cardWidth + 16))), planDots.length - 1);
+
+      planDots.forEach((dot, idx) => {
+        dot.classList.toggle("active", idx === activeIdx);
+      });
+    }
+
+    let ticking = false;
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateDots();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    track.addEventListener("scroll", onScroll, { passive: true });
+
+    planDots.forEach((dot, idx) => {
+      dot.addEventListener("click", () => {
+        const targetCard = track.children[idx] as HTMLElement;
+        if (targetCard) {
+          targetCard.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+        }
+      });
+    });
+  }
+
+  syncPlanCarousel(groupProf);
+  syncPlanCarousel(groupClinic);
+}
+
+// Interatividade das Sanfonas (Accordions) da Seção 3 (Workflow)
+export function setupWorkflowAccordion() {
+  const accordionCards = document.querySelectorAll<HTMLElement>("[data-accordion-card]");
+  if (!accordionCards.length) return;
+
+  accordionCards.forEach((card) => {
+    const trigger = card.querySelector<HTMLButtonElement>(".workflow-card-trigger");
+    const body = card.querySelector<HTMLElement>(".accordion-body");
+    const toggleText = card.querySelector<HTMLElement>(".toggle-text");
+
+    if (!trigger || !body) return;
+
+    trigger.addEventListener("click", () => {
+      const isExpanded = trigger.getAttribute("aria-expanded") === "true";
+      const nextState = !isExpanded;
+
+      trigger.setAttribute("aria-expanded", String(nextState));
+      card.classList.toggle("is-open", nextState);
+      body.hidden = !nextState;
+
+      if (toggleText) {
+        toggleText.textContent = nextState ? "Ocultar detalhes" : "Ver detalhes";
+      }
+    });
+  });
 }
 
 export function setupModal() {
@@ -123,57 +228,21 @@ export function setupModal() {
   const openBtn = document.getElementById("btnOpenFeaturesModal");
   const closeBtn = document.getElementById("btnCloseFeaturesModal");
   const ctaBtn = document.getElementById("modalCtaPlanos");
-  const featureTriggers = document.querySelectorAll<HTMLElement>("[data-open-feature]");
-  const tabButtons = document.querySelectorAll<HTMLButtonElement>(".modal-tab-btn");
-  const tabContents = document.querySelectorAll<HTMLElement>(".modal-tab-content");
 
   if (!overlay) return;
-
-  function switchTab(tabId: string) {
-    tabButtons.forEach(btn => {
-      btn.classList.toggle("active", btn.getAttribute("data-tab-target") === tabId);
-    });
-    tabContents.forEach(content => {
-      content.classList.toggle("active", content.id === tabId);
-    });
-  }
-
-  tabButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      const target = btn.getAttribute("data-tab-target");
-      if (target) switchTab(target);
-    });
-  });
-
-  function open(preferredTab?: string) {
-    if (preferredTab) {
-      switchTab(preferredTab);
-    }
-    overlay?.classList.add("is-active");
-    document.body.style.overflow = "hidden";
-  }
 
   function close() {
     overlay?.classList.remove("is-active");
     document.body.style.overflow = "";
   }
 
-  openBtn?.addEventListener("click", () => open("tab-diferenciais"));
+  openBtn?.addEventListener("click", () => {
+    overlay?.classList.add("is-active");
+    document.body.style.overflow = "hidden";
+  });
+
   closeBtn?.addEventListener("click", close);
   ctaBtn?.addEventListener("click", close);
-
-  featureTriggers.forEach(trigger => {
-    trigger.addEventListener("click", () => {
-      const featureKey = trigger.getAttribute("data-open-feature");
-      if (featureKey === "autonomia" || featureKey === "seguranca") {
-        open("tab-seguranca");
-      } else if (featureKey === "duplicacao" || featureKey === "editor") {
-        open("tab-diferenciais");
-      } else {
-        open("tab-rotina");
-      }
-    });
-  });
 
   overlay.addEventListener("click", (e) => {
     if (e.target === overlay) close();
@@ -190,8 +259,6 @@ export function setupWorkflowResponsiveCarousel() {
   const section = document.getElementById("como-funciona");
   const viewport = document.getElementById("workflowCarouselViewport");
   const track = document.getElementById("workflowCardsTrack");
-  const btnPrev = document.getElementById("btnWorkflowPrev");
-  const btnNext = document.getElementById("btnWorkflowNext");
   const dots = document.querySelectorAll<HTMLButtonElement>("#workflowDotsList .carousel-dot");
 
   if (!section || !viewport || !track) return;
@@ -199,38 +266,9 @@ export function setupWorkflowResponsiveCarousel() {
   const slides = track.querySelectorAll<HTMLElement>(".workflow-carousel-slide");
   if (!slides.length) return;
 
-  function updateLayout() {
-    const isMobile = window.innerWidth <= 768;
-    const windowHeight = window.innerHeight;
-    const isShortHeight = windowHeight < 680 && window.innerWidth < 1100;
-
-    if (isMobile || isShortHeight) {
-      viewport?.classList.add("is-carousel");
-    } else {
-      viewport?.classList.remove("is-carousel");
-    }
-
-    updateArrowsAndDots();
-  }
-
   function updateArrowsAndDots() {
-    if (!viewport?.classList.contains("is-carousel")) return;
-
-    const scrollLeft = track.scrollLeft;
-    const maxScroll = track.scrollWidth - track.clientWidth;
-
-    if (btnPrev) {
-      (btnPrev as HTMLButtonElement).style.opacity = scrollLeft > 10 ? "1" : "0.3";
-      (btnPrev as HTMLButtonElement).style.pointerEvents = scrollLeft > 10 ? "auto" : "none";
-    }
-
-    if (btnNext) {
-      (btnNext as HTMLButtonElement).style.opacity = scrollLeft < maxScroll - 10 ? "1" : "0.3";
-      (btnNext as HTMLButtonElement).style.pointerEvents = scrollLeft < maxScroll - 10 ? "auto" : "none";
-    }
-
-    // Identificar slide atual visível baseado na largura de cada slide
-    const slideWidth = slides[0]?.offsetWidth || track.clientWidth || 1;
+    const scrollLeft = track?.scrollLeft || 0;
+    const slideWidth = slides[0]?.offsetWidth || track?.clientWidth || 1;
     const currentIndex = Math.min(
       Math.max(0, Math.round(scrollLeft / slideWidth)),
       slides.length - 1
@@ -241,29 +279,42 @@ export function setupWorkflowResponsiveCarousel() {
     });
   }
 
-  btnNext?.addEventListener("click", () => {
-    const slideWidth = slides[0]?.offsetWidth || track.clientWidth || 320;
-    track.scrollBy({ left: slideWidth + 12, behavior: "smooth" });
-  });
-
-  btnPrev?.addEventListener("click", () => {
-    const slideWidth = slides[0]?.offsetWidth || track.clientWidth || 320;
-    track.scrollBy({ left: -(slideWidth + 12), behavior: "smooth" });
-  });
-
   dots.forEach((dot, idx) => {
     dot.addEventListener("click", () => {
       const slide = slides[idx];
-      if (slide) {
+      if (slide && track) {
         track.scrollTo({ left: slide.offsetLeft - track.offsetLeft, behavior: "smooth" });
       }
     });
   });
 
-  track.addEventListener("scroll", updateArrowsAndDots, { passive: true });
-  window.addEventListener("resize", updateLayout, { passive: true });
+  let tickingWorkflow = false;
+  function onWorkflowScroll() {
+    if (!tickingWorkflow) {
+      requestAnimationFrame(() => {
+        updateArrowsAndDots();
+        tickingWorkflow = false;
+      });
+      tickingWorkflow = true;
+    }
+  }
 
-  // Rodar de imediato
-  updateLayout();
+  track.addEventListener("scroll", onWorkflowScroll, { passive: true });
+}
+
+// Navegação suave em âncoras acionada apenas sob clique de link (evita lag no scroll manual do mouse/trackpad)
+export function setupSmoothAnchors() {
+  document.addEventListener("click", (e) => {
+    const target = (e.target as HTMLElement)?.closest('a[href^="#"]');
+    if (!target) return;
+    const href = target.getAttribute("href");
+    if (!href || href === "#" || href === "#conteudo") return;
+    const targetEl = document.querySelector(href);
+    if (targetEl) {
+      e.preventDefault();
+      targetEl.scrollIntoView({ behavior: "smooth" });
+      history.pushState(null, "", href);
+    }
+  });
 }
 

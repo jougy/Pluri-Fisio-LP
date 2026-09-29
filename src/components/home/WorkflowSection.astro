@@ -15,21 +15,17 @@ const slide2 = WORKFLOW_STEPS.slice(3, 6);
   style="background-color: #0E2246 !important; color: #FFFFFF !important;"
 >
   <div class="workflow-navy-container">
-    <!-- Header com Título e Botão Lateral de Funcionalidades -->
+    <!-- Header com Título -->
     <div class="workflow-navy-header">
       <div>
         <span class="workflow-tag-pill">FLUXO CLÍNICO COMPLETO</span>
         <h2 id="como-titulo" class="workflow-navy-title">
-          Seis etapas.<br class="hide-mobile" /> Nenhuma fricção.
+          Seu paciente atendido<br class="hide-mobile" /> em 6 passos simples.
         </h2>
       </div>
-
-      <button type="button" class="btn-navy-features-trigger" id="btnOpenFeaturesModal">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-        </svg>
-        <span>Ver todos os recursos</span>
-      </button>
+      <div class="workflow-header-hint">
+        <span>💡 Toque em cada etapa para ver os recursos</span>
+      </div>
     </div>
 
     <!-- Wrapper do Carrossel Dinâmico / Grid -->
@@ -39,24 +35,14 @@ const slide2 = WORKFLOW_STEPS.slice(3, 6);
         <!-- Slide 1 (Cards 01 a 03) -->
         <div class="workflow-carousel-slide" data-slide-index="0">
           {slide1.map(item => (
-            <WorkflowCard
-              step={item.step}
-              title={item.title}
-              text={item.text}
-              icon={item.icon}
-            />
+            <WorkflowCard stepData={item} />
           ))}
         </div>
 
         <!-- Slide 2 (Cards 04 a 06) -->
         <div class="workflow-carousel-slide" data-slide-index="1">
           {slide2.map(item => (
-            <WorkflowCard
-              step={item.step}
-              title={item.title}
-              text={item.text}
-              icon={item.icon}
-            />
+            <WorkflowCard stepData={item} />
           ))}
         </div>
       </div>
@@ -130,34 +116,17 @@ const slide2 = WORKFLOW_STEPS.slice(3, 6);
     margin: 0 !important;
   }
 
-  .btn-navy-features-trigger {
+  .workflow-header-hint {
     display: inline-flex;
     align-items: center;
-    gap: 0.55rem;
-    background: rgba(255, 255, 255, 0.08) !important;
-    border: 1px solid rgba(255, 255, 255, 0.22) !important;
-    color: #FFFFFF !important;
-    font-size: clamp(0.78rem, 1vw, 0.88rem);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(0, 198, 255, 0.25);
+    color: #38BDF8;
+    font-size: clamp(0.78rem, 1vw, 0.86rem);
     font-weight: 600;
-    padding: 0.65rem 1.35rem;
+    padding: 0.5rem 1rem;
     border-radius: 9999px;
-    cursor: pointer;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    transition: all 0.2s ease;
     white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .btn-navy-features-trigger svg {
-    color: #38BDF8 !important;
-    stroke: #38BDF8 !important;
-  }
-
-  .btn-navy-features-trigger:hover {
-    background: rgba(255, 255, 255, 0.16) !important;
-    border-color: rgba(255, 255, 255, 0.45) !important;
-    transform: translateY(-1px);
   }
 
   /* Viewport do Carrossel */
@@ -174,7 +143,6 @@ const slide2 = WORKFLOW_STEPS.slice(3, 6);
     grid-template-columns: repeat(3, 1fr);
     gap: clamp(1rem, 2vw, 1.8rem);
     box-sizing: border-box;
-    transition: transform 0.3s ease;
   }
 
   .workflow-carousel-slide {
@@ -240,11 +208,12 @@ const slide2 = WORKFLOW_STEPS.slice(3, 6);
       font-size: 1.7rem !important;
     }
 
-    .btn-navy-features-trigger {
+    .workflow-header-hint {
       width: 100%;
       justify-content: center;
-      font-size: 0.82rem;
-      padding: 0.6rem 1rem;
+      font-size: 0.8rem;
+      padding: 0.5rem 0.75rem;
+      box-sizing: border-box;
     }
 
     .workflow-cards-track {
@@ -252,7 +221,6 @@ const slide2 = WORKFLOW_STEPS.slice(3, 6);
       grid-template-columns: none !important;
       overflow-x: auto !important;
       scroll-snap-type: x mandatory !important;
-      scroll-behavior: smooth !important;
       -webkit-overflow-scrolling: touch;
       touch-action: pan-x pan-y !important;
       scrollbar-width: none !important;
