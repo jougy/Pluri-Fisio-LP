@@ -26,21 +26,21 @@ const { plan } = Astro.props;
 
   <div class="price-wrapper">
     <div class="price-main-row">
-      <span class="currency-symbol">R$</span>
-      <span class="price-number" data-price-main>{plan.monthly.toFixed(2).replace('.', ',')}</span>
-      <span class="billing-period" data-billing-period>/mês</span>
+      <span class="price-number" data-price-main>{`R$ ${plan.monthly.toFixed(2).replace('.', ',')}/mês`}</span>
     </div>
     <div class="price-sub-note" data-price-sub>Cobrado mensalmente</div>
   </div>
 
-  <!-- Lista Completa de Benefícios com Alta Legibilidade -->
+  <!-- Lista Completa de Benefícios com Alta Legibilidade e Diferenças em Negrito -->
   <ul class="features-list" role="list">
     {plan.features.map(feature => (
       <li class="feature-item">
         <svg class="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <polyline points="20 6 9 17 4 12"></polyline>
         </svg>
-        <span>{feature}</span>
+        <span>
+          {feature.bold ? <strong>{feature.text}</strong> : feature.text}
+        </span>
       </li>
     ))}
   </ul>

@@ -42,12 +42,14 @@ import FeaturesModal from '../components/home/FeaturesModal.astro';
 </Layout>
 
 <script>
-  import { setupPricing, setupModal, setupWorkflowResponsiveCarousel } from '../scripts/home-interactions';
+  import { setupPricing, setupWorkflowAccordion, setupWorkflowResponsiveCarousel, setupSmoothAnchors, setupModal } from '../scripts/home-interactions';
 
   function init() {
     setupPricing();
-    setupModal();
+    setupWorkflowAccordion();
     setupWorkflowResponsiveCarousel();
+    setupSmoothAnchors();
+    setupModal();
   }
 
   if (document.readyState === "loading") {

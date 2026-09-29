@@ -6,20 +6,27 @@ export interface Cycle {
   note?: string;
 }
 
+export interface PlanFeature {
+  text: string;
+  bold: boolean;
+}
+
 export interface Plan {
   id: string;
   name: string;
   tagline: string;
   monthly: number;
-  features: string[];
+  features: PlanFeature[];
   cta: string;
   featured: boolean;
   audience: "prof" | "clinic";
   badge?: string;
+  highlightDifference?: string;
 }
 
-// 3 opções de frequência compactas e claras (cabe perfeitamente no mobile)
+// 4 opções de ciclo: Grátis (7 dias), Mensal, Trimestral, Anual
 export const BILLING_CYCLES: Cycle[] = [
+  { id: "free", label: "Grátis", note: "7 dias" },
   { id: "mensal", label: "Mensal" },
   { id: "trimestral", label: "Trimestral", note: "-10%" },
   { id: "anual", label: "Anual", note: "-25% OFF" },
@@ -31,13 +38,15 @@ export const PROF_PLANS: Plan[] = [
     name: "Básico",
     tagline: "Profissional autônomo iniciando consultório",
     monthly: 39.99,
+    highlightDifference: "1 acesso individual + 2 formulários",
     features: [
-      "1 acesso simultâneo individual",
-      "Pacientes e atendimentos ilimitados",
-      "Prontuário eletrônico & evolução rápida",
-      "Duplicação rápida: repete o atendimento anterior em 1 toque",
-      "1 formulário bloco padrão universal + 1 ficha complementar",
-      "Agenda com envio de mensagens no WhatsApp",
+      { text: "1 acesso simultâneo individual", bold: true },
+      { text: "1 formulário universal + 1 ficha complementar", bold: true },
+      { text: "Pacientes e atendimentos ilimitados", bold: false },
+      { text: "Prontuário eletrônico & evolução rápida", bold: false },
+      { text: "Duplicação rápida: repete o atendimento anterior em 1 toque", bold: false },
+      { text: "Agenda com envio de mensagens no WhatsApp", bold: false },
+      { text: "Consultoria de implantação VIP de lançamento inclusa", bold: true },
     ],
     cta: "Escolher Básico",
     featured: false,
@@ -48,13 +57,15 @@ export const PROF_PLANS: Plan[] = [
     name: "Médio",
     tagline: "Alta demanda e fichas personalizadas",
     monthly: 59.99,
+    highlightDifference: "Formulários e fichas ilimitadas + Portabilidade",
     features: [
-      "1 acesso simultâneo individual",
-      "Pacientes e atendimentos ilimitados",
-      "Todos os recursos clínicos essenciais e duplicação rápida",
-      "Formulários e fichas de avaliação ilimitadas e personalizáveis",
-      "Seu histórico vai com você mesmo se mudar de consultório",
-      "Controle de pagamentos e pacotes de sessões",
+      { text: "1 acesso simultâneo individual", bold: false },
+      { text: "Formulários e fichas 100% ilimitadas e personalizáveis", bold: true },
+      { text: "Seu histórico vai com você mesmo se mudar de consultório", bold: true },
+      { text: "Controle financeiro de pagamentos e pacotes de sessões", bold: true },
+      { text: "Pacientes e atendimentos ilimitados", bold: false },
+      { text: "Todos os recursos clínicos e duplicação em 1 toque", bold: false },
+      { text: "Consultoria de implantação VIP de lançamento inclusa", bold: true },
     ],
     cta: "Escolher Médio",
     featured: true,
@@ -66,13 +77,15 @@ export const PROF_PLANS: Plan[] = [
     name: "Top",
     tagline: "Máxima autonomia e apoio de secretária",
     monthly: 89.99,
+    highlightDifference: "2 acessos simultâneos (você + secretária) + Lembretes automáticos",
     features: [
-      "2 acessos simultâneos (você + sua secretária ou assistente)",
-      "Pacientes e atendimentos ilimitados",
-      "Todos os recursos do plano Médio inclusos",
-      "Recibos e relatórios de receitas automáticos",
-      "Lembretes automáticos de agendamento por WhatsApp",
-      "Atendimento e suporte prioritário",
+      { text: "2 acessos simultâneos (você + secretária ou assistente)", bold: true },
+      { text: "Lembretes automáticos de agendamento por WhatsApp", bold: true },
+      { text: "Recibos e relatórios de receitas automáticos", bold: true },
+      { text: "Suporte e atendimento prioritário direto", bold: true },
+      { text: "Pacientes e atendimentos ilimitados", bold: false },
+      { text: "Todos os recursos do plano Médio inclusos", bold: false },
+      { text: "Consultoria de implantação VIP de lançamento inclusa", bold: true },
     ],
     cta: "Escolher Top",
     featured: false,
@@ -86,13 +99,15 @@ export const CLINIC_PLANS: Plan[] = [
     name: "Básico",
     tagline: "Consultórios e salas compartilhadas",
     monthly: 99.00,
+    highlightDifference: "2 acessos simultâneos ao mesmo tempo",
     features: [
-      "2 acessos simultâneos ao mesmo tempo",
-      "Profissionais e colaboradores ilimitados para cadastrar",
-      "Dono da clínica como administrador principal absoluto",
-      "Permissões de acesso padrão e seguras para cada função",
-      "Agendas compartilhadas por salas e macas",
-      "Passamos suas fichas de papel para o sistema de graça",
+      { text: "2 acessos simultâneos ao mesmo tempo", bold: true },
+      { text: "Profissionais e colaboradores ilimitados para cadastrar", bold: true },
+      { text: "Dono da clínica como administrador principal absoluto", bold: false },
+      { text: "Permissões de acesso padrão e seguras para cada função", bold: false },
+      { text: "Agendas compartilhadas por salas e macas", bold: false },
+      { text: "Digitalização das suas fichas de papel de graça", bold: true },
+      { text: "Consultoria de implantação VIP de lançamento inclusa", bold: true },
     ],
     cta: "Escolher Básico",
     featured: false,
@@ -103,13 +118,15 @@ export const CLINIC_PLANS: Plan[] = [
     name: "Médio",
     tagline: "Clínicas consolidadas com equipe",
     monthly: 139.00,
+    highlightDifference: "4 acessos simultâneos + Divisão de repasses",
     features: [
-      "4 acessos simultâneos ao mesmo tempo",
-      "Profissionais e colaboradores ilimitados para cadastrar",
-      "Dono da clínica no topo com controle total de segurança",
-      "Permissões editáveis: defina exatamente o que cada pessoa pode ver e mexer",
-      "Controle automático de repasses e divisão de atendimentos",
-      "Formulários e fichas personalizáveis para toda a clínica",
+      { text: "4 acessos simultâneos ao mesmo tempo", bold: true },
+      { text: "Controle automático de repasses e divisão de atendimentos", bold: true },
+      { text: "Permissões 100% editáveis por função e membro da equipe", bold: true },
+      { text: "Profissionais e colaboradores ilimitados para cadastrar", bold: false },
+      { text: "Formulários e fichas personalizáveis para toda a clínica", bold: false },
+      { text: "Dono no topo com controle total de segurança", bold: false },
+      { text: "Consultoria de implantação VIP de lançamento inclusa", bold: true },
     ],
     cta: "Escolher Médio",
     featured: true,
@@ -121,13 +138,15 @@ export const CLINIC_PLANS: Plan[] = [
     name: "Top",
     tagline: "Grandes clínicas e alta rotatividade",
     monthly: 199.00,
+    highlightDifference: "8 acessos simultâneos + Trilha de auditoria",
     features: [
-      "8 acessos simultâneos ao mesmo tempo",
-      "Profissionais e colaboradores ilimitados para cadastrar",
-      "Dono com controle total sobre toda a estrutura da clínica",
-      "Personalização total de cargos, níveis de hierarquia e regras de acesso",
-      "Gestão integrada de várias salas e especialidades",
-      "Histórico completo de quem acessou e editou cada prontuário",
+      { text: "8 acessos simultâneos ao mesmo tempo", bold: true },
+      { text: "Histórico completo e trilha de quem acessou cada prontuário", bold: true },
+      { text: "Gestão integrada de várias salas, macas e especialidades", bold: true },
+      { text: "Personalização total de níveis de hierarquia da equipe", bold: true },
+      { text: "Profissionais e colaboradores ilimitados para cadastrar", bold: false },
+      { text: "Controle total sobre toda a estrutura clínica", bold: false },
+      { text: "Consultoria de implantação VIP de lançamento inclusa", bold: true },
     ],
     cta: "Escolher Top",
     featured: false,
