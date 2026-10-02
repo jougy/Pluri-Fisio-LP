@@ -12,19 +12,21 @@ const slide2 = WORKFLOW_STEPS.slice(3, 6);
   id="como-funciona"
   aria-labelledby="como-titulo"
   class="snap-page workflow-navy-section"
-  style="background-color: #0E2246 !important; color: #FFFFFF !important;"
 >
+  <!-- Efeito sutil no fundo com luzes orgânicas difusas (azul, ciano e violeta) -->
+  <div class="workflow-ambient-bg" aria-hidden="true">
+    <div class="ambient-glow glow-cyan"></div>
+    <div class="ambient-glow glow-indigo"></div>
+    <div class="ambient-glow glow-purple"></div>
+  </div>
+
   <div class="workflow-navy-container">
     <!-- Header com Título -->
     <div class="workflow-navy-header">
       <div>
-        <span class="workflow-tag-pill">FLUXO CLÍNICO COMPLETO</span>
         <h2 id="como-titulo" class="workflow-navy-title">
-          Seu paciente atendido<br class="hide-mobile" /> em 6 passos simples.
+          Principais Funcionalidades
         </h2>
-      </div>
-      <div class="workflow-header-hint">
-        <span>💡 Toque em cada etapa para ver os recursos</span>
       </div>
     </div>
 
@@ -68,11 +70,54 @@ const slide2 = WORKFLOW_STEPS.slice(3, 6);
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #0E2246 !important;
+    background: linear-gradient(180deg, #091730 0%, #0E2246 50%, #08152B 100%) !important;
     color: #FFFFFF !important;
     padding: clamp(3.5rem, 6vw, 6rem) clamp(1.25rem, 4vw, 3.5rem);
     box-sizing: border-box;
     overflow: hidden;
+  }
+
+  /* Fundo sutil e elegante com luzes difusas acolhedoras */
+  .workflow-ambient-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .ambient-glow {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(100px);
+    opacity: 0.28;
+    pointer-events: none;
+    will-change: transform;
+  }
+
+  .glow-cyan {
+    top: -10%;
+    left: 15%;
+    width: clamp(300px, 35vw, 550px);
+    height: clamp(300px, 35vw, 550px);
+    background: radial-gradient(circle, #00E5FF 0%, rgba(0, 229, 255, 0.2) 60%, transparent 80%);
+  }
+
+  .glow-indigo {
+    bottom: -15%;
+    right: 10%;
+    width: clamp(320px, 40vw, 600px);
+    height: clamp(320px, 40vw, 600px);
+    background: radial-gradient(circle, #6366F1 0%, rgba(99, 102, 241, 0.2) 60%, transparent 80%);
+  }
+
+  .glow-purple {
+    top: 35%;
+    right: 35%;
+    width: clamp(280px, 30vw, 480px);
+    height: clamp(280px, 30vw, 480px);
+    background: radial-gradient(circle, #A855F7 0%, rgba(168, 85, 247, 0.15) 60%, transparent 80%);
+    opacity: 0.18;
   }
 
   .workflow-navy-container {
@@ -116,19 +161,6 @@ const slide2 = WORKFLOW_STEPS.slice(3, 6);
     margin: 0 !important;
   }
 
-  .workflow-header-hint {
-    display: inline-flex;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(0, 198, 255, 0.25);
-    color: #38BDF8;
-    font-size: clamp(0.78rem, 1vw, 0.86rem);
-    font-weight: 600;
-    padding: 0.5rem 1rem;
-    border-radius: 9999px;
-    white-space: nowrap;
-  }
-
   /* Viewport do Carrossel */
   .workflow-carousel-viewport {
     position: relative;
@@ -136,11 +168,12 @@ const slide2 = WORKFLOW_STEPS.slice(3, 6);
     min-height: 0;
   }
 
-  /* Trilho de Cards: Grid 3x2 no Desktop */
+  /* Trilho de Cards: Grid 3x2 no Desktop com align-items: start para expansão independente */
   .workflow-cards-track {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    align-items: start;
     gap: clamp(1rem, 2vw, 1.8rem);
     box-sizing: border-box;
   }

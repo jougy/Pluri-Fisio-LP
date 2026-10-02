@@ -4,85 +4,71 @@ export interface WorkflowStep {
   title: string;
   summary: string;
   icon: string;
-  badge?: string;
-  details: {
-    highlight: string;
-    description: string;
-    chips?: string[];
-  };
+  theme: string; // Cada card com uma cor/tema diferente
+  accentColor: string;
+  bgColor: string;
+  borderColor: string;
 }
 
 export const WORKFLOW_STEPS: WorkflowStep[] = [
   {
     step: "01",
-    title: "Auto-cadastro",
-    summary: "O paciente preenche a ficha no celular antes da sessão.",
+    title: "Auto-Cadastro",
+    summary: "Envie o cadastro completo para o paciente preencher antes da consulta",
     icon: "user-plus",
-    badge: "Agilidade",
-    details: {
-      highlight: "Economize até 15 minutos na recepção e maca",
-      description: "O paciente recebe um link simples no WhatsApp, confirma os dados cadastrais e preenche o histórico preliminar direto no smartphone antes mesmo de entrar no consultório.",
-      chips: ["Link no WhatsApp", "Zero papel na recepção", "Validação automática"],
-    },
+    theme: "card-theme-cyan",
+    accentColor: "#00E5FF",
+    bgColor: "linear-gradient(145deg, rgba(0, 229, 255, 0.12) 0%, rgba(14, 34, 70, 0.95) 100%)",
+    borderColor: "rgba(0, 229, 255, 0.35)",
   },
   {
     step: "02",
-    title: "Agenda com Status Visual",
-    summary: "Relógio de 4 cores e status de recepção em tempo real.",
+    title: "Agendamento simples",
+    summary: "Organize seus agendamentos de forma rápida pensada para facilitar seu dia a dia",
     icon: "calendar",
-    badge: "Semiótica",
-    details: {
-      highlight: "Bateu o olho, sabe na hora o status da consulta",
-      description: "Muda de cor conforme o momento do paciente: Verde (Hoje), Azul (Futuro), Laranja (Chegou na recepção) e Vermelho (Em atraso). Você nunca mais precisa interromper atendimentos para checar a recepção.",
-      chips: ["4 Cores dinâmicas", "Recorrência semanal (D S T Q Q S S)", "Sincronização instantânea"],
-    },
+    theme: "card-theme-emerald",
+    accentColor: "#10B981",
+    bgColor: "linear-gradient(145deg, rgba(16, 185, 129, 0.12) 0%, rgba(14, 34, 70, 0.95) 100%)",
+    borderColor: "rgba(16, 185, 129, 0.35)",
   },
   {
     step: "03",
-    title: "Anamnese No-Code",
-    summary: "Editor visual de blocos ou modelos prontos por especialidade.",
+    title: "Anamnese personalizavel",
+    summary: "Crie suas fichas de anamnese com o melhor editor de formulários para se adaptar ao seu jeito e obtenha estatisticas automaticamente",
     icon: "file-text",
-    badge: "Personalizável",
-    details: {
-      highlight: "Crie fichas e réguas de avaliação sem programador",
-      description: "Construa formulários com blocos de arrastar e soltar, escalas visuais de dor (EVA), mapas corporais e réguas numéricas sob medida para Fisioterapia Traumato-ortopédica, Neuro, Respiratória, Pélvica ou Pilates.",
-      chips: ["Arrastar e soltar", "Escalas e réguas visuais", "Biblioteca pronta"],
-    },
+    theme: "card-theme-purple",
+    accentColor: "#C084FC",
+    bgColor: "linear-gradient(145deg, rgba(192, 132, 252, 0.12) 0%, rgba(14, 34, 70, 0.95) 100%)",
+    borderColor: "rgba(192, 132, 252, 0.35)",
   },
   {
     step: "04",
-    title: "Tratamentos & Protocolos",
-    summary: "Prescrição ágil ao lado da maca sem telas poluídas.",
+    title: "Tratamentos Ágeis",
+    summary: "Monte seus planos de tratamentos de forma rápida e dinamica sem perder tempo",
     icon: "layers",
-    badge: "Eficiência",
-    details: {
-      highlight: "Condutas terapêuticas em poucos toques",
-      description: "Prescreva exercícios, parâmetros de eletroterapia e ciclos de reabilitação com tags coloridas por linha de cuidado (Coluna, Joelho, Ombro, Liberação Miofascial). Focado na velocidade real da maca.",
-      chips: ["Tags por linha de cuidado", "Parâmetros rápidos", "Zero telas poluídas"],
-    },
+    theme: "card-theme-amber",
+    accentColor: "#F59E0B",
+    bgColor: "linear-gradient(145deg, rgba(245, 158, 11, 0.12) 0%, rgba(14, 34, 70, 0.95) 100%)",
+    borderColor: "rgba(245, 158, 11, 0.35)",
   },
   {
     step: "05",
-    title: "Pagamentos & Símbolo $",
-    summary: "Extrato com um clique, pacotes e controle financeiro integrado.",
+    title: "Controle Financeiro",
+    summary: "Estatisticas completas para te ajudar na tomada de decisões do seu negócio",
     icon: "credit-card",
-    badge: "Financeiro",
-    details: {
-      highlight: "Controle financeiro consolidado no card do paciente",
-      description: "Um clique no símbolo '$' mostra se a sessão está Quitada (Verde), Pendente (Laranja), Em Débito (Vermelho) ou Com Crédito (Azul). Gerencie pacotes de sessões com dedução automática e recibos ágeis.",
-      chips: ["Símbolo $ com 4 cores", "Dedução automática de pacote", "Emissão rápida de recibos"],
-    },
+    theme: "card-theme-rose",
+    accentColor: "#F43F5E",
+    bgColor: "linear-gradient(145deg, rgba(244, 63, 94, 0.12) 0%, rgba(14, 34, 70, 0.95) 100%)",
+    borderColor: "rgba(244, 63, 94, 0.35)",
   },
   {
     step: "06",
-    title: "Evolução em 1 Toque",
-    summary: "Duplicação ultra-rápida e histórico com respaldo LGPD.",
+    title: "Evolução inteligente",
+    summary: "Evolua seus pacientes utilizando o último atendimento, alterando apenas o necessário, otimizando ao máximo o seu tempo",
     icon: "trending-up",
-    badge: "Duplicação",
-    details: {
-      highlight: "Economize até 1h30 por dia: replique em 30 segundos",
-      description: "Com a 'Duplicação Rápida', o sistema puxa toda a conduta da sessão anterior em 1 toque. Você só anota a evolução real do dia. Inclui carimbo de tempo inviolável, segurança LGPD e liberdade multiclínica.",
-      chips: ["Duplicação em 1 toque", "Carimbo de tempo LGPD", "Portfólio fica com você"],
-    },
+    theme: "card-theme-blue",
+    accentColor: "#3B82F6",
+    bgColor: "linear-gradient(145deg, rgba(59, 130, 246, 0.14) 0%, rgba(14, 34, 70, 0.95) 100%)",
+    borderColor: "rgba(59, 130, 246, 0.35)",
   },
 ];

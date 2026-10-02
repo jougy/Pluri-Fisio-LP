@@ -47,9 +47,12 @@ const { plan } = Astro.props;
 
   <div class="card-footer">
     <a
-      href="https://plurifisio.com.br"
+      href={`http://pluri.health/auth/cadastro?plan=${plan.id}&cycle=monthly`}
       class:list={["plan-cta-btn", plan.featured ? "btn-featured" : "btn-standard"]}
       data-cta-default={plan.cta}
+      data-plan-id={plan.id}
+      data-plan-name={plan.name}
+      data-audience={plan.audience}
     >
       <span>{plan.cta}</span>
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">

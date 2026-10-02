@@ -5,11 +5,15 @@
 <section
   id="lancamento"
   aria-labelledby="lancamento-titulo"
-  class="snap-page hero-aurora hero-section"
+  class="snap-page pastel-aurora-section hero-section"
 >
-  <div aria-hidden="true" class="hero-grid"></div>
-  <div aria-hidden="true" class="hero-orbit orbit-1"></div>
-  <div aria-hidden="true" class="hero-orbit orbit-2"></div>
+  <!-- Fundo Aurora Pastel: Bem-Estar, Acolhedor & Clean -->
+  <div class="pastel-aurora-bg" aria-hidden="true">
+    <div class="aurora-glow aurora-lavender"></div>
+    <div class="aurora-glow aurora-sky"></div>
+    <div class="aurora-glow aurora-mint"></div>
+    <div class="aurora-glow aurora-rose"></div>
+  </div>
   
   <div class="hero-brand-top">
     <span class="t-small hero-badge" aria-label="Lançamento Oficial">
@@ -52,12 +56,12 @@
       </h1>
     </div>
 
-    <span class="hero-target-audience">Para fisioterapeutas e clínicas</span>
+    <h2 class="hero-target-audience">Para fisioterapeutas e clínicas</h2>
   </div>
 
-  <p id="lancamento-titulo" class="hero-title">
+  <h3 id="lancamento-titulo" class="hero-title">
     Solução simples, rápida e prática para seu dia-a-dia de atendimentos.
-  </p>
+  </h3>
 
   <div class="hero-actions">
     <a href="#planos" class="btn-clay hero-btn">
@@ -120,23 +124,23 @@
     transform: scale(1.06);
   }
 
-  /* Título Pluri Fisio: apenas GLOW NEON estático e limpo sem onda */
+  /* Título Pluri Fisio: exatamente 8vw conforme pedido */
   .hero-brand-name {
-    font-size: clamp(2.8rem, 6.2vmin, 4.5rem);
+    font-size: clamp(3rem, 8vw, 6.5rem);
     font-weight: 900;
     letter-spacing: -0.02em;
-    line-height: 1.25;
+    line-height: 1.15;
     margin: 0;
     padding: 0.35rem clamp(0.75rem, 2vw, 1.5rem);
     color: #0072FF;
-    text-shadow: 0 0 16px rgba(0, 114, 255, 0.45);
+    text-shadow: 0 0 24px rgba(0, 114, 255, 0.45);
     display: block;
     user-select: none;
   }
 
   /* Badge Lançamento Oficial: agora com o efeito WAVY suave */
   .hero-badge {
-    font-size: clamp(0.8rem, 1.6vmin, 1rem);
+    font-size: clamp(0.9rem, 1.8vmin, 1.15rem);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.24em;
@@ -173,72 +177,101 @@
   }
 
   .hero-target-audience {
-    font-size: clamp(0.85rem, 1.6vmin, 1rem);
-    font-weight: 600;
+    font-size: clamp(1.1rem, 2.2vw, 2.2rem);
+    font-weight: 900;
     color: var(--clay);
     letter-spacing: 0.04em;
     text-transform: uppercase;
+    margin: 0;
   }
 
-  .hero-grid {
+  /* Fundo Aurora Pastel: Bem-Estar & Saúde (Acolhedor, Limpo e Moderno) */
+  .pastel-aurora-section {
+    background: #FBFDFE !important;
+  }
+
+  .pastel-aurora-bg {
     position: absolute;
     inset: 0;
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
-                      linear-gradient(to bottom, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
-    background-size: 4rem 4rem;
-    mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
-    -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+    width: 100%;
+    height: 100%;
     pointer-events: none;
     z-index: 0;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.95) 0%, rgba(246, 250, 254, 0.6) 100%);
   }
 
-  .hero-orbit {
+  .aurora-glow {
     position: absolute;
     border-radius: 9999px;
-    border: 1px solid rgba(0, 114, 255, 0.12);
+    filter: blur(90px);
     pointer-events: none;
-    z-index: 0;
-    animation: orbitRotate 30s linear infinite;
+    will-change: transform, opacity;
   }
 
-  .orbit-1 {
+  /* Centro & Topo: Azul Celeste Suave */
+  .aurora-sky {
+    top: -12%;
     left: 50%;
-    top: 50%;
-    width: min(85vmin, 850px);
-    height: min(85vmin, 850px);
-    margin-left: max(-42.5vmin, -425px);
-    margin-top: max(-42.5vmin, -425px);
+    transform: translateX(-50%);
+    width: clamp(380px, 50vw, 750px);
+    height: clamp(380px, 50vw, 750px);
+    background: radial-gradient(circle, rgba(0, 114, 255, 0.16) 0%, rgba(56, 189, 248, 0.1) 50%, transparent 75%);
+    animation: auroraFloatSlow 14s ease-in-out infinite alternate;
   }
 
-  .orbit-2 {
-    left: 50%;
-    top: 50%;
-    width: min(58vmin, 580px);
-    height: min(58vmin, 580px);
-    margin-left: max(-29vmin, -290px);
-    margin-top: max(-29vmin, -290px);
-    animation-delay: -6s;
+  /* Lateral Esquerda: Lavanda Suave & Calmante */
+  .aurora-lavender {
+    top: 25%;
+    left: -8%;
+    width: clamp(340px, 42vw, 620px);
+    height: clamp(340px, 42vw, 620px);
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.13) 0%, rgba(192, 132, 252, 0.06) 50%, transparent 75%);
+    animation: auroraFloatSlow 18s ease-in-out infinite alternate-reverse;
   }
 
-  @keyframes orbitRotate {
-    from {
-      transform: rotate(0deg);
+  /* Lateral Direita: Menta / Sage Clínico Refrescante */
+  .aurora-mint {
+    top: 20%;
+    right: -8%;
+    width: clamp(340px, 42vw, 620px);
+    height: clamp(340px, 42vw, 620px);
+    background: radial-gradient(circle, rgba(45, 212, 191, 0.13) 0%, rgba(20, 184, 166, 0.05) 50%, transparent 75%);
+    animation: auroraFloatSlow 16s ease-in-out infinite alternate;
+  }
+
+  /* Base Suave: Toque Rosa Pastel Suave para Acolhimento */
+  .aurora-rose {
+    bottom: -15%;
+    left: 45%;
+    transform: translateX(-50%);
+    width: clamp(360px, 46vw, 680px);
+    height: clamp(360px, 46vw, 680px);
+    background: radial-gradient(circle, rgba(244, 114, 182, 0.11) 0%, rgba(251, 113, 133, 0.04) 50%, transparent 75%);
+    animation: auroraFloatSlow 20s ease-in-out infinite alternate-reverse;
+  }
+
+  @keyframes auroraFloatSlow {
+    0% {
+      transform: translate3d(0, 0, 0) scale(1);
     }
-    to {
-      transform: rotate(360deg);
+    50% {
+      transform: translate3d(15px, -18px, 0) scale(1.04);
+    }
+    100% {
+      transform: translate3d(-12px, 14px, 0) scale(0.97);
     }
   }
-
 
   .hero-title {
     position: relative;
     z-index: 2;
-    font-size: clamp(1.85rem, 4.2vmin, 3.25rem);
-    font-weight: 700;
-    line-height: 1.18;
-    max-width: 22ch;
+    font-size: clamp(1.4rem, 2vw, 2.4rem);
+    font-weight: 500;
+    line-height: 1.25;
+    max-width: 32ch;
     color: var(--foreground);
-    letter-spacing: -0.025em;
+    letter-spacing: -0.015em;
     margin: 0;
   }
 
@@ -287,7 +320,7 @@
 
   @media (max-width: 640px) {
     .hero-title {
-      font-size: 1.85rem;
+      font-size: 2.15rem;
       line-height: 1.22;
       max-width: 100%;
     }
