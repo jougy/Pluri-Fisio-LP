@@ -33,7 +33,7 @@ import FeaturesModal from '../components/home/FeaturesModal.astro';
     <!-- 3 — Como funciona (Fluxo real Pluri Fisio em 6 etapas) -->
     <WorkflowSection />
 
-    <!-- 4 — Planos (Com cálculo reativo) -->
+    <!-- 4 — Planos (Com cálculo reativo e links inteligentes diretos) -->
     <PricingSection />
   </main>
 
@@ -42,7 +42,14 @@ import FeaturesModal from '../components/home/FeaturesModal.astro';
 </Layout>
 
 <script>
-  import { setupPricing, setupWorkflowAccordion, setupWorkflowResponsiveCarousel, setupSmoothAnchors, setupModal } from '../scripts/home-interactions';
+  import { 
+    setupPricing, 
+    setupWorkflowAccordion, 
+    setupWorkflowResponsiveCarousel, 
+    setupSmoothAnchors, 
+    setupModal,
+    setupMetaPixelTracking
+  } from '../scripts/home-interactions';
 
   function init() {
     setupPricing();
@@ -50,6 +57,7 @@ import FeaturesModal from '../components/home/FeaturesModal.astro';
     setupWorkflowResponsiveCarousel();
     setupSmoothAnchors();
     setupModal();
+    setupMetaPixelTracking();
   }
 
   if (document.readyState === "loading") {

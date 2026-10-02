@@ -50,6 +50,7 @@ export function setupPricing() {
       } else {
         if (freeHighlightPane) freeHighlightPane.style.display = "none";
         if (groupProf) groupProf.style.display = target === "prof" ? "" : "none";
+        if (groupClinic) groupClinic.style.display = target === "clinic" ? "" : "none";
       }
     }
 
@@ -68,39 +69,60 @@ export function setupPricing() {
   const formatBRL = (val: number) =>
     Number.isInteger(val) ? `R$ ${val}` : `R$ ${val.toFixed(2).replace(".", ",")}`;
 
-  // Pré-computar valores para todos os cards
+  // Tabela oficial de preços equivalentes por plano e ciclo (conforme Tabela de URLs Landing Page plurifisio.md)
+  const OFFICIAL_PRICES: Record<string, {
+    mensal: { main: string; sub: string; val: number };
+    trimestral: { main: string; sub: string; val: number };
+    anual: { main: string; sub: string; val: number };
+  }> = {
+    prof_basico: {
+      mensal: { main: "R$ 59,90/mês", sub: "Cobrado mensalmente", val: 59.90 },
+      trimestral: { main: "R$ 49,90/mês", sub: "Total R$ 149,70 por trimestre", val: 49.90 },
+      anual: { main: "R$ 39,90/mês", sub: "Total R$ 478,80 por ano", val: 39.90 },
+    },
+    prof_medio: {
+      mensal: { main: "R$ 89,90/mês", sub: "Cobrado mensalmente", val: 89.90 },
+      trimestral: { main: "R$ 74,90/mês", sub: "Total R$ 224,70 por trimestre", val: 74.90 },
+      anual: { main: "R$ 59,90/mês", sub: "Total R$ 718,80 por ano", val: 59.90 },
+    },
+    prof_top: {
+      mensal: { main: "R$ 129,90/mês", sub: "Cobrado mensalmente", val: 129.90 },
+      trimestral: { main: "R$ 109,90/mês", sub: "Total R$ 329,70 por trimestre", val: 109.90 },
+      anual: { main: "R$ 89,90/mês", sub: "Total R$ 1.078,80 por ano", val: 89.90 },
+    },
+    clinica_basico: {
+      mensal: { main: "R$ 149,90/mês", sub: "Cobrado mensalmente", val: 149.90 },
+      trimestral: { main: "R$ 129,90/mês", sub: "Total R$ 389,70 por trimestre", val: 129.90 },
+      anual: { main: "R$ 99,90/mês", sub: "Total R$ 1.198,80 por ano", val: 99.90 },
+    },
+    clinica_medio: {
+      mensal: { main: "R$ 269,90/mês", sub: "Cobrado mensalmente", val: 269.90 },
+      trimestral: { main: "R$ 229,90/mês", sub: "Total R$ 689,70 por trimestre", val: 229.90 },
+      anual: { main: "R$ 179,90/mês", sub: "Total R$ 2.158,80 por ano", val: 179.90 },
+    },
+    clinica_top: {
+      mensal: { main: "R$ 449,90/mês", sub: "Cobrado mensalmente", val: 449.90 },
+      trimestral: { main: "R$ 389,90/mês", sub: "Total R$ 1.169,70 por trimestre", val: 389.90 },
+      anual: { main: "R$ 299,90/mês", sub: "Total R$ 3.598,80 por ano", val: 299.90 },
+    },
+  };
+
+  // Pré-computar elementos para todos os cards
   const cardData = Array.from(cards).map(card => {
     const cardId = card.id;
-    const monthlyVal = parseFloat(card.getAttribute("data-monthly") || "0");
+    const planId = cardId.replace("card-", "");
     const mainEl = card.querySelector<HTMLElement>("[data-price-main]");
     const subEl = card.querySelector<HTMLElement>("[data-price-sub]");
     const ctaBtn = card.querySelector<HTMLAnchorElement>(".plan-cta-btn");
     const defaultCta = ctaBtn?.getAttribute("data-cta-default") || "Escolher Plano";
 
-    const quarterlyVal = monthlyVal * 0.9;
-    const annualVal = monthlyVal * 0.75;
-
     return {
       cardId,
+      planId,
       mainEl,
       subEl,
       ctaBtn,
       defaultCta,
-      priceCache: {
-        free: {
-          main: "7 Dias Grátis",
-          sub: "Experimente com 20 atendimentos inclusos",
-        },
-        mensal: { main: `${formatBRL(monthlyVal)}/mês`, sub: "Cobrado mensalmente" },
-        trimestral: {
-          main: `${formatBRL(quarterlyVal)}/mês`,
-          sub: `Total ${formatBRL(quarterlyVal * 3)} por trimestre`,
-        },
-        anual: {
-          main: `${formatBRL(annualVal)}/mês`,
-          sub: `Total ${formatBRL(annualVal * 12)} por ano`,
-        },
-      } as Record<string, { main: string; sub: string }>,
     };
   });
 
@@ -112,7 +134,7 @@ export function setupPricing() {
     });
 
     if (cycleId === "free") {
-      // Exibe card especial de 7 dias grátis em destaque limpo
+      // Exibe card especial de Teste Gratuito de 7 dias em destaque limpo
       if (freeHighlightPane) freeHighlightPane.style.display = "";
       if (groupProf) groupProf.style.display = "none";
       if (groupClinic) groupClinic.style.display = "none";
@@ -131,16 +153,28 @@ export function setupPricing() {
 
     for (let i = 0; i < cardData.length; i++) {
       const data = cardData[i];
-      const price = data.priceCache[cycleId] || data.priceCache.mensal;
-      if (data.mainEl) data.mainEl.textContent = price.main;
-      if (data.subEl) data.subEl.textContent = price.sub;
-      if (data.ctaBtn) {
-        if (cycleId === "free") {
-          data.ctaBtn.textContent = "Iniciar 7 Dias Grátis";
-          data.ctaBtn.href = "https://plurifisio.com.br/planos?cycle=free";
-        } else {
+      const planPrices = OFFICIAL_PRICES[data.planId];
+
+      if (cycleId === "free") {
+        if (data.mainEl) data.mainEl.textContent = "7 Dias Grátis";
+        if (data.subEl) data.subEl.textContent = "Experimente com 20 atendimentos inclusos";
+        if (data.ctaBtn) {
+          data.ctaBtn.textContent = "Experimente Grátis";
+          data.ctaBtn.href = "http://pluri.health/auth/cadastro?trial=true";
+        }
+      } else {
+        const cycleKey = (cycleId === "anual" ? "anual" : cycleId === "trimestral" ? "trimestral" : "mensal") as "mensal" | "trimestral" | "anual";
+        const cycleParam = cycleId === "anual" ? "annual" : cycleId === "trimestral" ? "quarterly" : "monthly";
+
+        if (planPrices) {
+          const item = planPrices[cycleKey];
+          if (data.mainEl) data.mainEl.textContent = item.main;
+          if (data.subEl) data.subEl.textContent = item.sub;
+        }
+
+        if (data.ctaBtn) {
           data.ctaBtn.textContent = data.defaultCta;
-          data.ctaBtn.href = "https://plurifisio.com.br/planos";
+          data.ctaBtn.href = `http://pluri.health/auth/cadastro?plan=${data.planId}&cycle=${cycleParam}`;
         }
       }
     }
@@ -196,28 +230,35 @@ export function setupPricing() {
   syncPlanCarousel(groupClinic);
 }
 
-// Interatividade das Sanfonas (Accordions) da Seção 3 (Workflow)
+// Interatividade das Sanfonas (Accordions) da Seção 3 (Workflow) - Card Inteiro Clicável
 export function setupWorkflowAccordion() {
   const accordionCards = document.querySelectorAll<HTMLElement>("[data-accordion-card]");
   if (!accordionCards.length) return;
 
   accordionCards.forEach((card) => {
-    const trigger = card.querySelector<HTMLButtonElement>(".workflow-card-trigger");
     const body = card.querySelector<HTMLElement>(".accordion-body");
     const toggleText = card.querySelector<HTMLElement>(".toggle-text");
 
-    if (!trigger || !body) return;
+    if (!body) return;
 
-    trigger.addEventListener("click", () => {
-      const isExpanded = trigger.getAttribute("aria-expanded") === "true";
+    function toggleCard() {
+      const isExpanded = card.getAttribute("aria-expanded") === "true";
       const nextState = !isExpanded;
 
-      trigger.setAttribute("aria-expanded", String(nextState));
+      card.setAttribute("aria-expanded", String(nextState));
       card.classList.toggle("is-open", nextState);
-      body.hidden = !nextState;
 
       if (toggleText) {
-        toggleText.textContent = nextState ? "Ocultar detalhes" : "Ver detalhes";
+        toggleText.textContent = nextState ? "Ver menos" : "Ver mais";
+      }
+    }
+
+    card.addEventListener("click", toggleCard);
+
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        toggleCard();
       }
     });
   });
@@ -302,6 +343,193 @@ export function setupWorkflowResponsiveCarousel() {
   track.addEventListener("scroll", onWorkflowScroll, { passive: true });
 }
 
+// Disparo Inteligente de Eventos do Meta Pixel (Facebook Ads) - 7 Triggers Completos
+export function setupMetaPixelTracking() {
+  const getFbq = () => (window as unknown as { fbq?: (...args: unknown[]) => void }).fbq;
+
+  // 1 & 2: Eventos de Clique (Lead, InitiateCheckout, Contact)
+  document.addEventListener("click", (e) => {
+    const target = (e.target as HTMLElement)?.closest<HTMLElement>(
+      'a[data-pixel-event], button[data-pixel-event], a.plan-cta-btn, a.free-card-cta, .enterprise-primary-btn'
+    );
+    if (!target) return;
+
+    const fbq = getFbq();
+    if (!fbq) return;
+
+    const explicitEvent = target.getAttribute("data-pixel-event");
+
+    // Trigger 1: Conversão Lead (Cadastro Gratuito / Teste Grátis)
+    if (explicitEvent === "Lead" || target.classList.contains("free-card-cta")) {
+      fbq("track", "Lead", {
+        content_name: "Criar Conta Gratuita",
+        content_category: "Registro de Profissional",
+        status: "intent"
+      });
+      return;
+    }
+
+    // Trigger 2: Contato WhatsApp / Enterprise
+    if (explicitEvent === "Contact" || target.getAttribute("data-contact-channel") === "whatsapp_enterprise") {
+      fbq("track", "Contact", {
+        content_name: "Contato Enterprise WhatsApp",
+        channel: "whatsapp"
+      });
+      return;
+    }
+
+    // Trigger 1: Iniciar Assinatura (Checkout)
+    if (target.classList.contains("plan-cta-btn")) {
+      const planId = target.getAttribute("data-plan-id") || "plano";
+      const planName = target.getAttribute("data-plan-name") || "Plano";
+      const audience = target.getAttribute("data-audience") || "prof";
+      const parentCard = target.closest(".plan-card");
+      const priceText = parentCard?.querySelector("[data-price-main]")?.textContent || "";
+      const priceMatch = priceText.match(/[\d,.]+/);
+      const parsedValue = priceMatch ? parseFloat(priceMatch[0].replace(".", "").replace(",", ".")) : 0;
+
+      fbq("track", "InitiateCheckout", {
+        content_name: `Plano ${planName}`,
+        content_ids: [planId],
+        content_type: "product",
+        content_category: audience === "clinic" ? "Clínica" : "Profissional",
+        currency: "BRL",
+        value: parsedValue
+      });
+    }
+  });
+
+  // Trigger 3: Visualização da Seção de Planos (ViewContent)
+  let plansViewed = false;
+  const plansSection = document.getElementById("planos");
+  if (plansSection && "IntersectionObserver" in window) {
+    const plansObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !plansViewed) {
+          plansViewed = true;
+          const fbq = getFbq();
+          if (fbq) {
+            fbq("track", "ViewContent", {
+              content_name: "Secao_Planos",
+              content_category: "Precos_e_Assinaturas"
+            });
+          }
+          plansObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.35 });
+    plansObserver.observe(plansSection);
+  }
+
+  // Trigger 4: Abertura do Modal de Funcionalidades (ViewContent - Modal)
+  let modalViewed = false;
+  const modalOverlay = document.getElementById("featuresModalOverlay");
+  const btnOpenModal = document.getElementById("btnOpenFeaturesModal");
+
+  const trackModalOpen = () => {
+    if (modalViewed) return;
+    modalViewed = true;
+    const fbq = getFbq();
+    if (fbq) {
+      fbq("track", "ViewContent", {
+        content_name: "Modal_Funcionalidades_Clinicas",
+        content_category: "Diferenciais_e_Recursos"
+      });
+    }
+  };
+
+  btnOpenModal?.addEventListener("click", trackModalOpen);
+  if (modalOverlay) {
+    const modalMutationObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === "attributes" && mutation.attributeName === "class") {
+          if (modalOverlay.classList.contains("is-active")) {
+            trackModalOpen();
+          }
+        }
+      });
+    });
+    modalMutationObserver.observe(modalOverlay, { attributes: true });
+  }
+
+  // Trigger 5: Interação com Seletor de Perfil ou Ciclos de Preço
+  const audienceButtons = document.querySelectorAll(".audience-toggle-btn");
+  audienceButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const audience = btn.getAttribute("data-audience") || "prof";
+      const fbq = getFbq();
+      if (fbq) {
+        fbq("trackCustom", "Interacao_Audience_Planos", {
+          audience_selected: audience
+        });
+      }
+    });
+  });
+
+  const cycleButtons = document.querySelectorAll(".cycle-btn");
+  cycleButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const cycle = btn.getAttribute("data-cycle") || "mensal";
+      const fbq = getFbq();
+      if (fbq) {
+        fbq("trackCustom", "Interacao_Ciclo_Planos", {
+          cycle_selected: cycle
+        });
+      }
+    });
+  });
+
+  // Trigger 6: Tempo de Permanência Qualificado (+30 segundos)
+  let timer30sTracked = false;
+  window.setTimeout(() => {
+    if (!timer30sTracked) {
+      timer30sTracked = true;
+      const fbq = getFbq();
+      if (fbq) {
+        fbq("trackCustom", "Tempo_Qualificado_30s", {
+          page: window.location.pathname
+        });
+      }
+    }
+  }, 30000);
+
+  // Trigger 7: Rolagem Profunda (Scroll Profundo 70% da página ou container de snap)
+  let scrollDeepTracked = false;
+  const snapContainer = document.querySelector(".snap-main-container") as HTMLElement | null;
+
+  const checkScrollDepth = () => {
+    if (scrollDeepTracked) return;
+
+    let scrollPercentage = 0;
+    if (snapContainer && snapContainer.scrollHeight > snapContainer.clientHeight) {
+      const currentScroll = snapContainer.scrollTop + snapContainer.clientHeight;
+      scrollPercentage = (currentScroll / snapContainer.scrollHeight) * 100;
+    } else {
+      const totalDocHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalDocHeight > 0) {
+        scrollPercentage = (window.scrollY / totalDocHeight) * 100;
+      }
+    }
+
+    if (scrollPercentage >= 70) {
+      scrollDeepTracked = true;
+      const fbq = getFbq();
+      if (fbq) {
+        fbq("trackCustom", "Scroll_Profundo_70", {
+          page: window.location.pathname
+        });
+      }
+      window.removeEventListener("scroll", checkScrollDepth);
+      if (snapContainer) snapContainer.removeEventListener("scroll", checkScrollDepth);
+    }
+  };
+
+  window.addEventListener("scroll", checkScrollDepth, { passive: true });
+  if (snapContainer) {
+    snapContainer.addEventListener("scroll", checkScrollDepth, { passive: true });
+  }
+}
+
 // Navegação suave em âncoras acionada apenas sob clique de link (evita lag no scroll manual do mouse/trackpad)
 export function setupSmoothAnchors() {
   document.addEventListener("click", (e) => {
@@ -317,4 +545,3 @@ export function setupSmoothAnchors() {
     }
   });
 }
-
