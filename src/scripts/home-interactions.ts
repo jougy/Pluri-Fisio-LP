@@ -69,41 +69,41 @@ export function setupPricing() {
   const formatBRL = (val: number) =>
     Number.isInteger(val) ? `R$ ${val}` : `R$ ${val.toFixed(2).replace(".", ",")}`;
 
-  // Tabela oficial de preços equivalentes por plano e ciclo (conforme Tabela de URLs Landing Page plurifisio.md)
+  // Tabela oficial de preços equivalentes por plano e ciclo (terminando em 7, sem centavos)
   const OFFICIAL_PRICES: Record<string, {
     mensal: { main: string; sub: string; val: number };
     trimestral: { main: string; sub: string; val: number };
     anual: { main: string; sub: string; val: number };
   }> = {
     prof_basico: {
-      mensal: { main: "R$ 59,90/mês", sub: "Cobrado mensalmente", val: 59.90 },
-      trimestral: { main: "R$ 49,90/mês", sub: "Total R$ 149,70 por trimestre", val: 49.90 },
-      anual: { main: "R$ 39,90/mês", sub: "Total R$ 478,80 por ano", val: 39.90 },
+      mensal: { main: "R$ 57/mês", sub: "Cobrado mensalmente", val: 57 },
+      trimestral: { main: "R$ 47/mês", sub: "Total R$ 141 por trimestre", val: 47 },
+      anual: { main: "R$ 37/mês", sub: "Total R$ 444 por ano", val: 37 },
     },
     prof_medio: {
-      mensal: { main: "R$ 89,90/mês", sub: "Cobrado mensalmente", val: 89.90 },
-      trimestral: { main: "R$ 74,90/mês", sub: "Total R$ 224,70 por trimestre", val: 74.90 },
-      anual: { main: "R$ 59,90/mês", sub: "Total R$ 718,80 por ano", val: 59.90 },
+      mensal: { main: "R$ 87/mês", sub: "Cobrado mensalmente", val: 87 },
+      trimestral: { main: "R$ 67/mês", sub: "Total R$ 201 por trimestre", val: 67 },
+      anual: { main: "R$ 57/mês", sub: "Total R$ 684 por ano", val: 57 },
     },
     prof_top: {
-      mensal: { main: "R$ 129,90/mês", sub: "Cobrado mensalmente", val: 129.90 },
-      trimestral: { main: "R$ 109,90/mês", sub: "Total R$ 329,70 por trimestre", val: 109.90 },
-      anual: { main: "R$ 89,90/mês", sub: "Total R$ 1.078,80 por ano", val: 89.90 },
+      mensal: { main: "R$ 127/mês", sub: "Cobrado mensalmente", val: 127 },
+      trimestral: { main: "R$ 107/mês", sub: "Total R$ 321 por trimestre", val: 107 },
+      anual: { main: "R$ 87/mês", sub: "Total R$ 1.044 por ano", val: 87 },
     },
     clinica_basico: {
-      mensal: { main: "R$ 149,90/mês", sub: "Cobrado mensalmente", val: 149.90 },
-      trimestral: { main: "R$ 129,90/mês", sub: "Total R$ 389,70 por trimestre", val: 129.90 },
-      anual: { main: "R$ 99,90/mês", sub: "Total R$ 1.198,80 por ano", val: 99.90 },
+      mensal: { main: "R$ 147/mês", sub: "Cobrado mensalmente", val: 147 },
+      trimestral: { main: "R$ 127/mês", sub: "Total R$ 381 por trimestre", val: 127 },
+      anual: { main: "R$ 97/mês", sub: "Total R$ 1.164 por ano", val: 97 },
     },
     clinica_medio: {
-      mensal: { main: "R$ 269,90/mês", sub: "Cobrado mensalmente", val: 269.90 },
-      trimestral: { main: "R$ 229,90/mês", sub: "Total R$ 689,70 por trimestre", val: 229.90 },
-      anual: { main: "R$ 179,90/mês", sub: "Total R$ 2.158,80 por ano", val: 179.90 },
+      mensal: { main: "R$ 267/mês", sub: "Cobrado mensalmente", val: 267 },
+      trimestral: { main: "R$ 227/mês", sub: "Total R$ 681 por trimestre", val: 227 },
+      anual: { main: "R$ 177/mês", sub: "Total R$ 2.124 por ano", val: 177 },
     },
     clinica_top: {
-      mensal: { main: "R$ 449,90/mês", sub: "Cobrado mensalmente", val: 449.90 },
-      trimestral: { main: "R$ 389,90/mês", sub: "Total R$ 1.169,70 por trimestre", val: 389.90 },
-      anual: { main: "R$ 299,90/mês", sub: "Total R$ 3.598,80 por ano", val: 299.90 },
+      mensal: { main: "R$ 447/mês", sub: "Cobrado mensalmente", val: 447 },
+      trimestral: { main: "R$ 387/mês", sub: "Total R$ 1.161 por trimestre", val: 387 },
+      anual: { main: "R$ 297/mês", sub: "Total R$ 3.564 por ano", val: 297 },
     },
   };
 

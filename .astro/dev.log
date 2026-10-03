@@ -90,3 +90,6 @@
 {"message":"[200] / 30ms","label":null,"level":"info"}
 {"message":"/src/components/home/WorkflowSection.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
 {"message":"[200] / 20ms","label":null,"level":"info"}
+{"message":"/src/components/pricing/PlanCard.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
+{"message":"src/scripts/home-interactions.ts","label":"watch","level":"info"}
+{"message":"public/tabela-planos.html","label":"watch","level":"info"}

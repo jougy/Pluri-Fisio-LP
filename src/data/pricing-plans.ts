@@ -28,8 +28,8 @@ export interface Plan {
 export const BILLING_CYCLES: Cycle[] = [
   { id: "free", label: "Grátis", note: "7 dias" },
   { id: "mensal", label: "Mensal" },
-  { id: "trimestral", label: "Trimestral", note: "-10%" },
-  { id: "anual", label: "Anual", note: "-25% OFF" },
+  { id: "trimestral", label: "Trimestral", note: "-15%" },
+  { id: "anual", label: "Anual", note: "-35% OFF" },
 ];
 
 export const PROF_PLANS: Plan[] = [
@@ -37,7 +37,7 @@ export const PROF_PLANS: Plan[] = [
     id: "prof_basico",
     name: "Básico",
     tagline: "Profissional autônomo iniciando consultório",
-    monthly: 59.90,
+    monthly: 57,
     highlightDifference: "1 acesso individual + 2 formulários",
     features: [
       { text: "1 acesso simultâneo individual", bold: true },
@@ -56,7 +56,7 @@ export const PROF_PLANS: Plan[] = [
     id: "prof_medio",
     name: "Médio",
     tagline: "Alta demanda e fichas personalizadas",
-    monthly: 89.90,
+    monthly: 87,
     highlightDifference: "Formulários e fichas ilimitadas + Portabilidade",
     features: [
       { text: "1 acesso simultâneo individual", bold: false },
@@ -76,7 +76,7 @@ export const PROF_PLANS: Plan[] = [
     id: "prof_top",
     name: "Top",
     tagline: "Máxima autonomia e apoio de secretária",
-    monthly: 129.90,
+    monthly: 127,
     highlightDifference: "2 acessos simultâneos (você + secretária) + Lembretes automáticos",
     features: [
       { text: "2 acessos simultâneos (você + secretária ou assistente)", bold: true },
@@ -98,7 +98,7 @@ export const CLINIC_PLANS: Plan[] = [
     id: "clinica_basico",
     name: "Básico",
     tagline: "Consultórios e salas compartilhadas",
-    monthly: 149.90,
+    monthly: 147,
     highlightDifference: "2 acessos simultâneos ao mesmo tempo",
     features: [
       { text: "2 acessos simultâneos ao mesmo tempo", bold: true },
@@ -117,7 +117,7 @@ export const CLINIC_PLANS: Plan[] = [
     id: "clinica_medio",
     name: "Médio",
     tagline: "Clínicas consolidadas com equipe",
-    monthly: 269.90,
+    monthly: 267,
     highlightDifference: "4 acessos simultâneos + Divisão de repasses",
     features: [
       { text: "4 acessos simultâneos ao mesmo tempo", bold: true },
@@ -137,7 +137,7 @@ export const CLINIC_PLANS: Plan[] = [
     id: "clinica_top",
     name: "Top",
     tagline: "Grandes clínicas e alta rotatividade",
-    monthly: 449.90,
+    monthly: 447,
     highlightDifference: "8 acessos simultâneos + Trilha de auditoria",
     features: [
       { text: "8 acessos simultâneos ao mesmo tempo", bold: true },
