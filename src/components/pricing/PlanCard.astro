@@ -26,7 +26,7 @@ const { plan } = Astro.props;
 
   <div class="price-wrapper">
     <div class="price-main-row">
-      <span class="price-number" data-price-main>{`R$ ${plan.monthly.toFixed(2).replace('.', ',')}/mês`}</span>
+      <span class="price-number" data-price-main>{Number.isInteger(plan.monthly) ? `R$ ${plan.monthly}/mês` : `R$ ${plan.monthly.toFixed(2).replace('.', ',')}/mês`}</span>
     </div>
     <div class="price-sub-note" data-price-sub>Cobrado mensalmente</div>
   </div>
