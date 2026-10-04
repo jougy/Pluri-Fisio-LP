@@ -24,9 +24,8 @@ export interface Plan {
   highlightDifference?: string;
 }
 
-// 4 opções de ciclo: Grátis (7 dias), Mensal, Trimestral, Anual
+// 3 opções de ciclo de faturamento real: Mensal, Trimestral, Anual
 export const BILLING_CYCLES: Cycle[] = [
-  { id: "free", label: "Grátis", note: "7 dias" },
   { id: "mensal", label: "Mensal" },
   { id: "trimestral", label: "Trimestral", note: "-15%" },
   { id: "anual", label: "Anual", note: "-35% OFF" },
@@ -153,3 +152,45 @@ export const CLINIC_PLANS: Plan[] = [
     audience: "clinic",
   },
 ];
+
+export type CycleId = "mensal" | "trimestral" | "anual";
+
+export interface PriceEntry {
+  main: string;
+  sub: string;
+  val: number;
+}
+
+// Tabela oficial de preços equivalentes por plano e ciclo (terminando em 7, sem centavos)
+export const PRICES: Record<string, Record<CycleId, PriceEntry>> = {
+  prof_basico: {
+    mensal: { main: "R$ 57/mês", sub: "Cobrado mensalmente", val: 57 },
+    trimestral: { main: "R$ 47/mês", sub: "Total R$ 141 por trimestre", val: 47 },
+    anual: { main: "R$ 37/mês", sub: "Total R$ 444 por ano", val: 37 },
+  },
+  prof_medio: {
+    mensal: { main: "R$ 87/mês", sub: "Cobrado mensalmente", val: 87 },
+    trimestral: { main: "R$ 67/mês", sub: "Total R$ 201 por trimestre", val: 67 },
+    anual: { main: "R$ 57/mês", sub: "Total R$ 684 por ano", val: 57 },
+  },
+  prof_top: {
+    mensal: { main: "R$ 127/mês", sub: "Cobrado mensalmente", val: 127 },
+    trimestral: { main: "R$ 107/mês", sub: "Total R$ 321 por trimestre", val: 107 },
+    anual: { main: "R$ 87/mês", sub: "Total R$ 1.044 por ano", val: 87 },
+  },
+  clinica_basico: {
+    mensal: { main: "R$ 147/mês", sub: "Cobrado mensalmente", val: 147 },
+    trimestral: { main: "R$ 127/mês", sub: "Total R$ 381 por trimestre", val: 127 },
+    anual: { main: "R$ 97/mês", sub: "Total R$ 1.164 por ano", val: 97 },
+  },
+  clinica_medio: {
+    mensal: { main: "R$ 267/mês", sub: "Cobrado mensalmente", val: 267 },
+    trimestral: { main: "R$ 227/mês", sub: "Total R$ 681 por trimestre", val: 227 },
+    anual: { main: "R$ 177/mês", sub: "Total R$ 2.124 por ano", val: 177 },
+  },
+  clinica_top: {
+    mensal: { main: "R$ 447/mês", sub: "Cobrado mensalmente", val: 447 },
+    trimestral: { main: "R$ 387/mês", sub: "Total R$ 1.161 por trimestre", val: 387 },
+    anual: { main: "R$ 297/mês", sub: "Total R$ 3.564 por ano", val: 297 },
+  },
+};
