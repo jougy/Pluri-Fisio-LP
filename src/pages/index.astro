@@ -43,13 +43,13 @@ import FeaturesModal from '../components/home/FeaturesModal.astro';
 
 <script>
   import { 
-    setupPricing, 
     setupWorkflowAccordion, 
     setupWorkflowResponsiveCarousel, 
     setupSmoothAnchors, 
     setupModal,
     setupMetaPixelTracking
   } from '../scripts/home-interactions';
+  import { setupPricing } from '../scripts/pricing-bento';
 
   function init() {
     setupPricing();

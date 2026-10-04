@@ -1,95 +1,24 @@
 {"message":"connected.","label":"vite","level":"info"}
-{"message":"Generated 1ms","label":"types","level":"info"}
+{"message":"Generated 2ms","label":"types","level":"info"}
 {"message":"connected.","label":"vite","level":"info"}
 {"message":"Re-optimizing dependencies because vite config has changed","label":"vite","level":"info"}
-{"message":" astro  v7.2.2 ready in 1048 ms\n┃ Local    http://localhost:4321/\n┃ Network  use --host to expose","label":"SKIP_FORMAT","level":"info"}
+{"message":" astro  v7.2.2 ready in 2824 ms\n┃ Local    http://localhost:4321/\n┃ Network  use --host to expose","label":"SKIP_FORMAT","level":"info"}
 {"message":"watching for file changes...","label":null,"level":"info"}
-{"message":"[200] / 36ms","label":null,"level":"info"}
-{"message":"/src/components/home/PlatformSection.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
-{"message":"src/components/home/PlatformSection.astro","label":"watch","level":"info"}
-{"message":"[200] / 49ms","label":null,"level":"info"}
-{"message":"/src/components/home/PlatformSection.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
-{"message":"src/components/home/PlatformSection.astro","label":"watch","level":"info"}
-{"message":"[200] / 29ms","label":null,"level":"info"}
-{"message":"src/components/home/PlatformSection.astro","label":"watch","level":"info"}
-{"message":"[200] / 22ms","label":null,"level":"info"}
-{"message":"/src/components/home/PlatformSection.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
-{"message":"src/components/home/PlatformSection.astro","label":"watch","level":"info"}
-{"message":"[200] / 30ms","label":null,"level":"info"}
-{"message":"/src/components/home/PlatformSection.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
-{"message":"[200] / 58ms","label":null,"level":"info"}
-{"message":"/src/components/home/HeroSection.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
-{"message":"/src/components/home/HeroSection.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
-{"message":"[200] / 22ms","label":null,"level":"info"}
-{"message":"/src/components/home/HeroSection.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
-{"message":"[200] / 23ms","label":null,"level":"info"}
-{"message":"Cannot read properties of undefined (reading 'highlight')\n  Stack trace:\n    at eval (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/src/components/workflow/WorkflowCard.astro:94:18)\n    [...] See full stack trace in the browser, or rerun with --verbose.","label":null,"level":"error"}
-{"message":"[200] / 6ms","label":null,"level":"info"}
-{"message":"Cannot read properties of undefined (reading 'highlight')\n  Stack trace:\n    at eval (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/src/components/workflow/WorkflowCard.astro:94:18)\n    [...] See full stack trace in the browser, or rerun with --verbose.","label":null,"level":"error"}
-{"message":"[200] / 5ms","label":null,"level":"info"}
-{"message":"Cannot read properties of undefined (reading 'highlight')\n  Stack trace:\n    at eval (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/src/components/workflow/WorkflowCard.astro:94:18)\n    [...] See full stack trace in the browser, or rerun with --verbose.","label":null,"level":"error"}
-{"message":"[200] / 2ms","label":null,"level":"info"}
-{"message":"Cannot read properties of undefined (reading 'highlight')\n  Stack trace:\n    at eval (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/src/components/workflow/WorkflowCard.astro:94:18)\n    [...] See full stack trace in the browser, or rerun with --verbose.","label":null,"level":"error"}
-{"message":"[200] / 3ms","label":null,"level":"info"}
-{"message":"Cannot read properties of undefined (reading 'highlight')\n  Stack trace:\n    at eval (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/src/components/workflow/WorkflowCard.astro:94:18)\n    [...] See full stack trace in the browser, or rerun with --verbose.","label":null,"level":"error"}
-{"message":"[200] / 5ms","label":null,"level":"info"}
-{"message":"Cannot read properties of undefined (reading 'highlight')\n  Stack trace:\n    at eval (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/src/components/workflow/WorkflowCard.astro:94:18)\n    [...] See full stack trace in the browser, or rerun with --verbose.","label":null,"level":"error"}
-{"message":"[200] / 3ms","label":null,"level":"info"}
-{"message":"Cannot read properties of undefined (reading 'highlight')\n  Stack trace:\n    at eval (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/src/components/workflow/WorkflowCard.astro:94:18)\n    [...] See full stack trace in the browser, or rerun with --verbose.","label":null,"level":"error"}
-{"message":"[200] / 2ms","label":null,"level":"info"}
-{"message":"Cannot read properties of undefined (reading 'highlight')\n  Stack trace:\n    at eval (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/src/components/workflow/WorkflowCard.astro:94:18)\n    [...] See full stack trace in the browser, or rerun with --verbose.","label":null,"level":"error"}
-{"message":"[200] / 3ms","label":null,"level":"info"}
-{"message":"Cannot read properties of undefined (reading 'highlight')\n  Stack trace:\n    at eval (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/src/components/workflow/WorkflowCard.astro:94:18)\n    [...] See full stack trace in the browser, or rerun with --verbose.","label":null,"level":"error"}
-{"message":"[200] / 4ms","label":null,"level":"info"}
-{"message":"Cannot read properties of undefined (reading 'highlight')\n  Stack trace:\n    at eval (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/src/components/workflow/WorkflowCard.astro:94:18)\n    [...] See full stack trace in the browser, or rerun with --verbose.","label":null,"level":"error"}
-{"message":"[200] / 5ms","label":null,"level":"info"}
-{"message":"Cannot read properties of undefined (reading 'highlight')\n  Stack trace:\n    at eval (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/src/components/workflow/WorkflowCard.astro:94:18)\n    [...] See full stack trace in the browser, or rerun with --verbose.","label":null,"level":"error"}
-{"message":"[200] / 5ms","label":null,"level":"info"}
-{"message":"Cannot read properties of undefined (reading 'highlight')\n  Stack trace:\n    at eval (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/src/components/workflow/WorkflowCard.astro:94:18)\n    [...] See full stack trace in the browser, or rerun with --verbose.","label":null,"level":"error"}
-{"message":"[200] / 3ms","label":null,"level":"info"}
-{"message":"Cannot read properties of undefined (reading 'highlight')\n  Stack trace:\n    at eval (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/src/components/workflow/WorkflowCard.astro:94:18)\n    [...] See full stack trace in the browser, or rerun with --verbose.","label":null,"level":"error"}
-{"message":"[200] / 3ms","label":null,"level":"info"}
-{"message":"Cannot read properties of undefined (reading 'highlight')\n  Stack trace:\n    at eval (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/src/components/workflow/WorkflowCard.astro:94:18)\n    [...] See full stack trace in the browser, or rerun with --verbose.","label":null,"level":"error"}
-{"message":"[200] / 3ms","label":null,"level":"info"}
-{"message":"Cannot read properties of undefined (reading 'highlight')\n  Stack trace:\n    at eval (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/src/components/workflow/WorkflowCard.astro:94:18)\n    [...] See full stack trace in the browser, or rerun with --verbose.","label":null,"level":"error"}
-{"message":"[200] / 4ms","label":null,"level":"info"}
-{"message":"Cannot read properties of undefined (reading 'highlight')\n  Stack trace:\n    at eval (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/src/components/workflow/WorkflowCard.astro:94:18)\n    [...] See full stack trace in the browser, or rerun with --verbose.","label":null,"level":"error"}
-{"message":"[200] / 3ms","label":null,"level":"info"}
-{"message":"Cannot read properties of undefined (reading 'highlight')\n  Stack trace:\n    at eval (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/src/components/workflow/WorkflowCard.astro:94:18)\n    [...] See full stack trace in the browser, or rerun with --verbose.","label":null,"level":"error"}
-{"message":"[200] / 3ms","label":null,"level":"info"}
-{"message":"Cannot read properties of undefined (reading 'highlight')\n  Stack trace:\n    at eval (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/src/components/workflow/WorkflowCard.astro:94:18)\n    [...] See full stack trace in the browser, or rerun with --verbose.","label":null,"level":"error"}
-{"message":"/src/components/workflow/WorkflowCard.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
-{"message":"[200] / 16ms","label":null,"level":"info"}
-{"message":"/src/components/workflow/WorkflowCard.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
-{"message":"/src/components/home/WorkflowSection.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
-{"message":"[200] / 27ms","label":null,"level":"info"}
+{"message":"[200] / 179ms","label":null,"level":"info"}
+{"message":"[200] / 209ms","label":null,"level":"info"}
+{"message":"[200] /preview-planos 51ms","label":null,"level":"info"}
+{"message":"/src/components/home/PricingSection.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
+{"message":"/src/components/home/PricingSection.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
+{"message":"[200] /preview-planos 89ms","label":null,"level":"info"}
+{"message":"/src/components/home/PricingSection.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
+{"message":"[200] /preview-planos 38ms","label":null,"level":"info"}
+{"message":"[200] /preview-planos 60ms","label":null,"level":"info"}
+{"message":"src/pages/preview-planos.astro","label":"watch","level":"info"}
+{"message":"[200] / 186ms","label":null,"level":"info"}
+{"message":"[200] / 42ms","label":null,"level":"info"}
 {"message":"src/scripts/home-interactions.ts","label":"watch","level":"info"}
-{"message":"[200] / 17ms","label":null,"level":"info"}
-{"message":"/src/components/workflow/WorkflowCard.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
-{"message":"[200] / 58ms","label":null,"level":"info"}
-{"message":"/src/components/workflow/WorkflowCard.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
-{"message":"[200] / 26ms","label":null,"level":"info"}
-{"message":"/src/components/home/WorkflowSection.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
-{"message":"[200] / 22ms","label":null,"level":"info"}
-{"message":"/src/components/home/WorkflowSection.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
-{"message":"/src/components/workflow/WorkflowCard.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
-{"message":"[200] / 19ms","label":null,"level":"info"}
-{"message":"/src/components/workflow/WorkflowCard.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
+{"message":"[200] / 62ms","label":null,"level":"info"}
 {"message":"src/scripts/home-interactions.ts","label":"watch","level":"info"}
-{"message":"[200] / 29ms","label":null,"level":"info"}
+{"message":"[200] / 148ms","label":null,"level":"info"}
 {"message":"src/scripts/home-interactions.ts","label":"watch","level":"info"}
-{"message":"[200] / 13ms","label":null,"level":"info"}
-{"message":"[200] / 32ms","label":null,"level":"info"}
-{"message":"[200] / 32ms","label":null,"level":"info"}
-{"message":"[200] / 2ms","label":null,"level":"info"}
-{"message":"/src/components/workflow/WorkflowCard.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
-{"message":"/src/components/workflow/WorkflowCard.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
-{"message":"[200] / 29ms","label":null,"level":"info"}
-{"message":"/src/components/workflow/WorkflowCard.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
-{"message":"src/scripts/home-interactions.ts","label":"watch","level":"info"}
-{"message":"[200] / 30ms","label":null,"level":"info"}
-{"message":"/src/components/home/WorkflowSection.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
-{"message":"[200] / 20ms","label":null,"level":"info"}
-{"message":"/src/components/pricing/PlanCard.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
-{"message":"src/scripts/home-interactions.ts","label":"watch","level":"info"}
-{"message":"public/tabela-planos.html","label":"watch","level":"info"}
+{"message":"[200] / 258ms","label":null,"level":"info"}
