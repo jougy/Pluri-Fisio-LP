@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap oficial da Landing Page
+Sitemap: https://plurifisio.com.br/sitemap.xml
