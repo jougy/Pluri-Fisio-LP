@@ -154,7 +154,8 @@ export function setupMetaPixelTracking() {
       const planName = target.getAttribute("data-plan-name") || "Plano";
       const audience = target.getAttribute("data-audience") || "prof";
       const parentCard = target.closest(".plan-card");
-      const priceText = parentCard?.querySelector("[data-price-main]")?.textContent || "";
+      const bentoPriceEl = document.getElementById("bentoPrice");
+      const priceText = parentCard?.querySelector("[data-price-main]")?.textContent || bentoPriceEl?.textContent || "";
       const priceMatch = priceText.match(/[\d,.]+/);
       const parsedValue = priceMatch ? parseFloat(priceMatch[0].replace(".", "").replace(",", ".")) : 0;
 

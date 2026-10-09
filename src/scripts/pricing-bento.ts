@@ -88,7 +88,7 @@ export function setupPricing() {
     }
 
     if (el.cta) {
-      el.cta.href = `http://pluri.health/auth/cadastro?plan=${plan.id}&cycle=${cycleParam}`;
+      el.cta.href = `https://app.plurifisio.com.br/auth/cadastro?plan=${plan.id}&cycle=${cycleParam}`;
       el.cta.dataset.planId = plan.id;
       el.cta.dataset.planName = plan.name;
       el.cta.dataset.audience = plan.audience;
