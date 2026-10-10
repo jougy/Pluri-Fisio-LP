@@ -1,0 +1,24 @@
+name: Submit URLs to IndexNow (Bing & AI)
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  notify-indexnow:
+    name: Notify Bing, Copilot & Search Engines
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Notify IndexNow
+        run: node scripts/submit-indexnow.mjs

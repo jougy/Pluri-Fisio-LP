@@ -13,6 +13,7 @@ Documento central com todas as credenciais, IDs, gatilhos de conversão e config
 - **Arquivo de Validação:** `public/e4a4b706f8444221940fba77ac47ecb1.txt`
   - URL Pública: `https://plurifisio.com.br/e4a4b706f8444221940fba77ac47ecb1.txt`
 - **Script de Submissão Instantânea:** `npm run indexnow` (executa `scripts/submit-indexnow.mjs`)
+- **Automação no Deploy (CI/CD):** `.github/workflows/indexnow.yml` (dispara automaticamente a cada push/deploy nas branches `main` e `master`)
 - **Motores Notificados via IndexNow:**
   - Microsoft Bing
   - Microsoft Copilot
