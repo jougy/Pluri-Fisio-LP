@@ -48,7 +48,7 @@
 > Para fisioterapeutas e clínicas
 
 **[S1 · HeroSection.astro:63]** H3 — promessa principal (`aria-labelledby` da seção)
-> Solução simples, rápida e prática para seu dia-a-dia de atendimentos.
+> Solução simples, rápida e prática para sua rotina de atendimentos.
 
 ### Botões e CTAs
 

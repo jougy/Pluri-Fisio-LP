@@ -1,241 +1,469 @@
 ---
 ---
 
-<footer class="editorial-footer">
-  <div class="container">
+<footer class="compact-footer" id="mainFooter">
+  <!-- Efeito de luzes difusas orgânicas igual à Seção 3 -->
+  <div class="footer-ambient-bg" aria-hidden="true">
+    <div class="ambient-glow glow-cyan"></div>
+    <div class="ambient-glow glow-indigo"></div>
+  </div>
+
+  <div class="footer-container">
     
-    <!-- Top Editorial Directory Grid (Apple Style) -->
-    <div class="footer-grid">
+    <!-- Barra Principal Compacta & Discreta -->
+    <div class="footer-bar">
       
-      <!-- Brand Column -->
-      <div class="footer-brand-col">
-        <a href="/" class="footer-logo" aria-label="Pluri Fisio - Início">
+      <!-- Lado Esquerdo: Identificação Rápida -->
+      <div class="footer-bar-left">
+        <a href="#lancamento" class="footer-brand-link" aria-label="Pluri Fisio">
           <img 
-            src="/branding/logo/pluri_health_icon_gradient.svg" 
+            src="/branding/logo/pluri_health_icon_white.svg" 
             alt="Pluri Fisio" 
             class="footer-logo-icon" 
-            width="28" 
-            height="28"
+            width="20" 
+            height="20"
             loading="lazy"
             decoding="async"
           />
-          <span class="footer-logo-text">Pluri <strong>Fisio</strong></span>
+          <span class="footer-brand-name">Pluri <strong>Fisio</strong></span>
         </a>
-
-        <p class="footer-brand-desc">
-          A plataforma de gestão clínica que une simplicidade extrema e velocidade. Feita para cuidar de pessoas, não de papéis.
-        </p>
-
-        <div class="footer-compliance-badges">
-          <span class="badge-mini">🛡️ 100% LGPD</span>
-          <span class="badge-mini">📱 Web, iOS & Android</span>
-        </div>
+        <span class="footer-sep" aria-hidden="true">•</span>
+        <span class="footer-by">by Pluri Health</span>
       </div>
 
-      <!-- Column 1: Produtos & Especialidades -->
-      <div class="footer-links-col">
-        <h4 class="footer-heading">Especialidades</h4>
-        <ul class="footer-links-list">
-          <li>
-            <a href="/fisioterapia" class="link-special">
-              Pluri Fisio <span class="tag-live">Ativo</span>
-            </a>
-          </li>
-          <li><a href="/#ecossistema">Pluri Psi (Psicologia)</a></li>
-          <li><a href="/#ecossistema">Pluri Nutri (Nutrição)</a></li>
-          <li><a href="/#ecossistema">Pluri Fono (Fonoaudiologia)</a></li>
-          <li><a href="/#ecossistema">Pluri Core (Motor Clínico)</a></li>
-        </ul>
-      </div>
-
-      <!-- Column 2: Plataforma -->
-      <div class="footer-links-col">
-        <h4 class="footer-heading">Recursos</h4>
-        <ul class="footer-links-list">
-          <li><a href="/#recursos">Ficha em 90 segundos</a></li>
-          <li><a href="/#recursos">WhatsApp em 1 clique</a></li>
-          <li><a href="/#recursos">Pré-cadastro pelo paciente</a></li>
-          <li><a href="/#recursos">Migração de fichas antigas</a></li>
-          <li><a href="/#recursos">Cofre de dados e segurança</a></li>
-        </ul>
-      </div>
-
-      <!-- Column 3: Acesso & Planos -->
-      <div class="footer-links-col">
-        <h4 class="footer-heading">Planos & Acesso</h4>
-        <ul class="footer-links-list">
-          <li><a href="/#planos" class="link-highlight">20 Atendimentos Grátis</a></li>
-          <li><a href="/#planos">Plano Profissional Solo</a></li>
-          <li><a href="/#planos">Plano Clínica & Equipe</a></li>
-          <li><a href="https://plurifisio.com.br/planos" target="_blank" rel="noopener">Entrar no Sistema</a></li>
-        </ul>
+      <!-- Lado Direito: Botão Retrátil (Expandir / Recolher) -->
+      <div class="footer-bar-right">
+        <button 
+          type="button" 
+          id="btnToggleFooter" 
+          class="footer-expand-btn" 
+          aria-expanded="false" 
+          aria-controls="footerExpandedContent"
+        >
+          <span id="footerBtnLabel">Ver dados legais & mapa</span>
+          <svg class="chevron-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
       </div>
 
     </div>
 
-    <!-- Bottom Legal & Copyright -->
-    <div class="footer-bottom">
-      <div class="footer-copy">
-        © {new Date().getFullYear()} Pluri Fisio. Todos os direitos reservados.
+    <!-- Conteúdo Retrátil (Drawer Expansível) -->
+    <div class="footer-drawer" id="footerExpandedContent" hidden>
+      
+      <div class="footer-grid">
+        <!-- Coluna Marca & Propósito -->
+        <div class="footer-col-brand">
+          <p class="footer-brand-lead">
+            <strong>Pluri Fisio</strong> é um produto desenvolvido pela <strong>Pluri Health</strong>.
+          </p>
+          <p class="footer-brand-desc">
+            Plataforma de gestão clínica com fichas eletrônicas ortopédicas, duplicação rápida e agenda integrada para fisioterapeutas e clínicas.
+          </p>
+          <div class="footer-badges">
+            <span class="badge-mini">🛡️ 100% LGPD</span>
+            <span class="badge-mini">⚡ CREFITO Compliant</span>
+            <span class="badge-mini">📱 Web, iOS & Android</span>
+          </div>
+        </div>
+
+        <!-- Coluna 1: Navegação -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Navegação</h4>
+          <ul class="footer-links">
+            <li><a href="#lancamento">Início</a></li>
+            <li><a href="#plataforma">A Plataforma</a></li>
+            <li><a href="#como-funciona">Como Funciona</a></li>
+            <li><a href="#planos">Planos & Preços</a></li>
+          </ul>
+        </div>
+
+        <!-- Coluna 2: Recursos Clínicos -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Recursos</h4>
+          <ul class="footer-links">
+            <li><a href="#como-funciona">Ficha em 90 segundos</a></li>
+            <li><a href="#como-funciona">Evoluções com 1 toque</a></li>
+            <li><a href="#como-funciona">WhatsApp integrado</a></li>
+            <li><a href="#como-funciona">Cofre seguro e LGPD</a></li>
+            <li><a href="#como-funciona">Migração de fichas</a></li>
+          </ul>
+        </div>
+
+        <!-- Coluna 3: Acesso -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Acesso</h4>
+          <ul class="footer-links">
+            <li><a href="#planos" class="link-highlight">7 Dias Grátis</a></li>
+            <li><a href="#planos">Plano Profissional</a></li>
+            <li><a href="#planos">Plano Clínica</a></li>
+            <li><a href="https://app.plurifisio.com.br/auth/cadastro" target="_blank" rel="noopener">Entrar no Sistema</a></li>
+          </ul>
+        </div>
       </div>
-      <div class="footer-note">
-        Plataforma em conformidade com as diretrizes do CREFITO e Lei Geral de Proteção de Dados (Lei nº 13.709/2018).
+
+      <!-- Rodapé Cadastral e Legal Completo -->
+      <div class="footer-legal-bar">
+        <div class="legal-main">
+          <span>© {new Date().getFullYear()} Pluri Fisio • by <strong>Pluri Health</strong>. Todos os direitos reservados.</span>
+          <span class="legal-divider">|</span>
+          <span>Razão Social: <strong>JOAO PAULO TADDEO DO VAL</strong></span>
+          <span class="legal-divider">|</span>
+          <span>CNPJ: <strong>59.955.007/0001-00</strong></span>
+        </div>
+        <p class="legal-sub">
+          Em total conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018) e resoluções do CREFITO.
+        </p>
       </div>
+
     </div>
 
   </div>
 </footer>
 
+<script>
+  function setupCollapsibleFooter() {
+    const btn = document.getElementById('btnToggleFooter');
+    const drawer = document.getElementById('footerExpandedContent');
+    const label = document.getElementById('footerBtnLabel');
+
+    if (!btn || !drawer) return;
+
+    btn.addEventListener('click', () => {
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+      const nextState = !isExpanded;
+
+      btn.setAttribute('aria-expanded', String(nextState));
+      btn.classList.toggle('active', nextState);
+      
+      if (nextState) {
+        drawer.hidden = false;
+        drawer.classList.add('is-open');
+        if (label) label.textContent = 'Recolher rodapé';
+      } else {
+        drawer.classList.remove('is-open');
+        if (label) label.textContent = 'Ver dados legais & mapa';
+        setTimeout(() => {
+          if (!btn.classList.contains('active')) {
+            drawer.hidden = true;
+          }
+        }, 200);
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupCollapsibleFooter);
+  } else {
+    setupCollapsibleFooter();
+  }
+</script>
+
 <style>
-  .editorial-footer {
-    background-color: var(--bg-canvas);
-    border-top: 1px solid var(--border-light);
-    padding: 5rem 0 3rem 0;
+  .compact-footer {
+    width: 100%;
+    position: relative;
+    background: linear-gradient(180deg, #091730 0%, #0E2246 50%, #08152B 100%) !important;
+    color: #F8FAFC !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.8rem;
+    z-index: 40;
+    overflow: hidden;
+  }
+
+  /* Efeito de luzes difusas orgânicas da Seção 3 */
+  .footer-ambient-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .ambient-glow {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(80px);
+    opacity: 0.25;
+    pointer-events: none;
+  }
+
+  .glow-cyan {
+    top: -20%;
+    left: 10%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, #00E5FF 0%, rgba(0, 229, 255, 0.2) 60%, transparent 80%);
+  }
+
+  .glow-indigo {
+    bottom: -30%;
+    right: 10%;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, #6366F1 0%, rgba(99, 102, 241, 0.2) 60%, transparent 80%);
+  }
+
+  .footer-container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0.85rem 1.25rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Barra Principal (sempre visível, discreta e elegante) */
+  .footer-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    min-height: 2.25rem;
+  }
+
+  .footer-bar-left {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.82rem;
+    color: #94A3B8;
+  }
+
+  .footer-brand-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 0.88rem;
+  }
+
+  .footer-brand-name {
+    font-family: var(--font-display, 'Figtree', sans-serif);
+    letter-spacing: -0.01em;
+  }
+
+  .footer-brand-name strong {
+    font-weight: 800;
+    color: #38BDF8;
+  }
+
+  .footer-logo-icon {
+    display: block;
+    width: 20px;
+    height: 20px;
+    filter: drop-shadow(0 2px 6px rgba(0, 114, 255, 0.4));
+  }
+
+  .footer-sep {
+    opacity: 0.35;
+    font-size: 0.7rem;
+    color: #64748B;
+  }
+
+  .footer-by {
+    font-weight: 600;
+    color: #38BDF8;
+  }
+
+  /* Botão de Toggle */
+  .footer-expand-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.75rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 999px;
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: #E2E8F0;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+  }
+
+  .footer-expand-btn:hover {
+    background: rgba(255, 255, 255, 0.16);
+    color: #FFFFFF;
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .footer-expand-btn.active {
+    background: #0072FF;
+    color: #FFFFFF;
+    border-color: #38BDF8;
+    box-shadow: 0 0 12px rgba(0, 114, 255, 0.4);
+  }
+
+  .chevron-icon {
+    transition: transform 0.25s ease;
+  }
+
+  .footer-expand-btn.active .chevron-icon {
+    transform: rotate(180deg);
+  }
+
+  /* Drawer Expansível */
+  .footer-drawer {
+    padding-top: 2rem;
+    padding-bottom: 1.25rem;
+    margin-top: 0.85rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    animation: drawerFadeIn 0.25s ease-out;
+  }
+
+  @keyframes drawerFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .footer-grid {
     display: grid;
     grid-template-columns: 2fr repeat(3, 1fr);
-    gap: 3.5rem;
-    padding-bottom: 3.5rem;
-    border-bottom: 1px solid var(--border-light);
+    gap: 2.2rem;
+    padding-bottom: 1.75rem;
   }
 
-  .footer-brand-col {
+  .footer-col-brand {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 0.7rem;
   }
 
-  .footer-logo {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--text-primary);
-    text-decoration: none;
+  .footer-brand-lead {
+    font-size: 0.86rem;
+    color: #F1F5F9;
+    line-height: 1.4;
   }
 
-  .footer-logo-text {
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.15rem;
-    font-weight: 500;
-  }
-
-  .footer-logo-text strong {
-    font-weight: 800;
-    color: var(--color-primary);
+  .footer-brand-lead strong {
+    color: #FFFFFF;
   }
 
   .footer-brand-desc {
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: var(--text-muted);
+    font-size: 0.78rem;
+    color: #94A3B8;
+    line-height: 1.55;
     max-width: 320px;
   }
 
-  .footer-compliance-badges {
+  .footer-badges {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.4rem;
     flex-wrap: wrap;
+    margin-top: 0.25rem;
   }
 
   .badge-mini {
-    font-size: 0.725rem;
+    font-size: 0.68rem;
     font-weight: 600;
-    padding: 0.25rem 0.6rem;
-    border-radius: var(--radius-pill);
-    background-color: var(--bg-subtle);
-    color: var(--text-secondary);
-    border: 1px solid var(--border-light);
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #CBD5E1;
+    border: 1px solid rgba(255, 255, 255, 0.14);
   }
 
   .footer-heading {
-    font-size: 0.8rem;
-    font-weight: 700;
+    font-size: 0.74rem;
+    font-weight: 800;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--text-primary);
-    margin-bottom: 1.25rem;
+    color: #F8FAFC;
+    margin-bottom: 0.85rem;
   }
 
-  .footer-links-list {
+  .footer-links {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 0.85rem;
+    gap: 0.6rem;
+    margin: 0;
+    padding: 0;
   }
 
-  .footer-links-list a {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
+  .footer-links a {
+    font-size: 0.82rem;
+    color: #94A3B8;
     text-decoration: none;
-    transition: color 150ms ease;
+    transition: color 0.15s ease, transform 0.15s ease;
   }
 
-  .footer-links-list a:hover {
-    color: var(--text-primary);
-  }
-
-  .link-special {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-weight: 600;
-    color: var(--tonal-fisio-accent) !important;
-  }
-
-  .tag-live {
-    font-size: 0.625rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    padding: 0.1rem 0.35rem;
-    border-radius: 4px;
-    background: var(--tonal-fisio-bg);
-    color: var(--tonal-fisio-accent);
-    border: 1px solid var(--tonal-fisio-border);
+  .footer-links a:hover {
+    color: #38BDF8;
   }
 
   .link-highlight {
-    font-weight: 600;
-    color: var(--color-primary) !important;
+    font-weight: 700;
+    color: #38BDF8 !important;
   }
 
-  .footer-bottom {
+  /* Legal Bar */
+  .footer-legal-bar {
+    padding-top: 1.2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     display: flex;
     flex-direction: column;
-    gap: 0.65rem;
-    padding-top: 2rem;
-    font-size: 0.775rem;
-    color: var(--text-muted);
+    gap: 0.4rem;
+    font-size: 0.74rem;
+    color: #94A3B8;
   }
 
-  .footer-copy {
-    font-weight: 500;
+  .legal-main {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    color: #CBD5E1;
   }
 
-  .footer-note {
-    opacity: 0.8;
+  .legal-main strong {
+    color: #FFFFFF;
   }
 
-  @media (max-width: 900px) {
+  .legal-divider {
+    opacity: 0.35;
+    color: #64748B;
+  }
+
+  .legal-sub {
+    font-size: 0.7rem;
+    color: #64748B;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
     .footer-grid {
       grid-template-columns: 1fr 1fr;
-      gap: 2.5rem;
+      gap: 1.5rem;
     }
-    .footer-brand-col {
+    .footer-col-brand {
       grid-column: span 2;
+    }
+    .legal-divider {
+      display: none;
+    }
+    .legal-main {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
     }
   }
 
-  @media (max-width: 600px) {
-    .editorial-footer {
-      padding: 3.5rem 0 2rem 0;
-    }
+  @media (max-width: 480px) {
     .footer-grid {
       grid-template-columns: 1fr;
-      gap: 2rem;
     }
-    .footer-brand-col {
+    .footer-col-brand {
       grid-column: auto;
     }
   }

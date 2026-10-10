@@ -26,3 +26,49 @@
 {"message":"/src/components/home/PricingSection.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
 {"message":"src/scripts/pricing-bento.ts","label":"watch","level":"info"}
 {"message":"src/scripts/home-interactions.ts","label":"watch","level":"info"}
+{"message":"[200] / 94ms","label":null,"level":"info"}
+{"message":"[200] / 10ms","label":null,"level":"info"}
+{"message":"[200] / 23ms","label":null,"level":"info"}
+{"message":"src/pages/index.astro","label":"watch","level":"info"}
+{"message":"ReferenceError: Footer is not defined\n    at Object.default (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/src/pages/index.astro:44:3)\n    at new AstroComponentInstance (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/node_modules/astro/dist/runtime/server/render/astro/instance.js:20:30)\n    at createAstroComponentInstance (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/node_modules/astro/dist/runtime/server/render/astro/instance.js:75:20)\n    at renderAstroComponent (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/node_modules/astro/dist/runtime/server/render/component.js:361:20)\n    at renderComponent (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/node_modules/astro/dist/runtime/server/render/component.js:382:12)\n    at eval (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/src/pages/index.astro:11:1)\n    at index (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/node_modules/astro/dist/runtime/server/astro-component.js:16:12)\n    at callComponentAsTemplateResultOrResponse (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/node_modules/astro/dist/runtime/server/render/astro/render.js:203:31)\n    at renderToAsyncIterable (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/node_modules/astro/dist/runtime/server/render/astro/render.js:235:32)\n    at renderPage (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/node_modules/astro/dist/runtime/server/render/page.js:43:30)","label":null,"level":"error"}
+{"message":"Footer is not defined\n  Stack trace:\n    at Object.default (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/src/pages/index.astro:44:3)\n    [...] See full stack trace in the browser, or rerun with --verbose.","label":null,"level":"error"}
+{"message":"ReferenceError: Footer is not defined\n    at Object.default (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/src/pages/index.astro:44:3)\n    at new AstroComponentInstance (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/node_modules/astro/dist/runtime/server/render/astro/instance.js:20:30)\n    at createAstroComponentInstance (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/node_modules/astro/dist/runtime/server/render/astro/instance.js:75:20)\n    at renderAstroComponent (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/node_modules/astro/dist/runtime/server/render/component.js:361:20)\n    at renderComponent (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/node_modules/astro/dist/runtime/server/render/component.js:382:12)\n    at eval (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/src/pages/index.astro:11:1)\n    at index (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/node_modules/astro/dist/runtime/server/astro-component.js:16:12)\n    at callComponentAsTemplateResultOrResponse (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/node_modules/astro/dist/runtime/server/render/astro/render.js:203:31)\n    at renderToAsyncIterable (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/node_modules/astro/dist/runtime/server/render/astro/render.js:235:32)\n    at renderPage (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/node_modules/astro/dist/runtime/server/render/page.js:43:30)","label":null,"level":"error"}
+{"message":"Footer is not defined\n  Stack trace:\n    at Object.default (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/src/pages/index.astro:44:3)\n    [...] See full stack trace in the browser, or rerun with --verbose.","label":null,"level":"error"}
+{"message":"src/pages/index.astro","label":"watch","level":"info"}
+{"message":"[200] / 28ms","label":null,"level":"info"}
+{"message":"[200] / 3ms","label":null,"level":"info"}
+{"message":"/src/components/home/PricingSection.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
+{"message":"[200] / 49ms","label":null,"level":"info"}
+{"message":"/src/components/home/PricingSection.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
+{"message":"[200] /fisioterapia 26ms","label":null,"level":"info"}
+{"message":"/src/pages/fisioterapia.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
+{"message":"Internal server error: No cached compile metadata found for \"/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/src/pages/fisioterapia.astro?astro&type=style&index=0&lang.css\". The main Astro module \"/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/src/pages/fisioterapia.astro\" should have compiled and filled the metadata first, before its virtual modules can be requested.\n      at LoadPluginContext.handler (/Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/node_modules/astro/dist/vite-plugin-astro/index.js:94:10)\n      at async EnvironmentPluginContainer.load (file:///Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/node_modules/vite/dist/node/chunks/node.js:30809:19)\n      at async loadAndTransform (file:///Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/node_modules/vite/dist/node/chunks/node.js:20572:21)\n      at async viteTransformMiddleware (file:///Users/jougy/Documents/PluriHealth/Pluri-Fisio-LP/node_modules/vite/dist/node/chunks/node.js:25142:20)","label":"vite","level":"error"}
+{"message":"[404] /fisioterapia 6ms","label":null,"level":"info"}
+{"message":"/src/components/Footer.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
+{"message":"[200] / 27ms","label":null,"level":"info"}
+{"message":"[200] / 6ms","label":null,"level":"info"}
+{"message":"/src/components/home/PricingSection.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
+{"message":"[200] / 50ms","label":null,"level":"info"}
+{"message":"/src/components/home/PricingSection.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
+{"message":"/src/components/Footer.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
+{"message":"[200] / 25ms","label":null,"level":"info"}
+{"message":"/src/components/Footer.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
+{"message":"[200] / 80ms","label":null,"level":"info"}
+{"message":"src/components/Footer.astro","label":"watch","level":"info"}
+{"message":"[200] / 38ms","label":null,"level":"info"}
+{"message":"/src/components/home/HeroSection.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
+{"message":"/src/components/home/HeroSection.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
+{"message":"[200] / 75ms","label":null,"level":"info"}
+{"message":"/src/components/home/HeroSection.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
+{"message":"/src/components/Footer.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
+{"message":"src/components/Footer.astro","label":"watch","level":"info"}
+{"message":"[200] / 33ms","label":null,"level":"info"}
+{"message":"/src/components/Footer.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
+{"message":"src/components/Footer.astro","label":"watch","level":"info"}
+{"message":"[200] / 37ms","label":null,"level":"info"}
+{"message":"Configuration file updated. Restarting...","label":null,"level":"info"}
+{"message":"connected.","label":"vite","level":"info"}
+{"message":"connected.","label":"vite","level":"info"}
+{"message":"Re-optimizing dependencies because vite config has changed","label":"vite","level":"info"}
+{"message":"server restarted.","label":"vite","level":"info"}
+{"message":"[200] / 28ms","label":null,"level":"info"}
