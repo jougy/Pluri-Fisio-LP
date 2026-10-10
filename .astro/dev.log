@@ -72,3 +72,5 @@
 {"message":"Re-optimizing dependencies because vite config has changed","label":"vite","level":"info"}
 {"message":"server restarted.","label":"vite","level":"info"}
 {"message":"[200] / 28ms","label":null,"level":"info"}
+{"message":"src/components/home/PlatformSection.astro","label":"watch","level":"info"}
+{"message":"[200] / 84ms","label":null,"level":"info"}
