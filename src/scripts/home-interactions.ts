@@ -129,10 +129,10 @@ export function setupMetaPixelTracking() {
 
     const explicitEvent = target.getAttribute("data-pixel-event");
 
-    // Trigger 1: Conversão Lead (Cadastro Gratuito / Teste Grátis)
+    // Trigger 1: Clique em Criar Conta / Teste Grátis (Intenção de Cadastro)
     if (explicitEvent === "Lead" || target.classList.contains("free-card-cta")) {
-      fbq("track", "Lead", {
-        content_name: "Criar Conta Gratuita",
+      fbq("trackCustom", "Click_Cta_Cadastro", {
+        content_name: "Intencao Criar Conta Gratuita",
         content_category: "Registro de Profissional",
         status: "intent"
       });
