@@ -1,6 +1,7 @@
 // pricing-bento.ts - Motor reativo da seção de Planos (Bento interativo): perfil, ciclo, slider de porte e teste grátis
 import { PROF_PLANS, CLINIC_PLANS, PRICES } from "../data/pricing-plans";
 import type { CycleId, Plan } from "../data/pricing-plans";
+import { decorateUrlWithTracking, collectTrackingParams } from "./traffic-attribution";
 
 type Audience = "prof" | "clinic" | "enterprise";
 
@@ -88,7 +89,8 @@ export function setupPricing() {
     }
 
     if (el.cta) {
-      el.cta.href = `https://app.plurifisio.com.br/auth/cadastro?plan=${plan.id}&cycle=${cycleParam}`;
+      const baseTarget = `https://app.plurifisio.com.br/auth/cadastro?plan=${plan.id}&cycle=${cycleParam}`;
+      el.cta.href = decorateUrlWithTracking(baseTarget, collectTrackingParams());
       el.cta.dataset.planId = plan.id;
       el.cta.dataset.planName = plan.name;
       el.cta.dataset.audience = plan.audience;

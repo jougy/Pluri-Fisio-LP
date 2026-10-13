@@ -74,3 +74,8 @@
 {"message":"[200] / 28ms","label":null,"level":"info"}
 {"message":"src/components/home/PlatformSection.astro","label":"watch","level":"info"}
 {"message":"[200] / 84ms","label":null,"level":"info"}
+{"message":"src/scripts/pricing-bento.ts","label":"watch","level":"info"}
+{"message":"src/scripts/pricing-bento.ts","label":"watch","level":"info"}
+{"message":"src/scripts/home-interactions.ts","label":"watch","level":"info"}
+{"message":"/src/components/home/PricingSection.astro?astro&type=style&index=0&lang.css","label":"watch","level":"info"}
+{"message":"src/pages/index.astro","label":"watch","level":"info"}

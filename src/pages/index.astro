@@ -54,8 +54,10 @@ import Footer from '../components/Footer.astro';
     setupMetaPixelTracking
   } from '../scripts/home-interactions';
   import { setupPricing } from '../scripts/pricing-bento';
+  import { setupTrafficAttribution } from '../scripts/traffic-attribution';
 
   function init() {
+    setupTrafficAttribution();
     setupPricing();
     setupWorkflowAccordion();
     setupWorkflowResponsiveCarousel();
