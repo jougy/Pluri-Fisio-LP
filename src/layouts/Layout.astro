@@ -18,12 +18,38 @@ const schemaData = {
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "Organization",
+      "@id": "https://pluri.health/#organization",
+      "name": "Pluri Health",
+      "alternateName": [
+        "PluriHealth",
+        "Pluri-Health",
+        "Pluri Health Brasil",
+        "PluriHealth Tecnologia em Saúde"
+      ],
+      "legalName": "JOAO PAULO TADDEO DO VAL",
+      "taxID": "59.955.007/0001-00",
+      "url": "https://pluri.health",
+      "sameAs": [
+        "https://plurihealth.com.br",
+        "https://plurifisio.com.br"
+      ],
+      "logo": "https://plurifisio.com.br/branding/logo/pluri_health_logo_gradient.png",
+      "description": "Healthtech brasileira desenvolvedora do ecossistema de gestão clínica e prontuário eletrônico para equipes de saúde e fisioterapia."
+    },
+    {
       "@type": "SoftwareApplication",
       "@id": "https://plurifisio.com.br/#software",
       "name": "Pluri Fisio",
       "applicationCategory": "HealthApplication",
       "operatingSystem": "Web, iOS, Android",
       "url": "https://plurifisio.com.br",
+      "publisher": {
+        "@id": "https://pluri.health/#organization"
+      },
+      "provider": {
+        "@id": "https://pluri.health/#organization"
+      },
       "description": "Sistema de gestão clínica e fichas de pacientes direto no celular, com agenda integrada, atalho rápido para WhatsApp e controle de atendimentos para fisioterapia e saúde.",
       "offers": [
         {
@@ -111,8 +137,11 @@ const schemaData = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Favicons Oficiais Pluri Health (Compatibilidade Total com Google Search, PWA e Browsers) -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="canonical" href={canonicalUrl} />
     
     <title>{title}</title>
