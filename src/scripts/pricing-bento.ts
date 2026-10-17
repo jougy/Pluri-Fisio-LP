@@ -94,6 +94,7 @@ export function setupPricing() {
       el.cta.dataset.planId = plan.id;
       el.cta.dataset.planName = plan.name;
       el.cta.dataset.audience = plan.audience;
+      el.cta.dataset.cycle = cycle;
     }
     if (el.ctaLabel) el.ctaLabel.textContent = `Assinar ${plan.name}`;
 
