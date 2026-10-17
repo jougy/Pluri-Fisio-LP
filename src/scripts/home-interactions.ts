@@ -117,10 +117,10 @@ export function setupWorkflowResponsiveCarousel() {
 export function setupMetaPixelTracking() {
   const getFbq = () => (window as unknown as { fbq?: (...args: unknown[]) => void }).fbq;
 
-  // 1 & 2: Eventos de Clique (Lead, InitiateCheckout, Contact)
+  // 1 & 2: Eventos de Clique (Lead, Click_Cta_Cadastro, intencao_ciclo_planos, Contact, InitiateCheckout)
   document.addEventListener("click", (e) => {
     const target = (e.target as HTMLElement)?.closest<HTMLElement>(
-      'a[data-pixel-event], button[data-pixel-event], a.plan-cta-btn, a.free-card-cta, .enterprise-primary-btn'
+      'a[data-pixel-event], button[data-pixel-event], a.plan-cta-btn, a.free-card-cta, .enterprise-primary-btn, a[href*="/auth/cadastro"]'
     );
     if (!target) return;
 
@@ -128,18 +128,12 @@ export function setupMetaPixelTracking() {
     if (!fbq) return;
 
     const explicitEvent = target.getAttribute("data-pixel-event");
+    const isFreeTrial = explicitEvent === "Lead" || target.classList.contains("free-card-cta") || target.closest(".bento-trial") !== null;
+    const isPlanCta = target.classList.contains("plan-cta-btn");
+    const isEnterprise = target.classList.contains("enterprise-primary-btn");
+    const isAuthCadastro = explicitEvent === "Click_Cta_Cadastro" || target.getAttribute("href")?.includes("/auth/cadastro");
 
-    // Trigger 1: Clique em Criar Conta / Teste Grátis (Intenção de Cadastro)
-    if (explicitEvent === "Lead" || target.classList.contains("free-card-cta")) {
-      fbq("trackCustom", "Click_Cta_Cadastro", {
-        content_name: "Intencao Criar Conta Gratuita",
-        content_category: "Registro de Profissional",
-        status: "intent"
-      });
-      return;
-    }
-
-    // Trigger 2: Contato WhatsApp / Enterprise
+    // Trigger: Contato WhatsApp / Enterprise
     if (explicitEvent === "Contact" || target.getAttribute("data-contact-channel") === "whatsapp_enterprise") {
       fbq("track", "Contact", {
         content_name: "Contato Enterprise WhatsApp",
@@ -148,8 +142,32 @@ export function setupMetaPixelTracking() {
       return;
     }
 
-    // Trigger 1: Iniciar Assinatura (Checkout)
-    if (target.classList.contains("plan-cta-btn")) {
+    // Regra: Todos os botões que levam para a página de cadastro devem disparar click_cta_cadastro
+    if (isAuthCadastro || isFreeTrial || isPlanCta || isEnterprise) {
+      fbq("trackCustom", "click_cta_cadastro", {
+        content_name: isFreeTrial ? "Teste Gratuito" : target.getAttribute("data-plan-name") || "Cadastro",
+        content_category: isFreeTrial ? "Trial" : "Plano Pago",
+        plan_id: target.getAttribute("data-plan-id") || (isFreeTrial ? "free_trial" : "cadastro"),
+        status: "intent"
+      });
+    }
+
+    // Regra: Os botões de plano deverão ter também os eventos de "intencao_ciclo_planos", menos nos cards gratuitos
+    if ((isPlanCta || isEnterprise) && !isFreeTrial) {
+      const activeCycleBtn = document.querySelector(".cycle-btn.active") as HTMLElement | null;
+      const cycle = target.getAttribute("data-cycle") || activeCycleBtn?.getAttribute("data-cycle") || (isEnterprise ? "anual" : "mensal");
+      const planId = target.getAttribute("data-plan-id") || "plano";
+      const planName = target.getAttribute("data-plan-name") || "Plano";
+
+      fbq("trackCustom", "intencao_ciclo_planos", {
+        cycle_selected: cycle,
+        plan_id: planId,
+        plan_name: planName
+      });
+    }
+
+    // InitiateCheckout para compra de planos pagos
+    if (isPlanCta && !isFreeTrial) {
       const planId = target.getAttribute("data-plan-id") || "plano";
       const planName = target.getAttribute("data-plan-name") || "Plano";
       const audience = target.getAttribute("data-audience") || "prof";
@@ -169,8 +187,8 @@ export function setupMetaPixelTracking() {
       });
     }
 
-    // Trigger 1b: Iniciar contratação Enterprise (sem preço público)
-    if (target.classList.contains("enterprise-primary-btn")) {
+    // Trigger Enterprise Checkout
+    if (isEnterprise) {
       fbq("track", "InitiateCheckout", {
         content_name: "Plano Enterprise",
         content_ids: ["enterprise"],
@@ -255,7 +273,7 @@ export function setupMetaPixelTracking() {
       const cycle = btn.getAttribute("data-cycle") || "mensal";
       const fbq = getFbq();
       if (fbq) {
-        fbq("trackCustom", "Interacao_Ciclo_Planos", {
+        fbq("trackCustom", "intencao_ciclo_planos", {
           cycle_selected: cycle
         });
       }
