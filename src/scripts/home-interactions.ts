@@ -115,7 +115,20 @@ export function setupWorkflowResponsiveCarousel() {
 
 // Disparo Inteligente de Eventos do Meta Pixel (Facebook Ads) - 7 Triggers Completos
 export function setupMetaPixelTracking() {
-  const getFbq = () => (window as unknown as { fbq?: (...args: unknown[]) => void }).fbq;
+  if (typeof window === "undefined") return;
+
+  // Guarda de idempotência: assegura que este setup só execute UMA única vez
+  const globalWin = window as unknown as {
+    __metaPixelTrackingInitialized?: boolean;
+    fbq?: (...args: unknown[]) => void;
+  };
+
+  if (globalWin.__metaPixelTrackingInitialized) {
+    return;
+  }
+  globalWin.__metaPixelTrackingInitialized = true;
+
+  const getFbq = () => globalWin.fbq;
 
   // 1 & 2: Eventos de Clique (Lead, Click_Cta_Cadastro, intencao_ciclo_planos, Contact, InitiateCheckout)
   document.addEventListener("click", (e) => {
@@ -128,7 +141,7 @@ export function setupMetaPixelTracking() {
     if (!fbq) return;
 
     const explicitEvent = target.getAttribute("data-pixel-event");
-    const isFreeTrial = explicitEvent === "Lead" || target.classList.contains("free-card-cta") || target.closest(".bento-trial") !== null;
+    const isFreeTrial = explicitEvent === "Lead" || explicitEvent === "StartTrial" || target.classList.contains("free-card-cta") || target.closest(".bento-trial") !== null;
     const isPlanCta = target.classList.contains("plan-cta-btn");
     const isEnterprise = target.classList.contains("enterprise-primary-btn");
     const isAuthCadastro = explicitEvent === "Click_Cta_Cadastro" || target.getAttribute("href")?.includes("/auth/cadastro");
@@ -142,27 +155,21 @@ export function setupMetaPixelTracking() {
       return;
     }
 
-    // Regra: Todos os botões que levam para a página de cadastro devem disparar click_cta_cadastro
-    if (isAuthCadastro || isFreeTrial || isPlanCta || isEnterprise) {
-      fbq("trackCustom", "click_cta_cadastro", {
-        content_name: isFreeTrial ? "Teste Gratuito" : target.getAttribute("data-plan-name") || "Cadastro",
-        content_category: isFreeTrial ? "Trial" : "Plano Pago",
-        plan_id: target.getAttribute("data-plan-id") || (isFreeTrial ? "free_trial" : "cadastro"),
-        status: "intent"
+    // Regra: Botões de teste gratuito disparam StartTrial (evento padrão Meta sem valor zerado para evitar erro no Gerenciador)
+    if (isFreeTrial) {
+      fbq("track", "StartTrial", {
+        content_name: target.getAttribute("data-plan-name") || "Teste Gratuito 7 Dias",
+        content_category: "Trial"
       });
     }
 
-    // Regra: Os botões de plano deverão ter também os eventos de "intencao_ciclo_planos", menos nos cards gratuitos
-    if ((isPlanCta || isEnterprise) && !isFreeTrial) {
-      const activeCycleBtn = document.querySelector(".cycle-btn.active") as HTMLElement | null;
-      const cycle = target.getAttribute("data-cycle") || activeCycleBtn?.getAttribute("data-cycle") || (isEnterprise ? "anual" : "mensal");
-      const planId = target.getAttribute("data-plan-id") || "plano";
-      const planName = target.getAttribute("data-plan-name") || "Plano";
-
-      fbq("trackCustom", "intencao_ciclo_planos", {
-        cycle_selected: cycle,
-        plan_id: planId,
-        plan_name: planName
+    // Regra: Todos os botões que levam para a página de cadastro devem disparar click_cta_cadastro
+    if (isAuthCadastro || isFreeTrial || isPlanCta || isEnterprise) {
+      fbq("trackCustom", "click_cta_cadastro", {
+        content_name: isFreeTrial ? (target.getAttribute("data-plan-name") || "Teste Gratuito") : target.getAttribute("data-plan-name") || "Cadastro",
+        content_category: isFreeTrial ? "Trial" : "Plano Pago",
+        plan_id: target.getAttribute("data-plan-id") || (isFreeTrial ? "free_trial" : "cadastro"),
+        status: "intent"
       });
     }
 
@@ -208,6 +215,7 @@ export function setupMetaPixelTracking() {
       entries.forEach((entry) => {
         if (entry.isIntersecting && !plansViewed) {
           plansViewed = true;
+          plansObserver.disconnect();
           const fbq = getFbq();
           if (fbq) {
             fbq("track", "ViewContent", {
@@ -215,7 +223,6 @@ export function setupMetaPixelTracking() {
               content_category: "Precos_e_Assinaturas"
             });
           }
-          plansObserver.disconnect();
         }
       });
     }, { threshold: 0.35 });
@@ -230,6 +237,8 @@ export function setupMetaPixelTracking() {
   const trackModalOpen = () => {
     if (modalViewed) return;
     modalViewed = true;
+    if (modalMutationObserver) modalMutationObserver.disconnect();
+    btnOpenModal?.removeEventListener("click", trackModalOpen);
     const fbq = getFbq();
     if (fbq) {
       fbq("track", "ViewContent", {
@@ -240,8 +249,9 @@ export function setupMetaPixelTracking() {
   };
 
   btnOpenModal?.addEventListener("click", trackModalOpen);
+  let modalMutationObserver: MutationObserver | null = null;
   if (modalOverlay) {
-    const modalMutationObserver = new MutationObserver((mutations) => {
+    modalMutationObserver = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.type === "attributes" && mutation.attributeName === "class") {
           if (modalOverlay.classList.contains("is-active")) {
@@ -314,14 +324,14 @@ export function setupMetaPixelTracking() {
 
     if (scrollPercentage >= 70) {
       scrollDeepTracked = true;
+      window.removeEventListener("scroll", checkScrollDepth);
+      if (snapContainer) snapContainer.removeEventListener("scroll", checkScrollDepth);
       const fbq = getFbq();
       if (fbq) {
         fbq("trackCustom", "Scroll_Profundo_70", {
           page: window.location.pathname
         });
       }
-      window.removeEventListener("scroll", checkScrollDepth);
-      if (snapContainer) snapContainer.removeEventListener("scroll", checkScrollDepth);
     }
   };
 

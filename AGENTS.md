@@ -20,3 +20,13 @@ Consult these guides before working on related tasks:
 - [Adding or managing content](https://docs.astro.build/en/guides/content-collections/)
 - [Adding styles or using Tailwind](https://docs.astro.build/en/guides/styling/)
 - [Supporting multiple languages](https://docs.astro.build/en/guides/internationalization/)
+
+
+## Secrets, Telemetria, Métricas e Logs (Pulumi ESC, Axiom, Upstash)
+
+- **Gestão de Chaves e Variáveis de Ambiente (Pulumi ESC):**
+  - Sempre que precisar de qualquer operação, consulta, configuração ou injeção referente a chaves de API, variáveis de ambiente e segredos (`keys` e `variables`), utilize o **Pulumi ESC** (`pulumi esc`).
+  - Nunca hardcodear segredos diretamente no código ou expor variáveis sensíveis.
+
+- **Métricas, Telemetria, Logs e Debug (Axiom & Upstash):**
+  - Sempre que precisar de métricas, telemetria, logs ou rotinas de debug, utilize o **Axiom** e o **Upstash**.
