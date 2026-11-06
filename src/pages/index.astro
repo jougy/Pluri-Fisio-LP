@@ -56,7 +56,10 @@ import Footer from '../components/Footer.astro';
   import { setupPricing } from '../scripts/pricing-bento';
   import { setupTrafficAttribution } from '../scripts/traffic-attribution';
 
+  let initialized = false;
   function init() {
+    if (initialized) return;
+    initialized = true;
     setupTrafficAttribution();
     setupPricing();
     setupWorkflowAccordion();
@@ -67,7 +70,7 @@ import Footer from '../components/Footer.astro';
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
+    document.addEventListener("DOMContentLoaded", init, { once: true });
   } else {
     init();
   }
