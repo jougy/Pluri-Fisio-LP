@@ -61,4 +61,24 @@ test.describe('Security & HTTP Headers Audits', () => {
     expect(content).toContain('/_astro/*');
     expect(content).toMatch(/max-age=31536000.*immutable/);
   });
+
+  test('enforces Cross-Origin Isolation headers for Enterprise & Firewall compliance (COOP, COEP, CORP)', () => {
+    const content = fs.readFileSync(headersPath, 'utf-8');
+    expect(content).toContain('Cross-Origin-Opener-Policy:');
+    expect(content).toContain('Cross-Origin-Embedder-Policy: credentialless');
+    expect(content).toContain('Cross-Origin-Resource-Policy: same-origin');
+  });
+
+  test('enforces Subresource Integrity (SRI) on all external scripts in built HTML', () => {
+    const distHtmlPath = path.resolve(process.cwd(), 'dist/index.html');
+    if (fs.existsSync(distHtmlPath)) {
+      const html = fs.readFileSync(distHtmlPath, 'utf-8');
+      const scriptTags = html.match(/<script\s+[^>]*?src=[^>]*?>/g) || [];
+      expect(scriptTags.length).toBeGreaterThan(0);
+      for (const tag of scriptTags) {
+        expect(tag).toContain('integrity="sha384-');
+        expect(tag).toContain('crossorigin="anonymous"');
+      }
+    }
+  });
 });
