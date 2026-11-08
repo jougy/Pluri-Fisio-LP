@@ -75,8 +75,8 @@ const enterpriseItems = [
           max="2"
           step="1"
           value="1"
+          data-step="1"
           aria-label="Selecionar plano por porte"
-          style="--fill: 50%;"
         />
         <div class="bento-steps">
           {PROF_PLANS.map((p, i) => (
@@ -325,6 +325,9 @@ const enterpriseItems = [
     background: linear-gradient(90deg, #0072FF var(--fill, 50%), #E2E8F0 var(--fill, 50%));
     outline-offset: 4px;
   }
+  .bento-slider[data-step="0"] { --fill: 0%; }
+  .bento-slider[data-step="1"] { --fill: 50%; }
+  .bento-slider[data-step="2"] { --fill: 100%; }
   .bento-slider::-webkit-slider-thumb {
     -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%;
     background: #fff; border: 3px solid #0072FF; box-shadow: 0 2px 8px rgba(0,114,255,.35);
