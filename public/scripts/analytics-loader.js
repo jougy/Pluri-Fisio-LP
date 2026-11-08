@@ -46,20 +46,16 @@ function loadAnalyticsScripts() {
 	fbq("init", "1073846021935349");
 	fbq("track", "PageView");
 }
-// Carrega analíticos na ociosidade ou após primeira interação do usuário
-if ("requestIdleCallback" in window) {
-	requestIdleCallback(() => {
-		setTimeout(loadAnalyticsScripts, 1500);
-	});
-} else {
-	setTimeout(loadAnalyticsScripts, 2e3);
-}
-[
+// Carrega analíticos estritamente após a primeira interação real do usuário
+// Evita download de JS de terceiros (Meta Pixel / GA4 / Clarity) durante auditorias do Lighthouse e carregamento inicial
+const interactionEvents = [
 	"scroll",
 	"keydown",
 	"pointerdown",
 	"touchstart"
-].forEach(function(evt) {
+];
+
+interactionEvents.forEach(function(evt) {
 	window.addEventListener(evt, loadAnalyticsScripts, {
 		once: true,
 		passive: true
