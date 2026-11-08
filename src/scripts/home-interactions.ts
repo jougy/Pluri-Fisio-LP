@@ -64,6 +64,29 @@ export function setupModal() {
       close();
     }
   });
+
+  // Troca de abas dentro do modal com atualização de estado ARIA
+  const tabBtns = overlay.querySelectorAll<HTMLButtonElement>(".modal-tab-btn");
+  const tabPanels = overlay.querySelectorAll<HTMLElement>(".modal-tab-content");
+
+  tabBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const targetId = btn.getAttribute("data-tab-target");
+      if (!targetId) return;
+
+      tabBtns.forEach((b) => {
+        const isCurrent = b === btn;
+        b.classList.toggle("active", isCurrent);
+        b.setAttribute("aria-selected", String(isCurrent));
+      });
+
+      tabPanels.forEach((panel) => {
+        const isCurrent = panel.id === targetId;
+        panel.classList.toggle("active", isCurrent);
+        panel.setAttribute("aria-hidden", String(!isCurrent));
+      });
+    });
+  });
 }
 
 export function setupWorkflowResponsiveCarousel() {

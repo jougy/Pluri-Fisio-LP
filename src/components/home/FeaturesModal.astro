@@ -19,14 +19,14 @@
     </div>
 
     <!-- Navegação de Abas Rápidas no Modal -->
-    <div class="modal-tabs-bar" role="tablist">
-      <button type="button" class="modal-tab-btn active" data-tab-target="tab-diferenciais">Diferenciais Chave</button>
-      <button type="button" class="modal-tab-btn" data-tab-target="tab-rotina">Semiótica & Rotina</button>
-      <button type="button" class="modal-tab-btn" data-tab-target="tab-seguranca">Autonomia & LGPD</button>
+    <div class="modal-tabs-bar" role="tablist" aria-label="Abas de recursos detalhados">
+      <button type="button" role="tab" id="tab-btn-diferenciais" aria-controls="tab-diferenciais" aria-selected="true" class="modal-tab-btn active" data-tab-target="tab-diferenciais">Diferenciais Chave</button>
+      <button type="button" role="tab" id="tab-btn-rotina" aria-controls="tab-rotina" aria-selected="false" class="modal-tab-btn" data-tab-target="tab-rotina">Semiótica & Rotina</button>
+      <button type="button" role="tab" id="tab-btn-seguranca" aria-controls="tab-seguranca" aria-selected="false" class="modal-tab-btn" data-tab-target="tab-seguranca">Autonomia & LGPD</button>
     </div>
 
     <!-- Aba 1: Os Grandes Diferenciais Explicados -->
-    <div class="modal-tab-content active" id="tab-diferenciais">
+    <div class="modal-tab-content active" id="tab-diferenciais" role="tabpanel" aria-labelledby="tab-btn-diferenciais">
       <div class="modal-grid">
         <!-- 1: Duplicação de Atendimentos -->
         <div class="modal-feature-box highlight-box">
@@ -87,7 +87,7 @@
     </div>
 
     <!-- Aba 2: Semiótica e Recursos de Rotina -->
-    <div class="modal-tab-content" id="tab-rotina">
+    <div class="modal-tab-content" id="tab-rotina" role="tabpanel" aria-labelledby="tab-btn-rotina" aria-hidden="true">
       <div class="modal-grid">
         <!-- 1: Relógio do Agendamento & 4 Cores -->
         <div class="modal-feature-box">
@@ -186,7 +186,7 @@
     </div>
 
     <!-- Aba 3: Autonomia & Segurança LGPD -->
-    <div class="modal-tab-content" id="tab-seguranca">
+    <div class="modal-tab-content" id="tab-seguranca" role="tabpanel" aria-labelledby="tab-btn-seguranca" aria-hidden="true">
       <div class="modal-grid">
         <!-- 1: Liberdade Multiclínica -->
         <div class="modal-feature-box highlight-box">

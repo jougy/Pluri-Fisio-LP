@@ -31,11 +31,11 @@
       <!-- Bloco Dinâmico com Título do Carrossel (Sem Parágrafos, Maior e Impactante) -->
       <div class="dynamic-showcase-header" id="dynamicShowcaseHeader">
         <div class="showcase-step-indicator" role="tablist" aria-label="Progresso dos diferenciais">
-          <button type="button" class="step-dot active" data-index="0" aria-label="Muito Fácil de Aprender"></button>
-          <button type="button" class="step-dot" data-index="1" aria-label="Todos os Dados em um Só Lugar"></button>
-          <button type="button" class="step-dot" data-index="2" aria-label="Agendamentos Simplificados"></button>
-          <button type="button" class="step-dot" data-index="3" aria-label="Livre de Papéis"></button>
-          <button type="button" class="step-dot" data-index="4" aria-label="Estrutura Completa para Gestão de Equipes"></button>
+          <button type="button" role="tab" id="step-dot-0" aria-controls="slide-diff-0" aria-selected="true" class="step-dot active" data-index="0" aria-label="Diferencial 1: Muito Fácil de Aprender"></button>
+          <button type="button" role="tab" id="step-dot-1" aria-controls="slide-diff-1" aria-selected="false" class="step-dot" data-index="1" aria-label="Diferencial 2: Todos os Dados em um Só Lugar"></button>
+          <button type="button" role="tab" id="step-dot-2" aria-controls="slide-diff-2" aria-selected="false" class="step-dot" data-index="2" aria-label="Diferencial 3: Agendamentos Simplificados"></button>
+          <button type="button" role="tab" id="step-dot-3" aria-controls="slide-diff-3" aria-selected="false" class="step-dot" data-index="3" aria-label="Diferencial 4: Livre de Papéis"></button>
+          <button type="button" role="tab" id="step-dot-4" aria-controls="slide-diff-4" aria-selected="false" class="step-dot" data-index="4" aria-label="Diferencial 5: Estrutura Completa para Gestão de Equipes"></button>
         </div>
 
         <h3 id="showcaseMainTitle" class="showcase-main-title">
@@ -60,7 +60,7 @@
       <!-- Palco da Ilustração Totalmente Desobstruído, Ampliado e Padronizado -->
       <div class="character-morph-stage" id="characterMorphStage" aria-label="Ilustrações dos diferenciais">
         <!-- 1. Muito Fácil de Aprender -->
-        <div class="morph-slide is-active">
+        <div class="morph-slide is-active" id="slide-diff-0" role="tabpanel" aria-labelledby="step-dot-0">
           <img
             src="/branding/illustrations/fisio_ref_simple.webp"
             alt="Muito Fácil de Aprender"
@@ -72,7 +72,7 @@
           />
         </div>
         <!-- 2. Todos os Dados em um Só Lugar -->
-        <div class="morph-slide">
+        <div class="morph-slide" id="slide-diff-1" role="tabpanel" aria-labelledby="step-dot-1" aria-hidden="true">
           <img
             src="/branding/illustrations/fisio_ref_speed.webp"
             alt="Todos os Dados em um Só Lugar"
@@ -84,7 +84,7 @@
           />
         </div>
         <!-- 3. Agendamentos Simplificados -->
-        <div class="morph-slide">
+        <div class="morph-slide" id="slide-diff-2" role="tabpanel" aria-labelledby="step-dot-2" aria-hidden="true">
           <img
             src="/branding/illustrations/fisio_ref_stonks.webp"
             alt="Agendamentos Simplificados"
@@ -96,7 +96,7 @@
           />
         </div>
         <!-- 4. Livre de Papéis -->
-        <div class="morph-slide">
+        <div class="morph-slide" id="slide-diff-3" role="tabpanel" aria-labelledby="step-dot-3" aria-hidden="true">
           <img
             src="/branding/illustrations/fisio_ref_nopaper.webp"
             alt="Livre de Papéis"
@@ -108,7 +108,7 @@
           />
         </div>
         <!-- 5. Estrutura Completa para Gestão de Equipes -->
-        <div class="morph-slide">
+        <div class="morph-slide" id="slide-diff-4" role="tabpanel" aria-labelledby="step-dot-4" aria-hidden="true">
           <img
             src="/branding/illustrations/fisio_ref_organized.webp"
             alt="Estrutura Completa para Gestão de Equipes"
@@ -169,9 +169,16 @@
       nextSlide.classList.remove("slide-to-left", "slide-to-right");
       nextSlide.classList.add("is-active", direction === 'next' ? "slide-from-right" : "slide-from-left");
 
-      // Atualiza dots indicadores
+      // Atualiza dots indicadores e painéis ARIA
       dots.forEach((dot, idx) => {
-        dot.classList.toggle("active", idx === currentIndex);
+        const isCurrent = idx === currentIndex;
+        dot.classList.toggle("active", isCurrent);
+        dot.setAttribute("aria-selected", String(isCurrent));
+      });
+
+      slides.forEach((slide, idx) => {
+        const isCurrent = idx === currentIndex;
+        slide.setAttribute("aria-hidden", String(!isCurrent));
       });
 
       // Transição suave com fade do Título
@@ -449,6 +456,7 @@
   }
 
   .step-dot {
+    position: relative;
     width: 28px;
     height: 4px;
     padding: 0;
@@ -457,6 +465,18 @@
     background: rgba(148, 163, 184, 0.4);
     transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     cursor: pointer;
+  }
+
+  /* Área de toque acessível mínima de 48px para mobile */
+  .step-dot::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    min-width: 48px;
+    height: 48px;
   }
 
   .step-dot:hover {
