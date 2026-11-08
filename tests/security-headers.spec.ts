@@ -46,13 +46,14 @@ test.describe('Security & HTTP Headers Audits', () => {
   test('enforces Content-Security-Policy (CSP) with essential directives', () => {
     const content = fs.readFileSync(headersPath, 'utf-8');
     expect(content).toContain('Content-Security-Policy:');
-    expect(content).toContain("default-src 'self'");
+    expect(content).toMatch(/default-src ('none'|'self')/);
     expect(content).toContain('script-src');
     expect(content).toContain('style-src');
     expect(content).toContain('font-src');
     expect(content).toContain('img-src');
     expect(content).toContain('connect-src');
     expect(content).toContain('frame-ancestors');
+    expect(content).not.toContain("script-src 'self' 'unsafe-inline'");
   });
 
   test('enforces immutable long-term caching for hashed static assets', () => {
