@@ -47,6 +47,9 @@ function sriInjectionIntegration() {
 
 // https://astro.build/config
 export default defineConfig({
+  build: {
+    inlineStylesheets: 'always',
+  },
   vite: {
     build: {
       assetsInlineLimit: 0,

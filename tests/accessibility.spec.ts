@@ -4,7 +4,7 @@ import AxeBuilder from '@axe-core/playwright';
 test.describe('A11y (Accessibility) WCAG 2.1 AA Audits', () => {
   test('landing page root has no critical or serious a11y violations', async ({ page }) => {
     await page.goto('/');
-    await page.waitForLoadState('domcontentloaded');
+    await page.waitForLoadState('networkidle');
 
     const accessibilityScanResults = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
