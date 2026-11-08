@@ -45,6 +45,7 @@ const enterpriseItems = [
             data-audience={a.id}
             role="tab"
             aria-selected={i === 0 ? 'true' : 'false'}
+            aria-controls={a.id === 'enterprise' ? 'bentoEnterprise' : 'bentoCard'}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={a.icon}></svg>
             <span>{a.label}</span>
@@ -88,7 +89,7 @@ const enterpriseItems = [
       </div>
 
       <!-- Banner persistente do teste grátis -->
-      <button type="button" class="trial-banner" id="btnOpenFreePlan" aria-label="Conhecer o teste gratuito de 7 dias">
+      <button type="button" class="trial-banner" id="btnOpenFreePlan">
         <span class="trial-banner-badge">7 DIAS GRÁTIS</span>
         <span class="trial-banner-text"><strong>Está indeciso?</strong> Teste gratuitamente por 7 dias sem cadastrar cartão</span>
         <span class="trial-banner-cta">
