@@ -23,17 +23,31 @@ function sriAndCspIntegration() {
         try {
           let html = fs.readFileSync(indexPath, 'utf-8');
 
-          // 1. Inject SRI for external scripts
+          // 1. Transform bundled module scripts into deferred low-priority classic scripts (IIFE-wrapped)
+          // and inject Subresource Integrity (SRI) for all external scripts
           const scriptRegex = /<script\s+([^>]*?)src=[\"']([^\"']+)[\"']([^>]*?)><\/script>/g;
           html = html.replace(scriptRegex, (match, before, src, after) => {
             if (before.includes('integrity=') || after.includes('integrity=')) return match;
             const filePath = path.join(distDir, src.startsWith('/') ? src.slice(1) : src);
             if (fs.existsSync(filePath)) {
-              const fileContent = fs.readFileSync(filePath);
-              const hash = 'sha384-' + crypto.createHash('sha384').update(fileContent).digest('base64');
-              const cleanBefore = before.trim();
-              const cleanAfter = after.trim();
-              return `<script ${cleanBefore ? cleanBefore + ' ' : ''}src="${src}" integrity="${hash}" crossorigin="anonymous"${cleanAfter ? ' ' + cleanAfter : ''}></script>`;
+              let fileContent = fs.readFileSync(filePath, 'utf-8');
+              const isModule = /\btype=[\"']module[\"']/i.test(before) || /\btype=[\"']module[\"']/i.test(after);
+              if (isModule && src.startsWith('/_astro/')) {
+                if (!fileContent.startsWith('(()=>{')) {
+                  fileContent = `(()=>{${fileContent.trim()}})();\n`;
+                  fs.writeFileSync(filePath, fileContent, 'utf-8');
+                }
+              }
+              const hash = 'sha384-' + crypto.createHash('sha384').update(fileContent, 'utf-8').digest('base64');
+              const cleanBefore = before.replace(/\btype=[\"']module[\"']/gi, '').trim();
+              const cleanAfter = after.replace(/\btype=[\"']module[\"']/gi, '').trim();
+              const hasDefer = /\bdefer\b/i.test(cleanBefore) || /\bdefer\b/i.test(cleanAfter);
+              const hasFetchPriority = /\bfetchpriority=/i.test(cleanBefore) || /\bfetchpriority=/i.test(cleanAfter);
+              const extraAttrs = [
+                !hasDefer ? 'defer' : '',
+                !hasFetchPriority ? 'fetchpriority="low"' : '',
+              ].filter(Boolean).join(' ');
+              return `<script ${cleanBefore ? cleanBefore + ' ' : ''}${extraAttrs ? extraAttrs + ' ' : ''}src="${src}" integrity="${hash}" crossorigin="anonymous"${cleanAfter ? ' ' + cleanAfter : ''}></script>`;
             }
             return match;
           });
@@ -88,6 +102,7 @@ export default defineConfig({
   },
   vite: {
     build: {
+      target: 'esnext',
       assetsInlineLimit: 0,
     },
   },

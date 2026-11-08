@@ -80,7 +80,6 @@ export function setupPricing() {
 
     if (el.features) {
       el.features.innerHTML = plan.features
-        .filter((f) => !f.text.startsWith("Consultoria"))
         .map(
           (f) =>
             `<li>${CHECK_SVG}<span>${f.bold ? `<strong>${f.text}</strong>` : f.text}</span></li>`
