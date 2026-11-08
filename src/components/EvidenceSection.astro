@@ -41,9 +41,9 @@ import SectionHeader from './ui/SectionHeader.astro';
             <span class="text-teal"><strong>27,0%</strong> Atendimento</span>
           </div>
           <div class="visualizer-bar">
-            <div class="bar-segment bar-coral" style="width: 49.2%;"></div>
-            <div class="bar-segment bar-teal" style="width: 27%;"></div>
-            <div class="bar-segment bar-neutral" style="width: 23.8%;"></div>
+            <div class="bar-segment bar-coral w-49-2"></div>
+            <div class="bar-segment bar-teal w-27"></div>
+            <div class="bar-segment bar-neutral w-23-8"></div>
           </div>
         </div>
 
@@ -77,8 +77,8 @@ import SectionHeader from './ui/SectionHeader.astro';
             <span class="text-amber"><strong>62% dos profissionais</strong></span>
           </div>
           <div class="visualizer-bar">
-            <div class="bar-segment bar-amber" style="width: 62%;"></div>
-            <div class="bar-segment bar-neutral" style="width: 38%;"></div>
+            <div class="bar-segment bar-amber w-62"></div>
+            <div class="bar-segment bar-neutral w-38"></div>
           </div>
         </div>
 
@@ -112,8 +112,8 @@ import SectionHeader from './ui/SectionHeader.astro';
             <span class="text-sage"><strong>Até 50% menos ausências</strong></span>
           </div>
           <div class="visualizer-bar">
-            <div class="bar-segment bar-sage" style="width: 50%;"></div>
-            <div class="bar-segment bar-neutral" style="width: 50%;"></div>
+            <div class="bar-segment bar-sage w-50"></div>
+            <div class="bar-segment bar-neutral w-50"></div>
           </div>
         </div>
 
@@ -294,6 +294,13 @@ import SectionHeader from './ui/SectionHeader.astro';
     height: 100%;
     border-radius: var(--radius-full);
   }
+
+  .w-49-2 { width: 49.2%; }
+  .w-27 { width: 27%; }
+  .w-23-8 { width: 23.8%; }
+  .w-62 { width: 62%; }
+  .w-38 { width: 38%; }
+  .w-50 { width: 50%; }
 
   .bar-coral { 
     background-color: var(--color-coral); 

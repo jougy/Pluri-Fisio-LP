@@ -4,8 +4,8 @@ test.describe('Performance & Core Web Vitals Guards', () => {
   test('critical fonts are preloaded without render-blocking stylesheets', async ({ page }) => {
     await page.goto('/');
 
-    // Verifica presença de preload para a fonte
-    const fontPreload = page.locator('link[rel="preload"][as="style"][href*="fonts.googleapis.com"]');
+    // Verifica presença de preload para as fontes locais (Figtree & Outfit)
+    const fontPreload = page.locator('link[rel="preload"][as="font"][href*="/fonts/"]');
     expect(await fontPreload.count()).toBeGreaterThan(0);
 
     // Verifica preload de alta prioridade da imagem de marca no Hero

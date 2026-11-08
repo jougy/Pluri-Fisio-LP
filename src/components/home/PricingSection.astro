@@ -75,8 +75,8 @@ const enterpriseItems = [
           max="2"
           step="1"
           value="1"
+          data-step="1"
           aria-label="Selecionar plano por porte"
-          style="--fill: 50%;"
         />
         <div class="bento-steps">
           {PROF_PLANS.map((p, i) => (
@@ -302,13 +302,13 @@ const enterpriseItems = [
   .audience-toggle-btn, .cycle-btn {
     display: inline-flex; align-items: center; justify-content: center; gap: .3rem;
     padding: .38rem .8rem; border-radius: 999px; background: transparent;
-    color: #64748B; font-size: .8rem; font-weight: 700; cursor: pointer; white-space: nowrap;
+    color: #334155; font-size: .8rem; font-weight: 700; cursor: pointer; white-space: nowrap;
     transition: background-color .18s ease, color .18s ease, box-shadow .18s ease;
   }
   .audience-toggle-btn:hover, .cycle-btn:hover { color: #0F172A; }
-  .audience-toggle-btn.active { background: #fff; color: #0072FF; box-shadow: 0 2px 6px rgba(15,23,42,.1); }
+  .audience-toggle-btn.active { background: #fff; color: #0055D4; box-shadow: 0 2px 6px rgba(15,23,42,.1); }
   .cycle-btn.active { background: #0F172A; color: #fff; }
-  .cycle-note { font-size: .66rem; font-weight: 800; color: #0072FF; }
+  .cycle-note { font-size: .66rem; font-weight: 800; color: #0055D4; }
   .cycle-btn.active .cycle-note { color: #38BDF8; }
 
   /* Slider */
@@ -318,31 +318,45 @@ const enterpriseItems = [
     padding: clamp(.7rem, 1.6vh, 1rem) 1rem; box-shadow: 0 4px 14px rgba(15,23,42,.04);
     display: flex; flex-direction: column; gap: .6rem;
   }
-  .bento-stepper-head { font-size: .74rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; color: #64748B; }
+  .bento-stepper-head { font-size: .74rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; color: #475569; }
 
   .bento-slider {
     -webkit-appearance: none; appearance: none; width: 100%; height: 8px; border-radius: 999px; cursor: pointer;
     background: linear-gradient(90deg, #0072FF var(--fill, 50%), #E2E8F0 var(--fill, 50%));
     outline-offset: 4px;
+    margin: 14px 0 6px 0;
+    touch-action: pan-y;
   }
+  .bento-slider[data-step="0"] { --fill: 0%; }
+  .bento-slider[data-step="1"] { --fill: 50%; }
+  .bento-slider[data-step="2"] { --fill: 100%; }
   .bento-slider::-webkit-slider-thumb {
-    -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%;
+    -webkit-appearance: none; width: 28px; height: 28px; border-radius: 50%;
     background: #fff; border: 3px solid #0072FF; box-shadow: 0 2px 8px rgba(0,114,255,.35);
     transition: transform .15s ease;
+    cursor: pointer;
   }
   .bento-slider::-webkit-slider-thumb:hover { transform: scale(1.12); }
-  .bento-slider::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 3px solid #0072FF; }
+  .bento-slider::-moz-range-thumb {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: #fff; border: 3px solid #0072FF; box-shadow: 0 2px 8px rgba(0,114,255,.35);
+    cursor: pointer;
+  }
 
-  .bento-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: .25rem; }
+  .bento-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; margin-top: .4rem; }
   .bento-step {
-    display: flex; flex-direction: column; gap: .1rem; padding: .3rem .25rem; border-radius: 10px;
-    background: transparent; text-align: center; color: #64748B; transition: background-color .18s ease, color .18s ease;
+    display: flex; flex-direction: column; justify-content: center; gap: .2rem;
+    padding: .65rem .4rem; min-height: 48px; border-radius: 12px;
+    background: transparent; text-align: center; color: #334155;
+    cursor: pointer; position: relative;
+    transition: background-color .18s ease, color .18s ease;
   }
   .bento-step:nth-child(1) { text-align: left; }
   .bento-step:nth-child(3) { text-align: right; }
-  .bento-step-name { font-size: .88rem; font-weight: 800; }
-  .bento-step-hint { font-size: .7rem; font-weight: 600; opacity: .85; }
-  .bento-step.active { color: #0072FF; }
+  .bento-step-name { font-size: .88rem; font-weight: 800; color: #1E293B; }
+  .bento-step-hint { font-size: .7rem; font-weight: 700; color: #475569; }
+  .bento-step.active { color: #0055D4; }
+  .bento-step.active .bento-step-name, .bento-step.active .bento-step-hint { color: #0055D4; }
 
   /* Banner teste grátis */
   .trial-banner {
@@ -353,12 +367,12 @@ const enterpriseItems = [
     transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
   }
   .trial-banner:hover { transform: translateY(-1px); border-color: #4ADE80; box-shadow: 0 6px 16px rgba(34,197,94,.2); }
-  .trial-banner-badge { background: #16A34A; color: #fff; font-size: .64rem; font-weight: 800; padding: .15rem .5rem; border-radius: 999px; white-space: nowrap; letter-spacing: .04em; }
+  .trial-banner-badge { background: #15803D; color: #fff; font-size: .64rem; font-weight: 800; padding: .15rem .5rem; border-radius: 999px; white-space: nowrap; letter-spacing: .04em; }
   .trial-banner-text { line-height: 1.3; }
   .trial-banner-text strong { color: #14532D; }
   .trial-banner-cta { display: inline-flex; align-items: center; gap: .15rem; font-weight: 800; color: #15803D; white-space: nowrap; }
 
-  .bento-trust { display: flex; flex-wrap: wrap; gap: .4rem; font-size: .74rem; color: #64748B; margin: 0; }
+  .bento-trust { display: flex; flex-wrap: wrap; gap: .4rem; font-size: .74rem; color: #475569; margin: 0; }
 
   /* ---------- Palco direito ---------- */
   .bento-stage { min-width: 0; }

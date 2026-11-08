@@ -18,25 +18,25 @@
   <div class="hero-brand-top">
     <span class="t-small hero-badge" aria-label="Lançamento Oficial">
       <span class="wave-word">
-        <span class="wave-char" style="--i: 0;">L</span>
-        <span class="wave-char" style="--i: 1;">a</span>
-        <span class="wave-char" style="--i: 2;">n</span>
-        <span class="wave-char" style="--i: 3;">ç</span>
-        <span class="wave-char" style="--i: 4;">a</span>
-        <span class="wave-char" style="--i: 5;">m</span>
-        <span class="wave-char" style="--i: 6;">e</span>
-        <span class="wave-char" style="--i: 7;">n</span>
-        <span class="wave-char" style="--i: 8;">t</span>
-        <span class="wave-char" style="--i: 9;">o</span>
+        <span class="wave-char" data-i="0">L</span>
+        <span class="wave-char" data-i="1">a</span>
+        <span class="wave-char" data-i="2">n</span>
+        <span class="wave-char" data-i="3">ç</span>
+        <span class="wave-char" data-i="4">a</span>
+        <span class="wave-char" data-i="5">m</span>
+        <span class="wave-char" data-i="6">e</span>
+        <span class="wave-char" data-i="7">n</span>
+        <span class="wave-char" data-i="8">t</span>
+        <span class="wave-char" data-i="9">o</span>
       </span>
       <span class="wave-word">
-        <span class="wave-char" style="--i: 10;">O</span>
-        <span class="wave-char" style="--i: 11;">f</span>
-        <span class="wave-char" style="--i: 12;">i</span>
-        <span class="wave-char" style="--i: 13;">c</span>
-        <span class="wave-char" style="--i: 14;">i</span>
-        <span class="wave-char" style="--i: 15;">a</span>
-        <span class="wave-char" style="--i: 16;">l</span>
+        <span class="wave-char" data-i="10">O</span>
+        <span class="wave-char" data-i="11">f</span>
+        <span class="wave-char" data-i="12">i</span>
+        <span class="wave-char" data-i="13">c</span>
+        <span class="wave-char" data-i="14">i</span>
+        <span class="wave-char" data-i="15">a</span>
+        <span class="wave-char" data-i="16">l</span>
       </span>
     </span>
 
@@ -160,11 +160,29 @@
   .wave-char {
     display: inline-block;
     animation: badgeCharWave 2.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-    animation-delay: calc(var(--i) * 0.08s);
+    animation-delay: calc(var(--i, 0) * 0.08s);
     will-change: transform;
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
   }
+
+  .wave-char[data-i="0"] { --i: 0; }
+  .wave-char[data-i="1"] { --i: 1; }
+  .wave-char[data-i="2"] { --i: 2; }
+  .wave-char[data-i="3"] { --i: 3; }
+  .wave-char[data-i="4"] { --i: 4; }
+  .wave-char[data-i="5"] { --i: 5; }
+  .wave-char[data-i="6"] { --i: 6; }
+  .wave-char[data-i="7"] { --i: 7; }
+  .wave-char[data-i="8"] { --i: 8; }
+  .wave-char[data-i="9"] { --i: 9; }
+  .wave-char[data-i="10"] { --i: 10; }
+  .wave-char[data-i="11"] { --i: 11; }
+  .wave-char[data-i="12"] { --i: 12; }
+  .wave-char[data-i="13"] { --i: 13; }
+  .wave-char[data-i="14"] { --i: 14; }
+  .wave-char[data-i="15"] { --i: 15; }
+  .wave-char[data-i="16"] { --i: 16; }
 
   @keyframes badgeCharWave {
     0%, 100% {

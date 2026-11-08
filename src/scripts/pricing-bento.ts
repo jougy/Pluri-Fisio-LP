@@ -117,7 +117,7 @@ export function setupPricing() {
     if (slider) {
       slider.value = String(step);
       slider.setAttribute("aria-valuetext", plans[step].name);
-      slider.style.setProperty("--fill", `${(step / 2) * 100}%`);
+      slider.dataset.step = String(step);
     }
   }
 

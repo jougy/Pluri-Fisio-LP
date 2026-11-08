@@ -6,22 +6,25 @@ import crypto from 'node:crypto';
 import path from 'node:path';
 
 /**
- * Astro Integration that computes cryptographic SHA-384 hashes for all static scripts
- * and injects Subresource Integrity (SRI) attributes into the final HTML output.
+ * Astro Integration that:
+ * 1. Computes cryptographic SHA-384 hashes for all static scripts and injects Subresource Integrity (SRI).
+ * 2. Computes cryptographic SHA-256 hashes for all inline <style> tags and injects them into CSP headers.
+ * 3. Eliminates 'unsafe-inline' from style-src in public/_headers and dist/_headers.
  */
-function sriInjectionIntegration() {
+function sriAndCspIntegration() {
   return {
-    name: 'sri-injector',
+    name: 'sri-and-csp-injector',
     hooks: {
       'astro:build:done': async ({ dir, logger }) => {
-        logger.info('Injecting Subresource Integrity (SRI) hashes into HTML...');
+        logger.info('Processing SRI hashes and CSP style hashes...');
         const distDir = fileURLToPath(dir);
         const indexPath = path.join(distDir, 'index.html');
 
         try {
           let html = fs.readFileSync(indexPath, 'utf-8');
-          const scriptRegex = /<script\s+([^>]*?)src=[\"']([^\"']+)[\"']([^>]*?)><\/script>/g;
 
+          // 1. Inject SRI for external scripts
+          const scriptRegex = /<script\s+([^>]*?)src=[\"']([^\"']+)[\"']([^>]*?)><\/script>/g;
           html = html.replace(scriptRegex, (match, before, src, after) => {
             if (before.includes('integrity=') || after.includes('integrity=')) return match;
             const filePath = path.join(distDir, src.startsWith('/') ? src.slice(1) : src);
@@ -35,10 +38,43 @@ function sriInjectionIntegration() {
             return match;
           });
 
+          // 2. Extract hashes from all inline <style> tags
+          const styleMatches = [...html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/gi)];
+          const styleHashes = styleMatches.map(m => {
+            const h = crypto.createHash('sha256').update(m[1]).digest('base64');
+            return `'sha256-${h}'`;
+          });
+
           fs.writeFileSync(indexPath, html, 'utf-8');
-          logger.info('Successfully injected Subresource Integrity (SRI) into index.html');
+          logger.info(`Successfully injected SRI and found ${styleHashes.length} inline style tags.`);
+
+          // 3. Update Content-Security-Policy in _headers files (dist and public)
+          const updateHeaders = (headersPath) => {
+            if (!fs.existsSync(headersPath)) return;
+            let headers = fs.readFileSync(headersPath, 'utf-8');
+            
+            // Build style-src directive without 'unsafe-inline' and without googleapis
+            const styleSources = ["'self'", ...styleHashes].join(' ');
+            
+            headers = headers.replace(
+              /style-src\s+[^;]+;/g,
+              `style-src ${styleSources};`
+            );
+            
+            // Also ensure font-src is strictly 'self' data: (no google gstatic needed)
+            headers = headers.replace(
+              /font-src\s+[^;]+;/g,
+              `font-src 'self' data:;`
+            );
+
+            fs.writeFileSync(headersPath, headers, 'utf-8');
+          };
+
+          updateHeaders(path.join(distDir, '_headers'));
+          updateHeaders(path.join(process.cwd(), 'public', '_headers'));
+          logger.info('Updated Content-Security-Policy in _headers with strict style hashes (unsafe-inline eliminated).');
         } catch (err) {
-          logger.error('Failed to inject SRI: ' + String(err));
+          logger.error('Failed in SRI/CSP integration: ' + String(err));
         }
       },
     },
@@ -55,5 +91,5 @@ export default defineConfig({
       assetsInlineLimit: 0,
     },
   },
-  integrations: [sriInjectionIntegration()],
+  integrations: [sriAndCspIntegration()],
 });

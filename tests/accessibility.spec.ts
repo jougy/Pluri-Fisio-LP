@@ -53,15 +53,26 @@ test.describe('A11y (Accessibility) WCAG 2.1 AA Audits', () => {
     }
   });
 
-  test('tap targets (carousel dots) meet minimum 48px touch boundary requirement', async ({ page }) => {
+  test('tap targets (carousel dots & bento step buttons) meet minimum 48px touch boundary requirement', async ({ page }) => {
     await page.goto('/');
     
     const dots = page.locator('.step-dot');
     const firstDot = dots.first();
     await expect(firstDot).toBeVisible();
 
-    // Avalia o bounding box computado do pseudo-elemento ::before ou bounding
     const dotBox = await firstDot.boundingBox();
     expect(dotBox).not.toBeNull();
+
+    // Valida tap targets dos botões de passo do slider de preços
+    const bentoSteps = page.locator('.bento-step');
+    const count = await bentoSteps.count();
+    expect(count).toBeGreaterThan(0);
+    for (let i = 0; i < count; i++) {
+      const stepBox = await bentoSteps.nth(i).boundingBox();
+      expect(stepBox).not.toBeNull();
+      if (stepBox) {
+        expect(stepBox.height).toBeGreaterThanOrEqual(48);
+      }
+    }
   });
 });
