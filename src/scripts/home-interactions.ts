@@ -379,3 +379,174 @@ export function setupSmoothAnchors() {
     }
   });
 }
+
+// Inicialização sob demanda do carrossel da Seção 2 (PlatformSection)
+export function setupPlatformCarousel() {
+  const stage = document.getElementById("characterMorphStage");
+  const titleEl = document.getElementById("showcaseMainTitle");
+  const dots = document.querySelectorAll<HTMLElement>(".step-dot");
+  const prevBtn = document.getElementById("carouselPrevBtn");
+  const nextBtn = document.getElementById("carouselNextBtn");
+  if (!stage) return;
+
+  const slides = stage.querySelectorAll<HTMLElement>(".morph-slide");
+  if (slides.length < 2) return;
+
+  let currentIndex = 0;
+  let timer: number | null = null;
+
+  function goToIndex(nextIndex: number, direction: 'next' | 'prev' = 'next') {
+    if (nextIndex === currentIndex) return;
+    const prevSlide = slides[currentIndex];
+    const nextSlide = slides[nextIndex];
+    const nextImg = nextSlide.querySelector<HTMLImageElement>(".morph-character-img");
+
+    prevSlide.classList.remove("is-active", "slide-from-left", "slide-from-right");
+    prevSlide.classList.add(direction === 'next' ? "slide-to-left" : "slide-to-right");
+
+    setTimeout(() => {
+      prevSlide.classList.remove("slide-to-left", "slide-to-right");
+    }, 500);
+
+    currentIndex = nextIndex;
+    nextSlide.classList.remove("slide-to-left", "slide-to-right");
+    nextSlide.classList.add("is-active", direction === 'next' ? "slide-from-right" : "slide-from-left");
+
+    dots.forEach((dot, idx) => {
+      const isCurrent = idx === currentIndex;
+      dot.classList.toggle("active", isCurrent);
+      dot.setAttribute("aria-selected", String(isCurrent));
+    });
+
+    slides.forEach((slide, idx) => {
+      const isCurrent = idx === currentIndex;
+      slide.setAttribute("aria-hidden", String(!isCurrent));
+    });
+
+    if (titleEl && nextImg?.dataset.title) {
+      titleEl.style.opacity = "0";
+      titleEl.style.transform = "translate3d(0, -6px, 0)";
+    }
+
+    setTimeout(() => {
+      if (titleEl && nextImg?.dataset.title) {
+        titleEl.textContent = nextImg.dataset.title;
+        titleEl.style.opacity = "1";
+        titleEl.style.transform = "translate3d(0, 0, 0)";
+      }
+    }, 160);
+  }
+
+  function stepNext() {
+    const next = (currentIndex + 1) % slides.length;
+    goToIndex(next, 'next');
+  }
+
+  function stepPrev() {
+    const prev = (currentIndex - 1 + slides.length) % slides.length;
+    goToIndex(prev, 'prev');
+  }
+
+  prevBtn?.addEventListener("click", () => {
+    stepPrev();
+    stop();
+    start();
+  });
+
+  nextBtn?.addEventListener("click", () => {
+    stepNext();
+    stop();
+    start();
+  });
+
+  dots.forEach((dot) => {
+    dot.addEventListener("click", () => {
+      const targetIdx = parseInt(dot.getAttribute("data-index") || "0", 10);
+      goToIndex(targetIdx, targetIdx > currentIndex ? 'next' : 'prev');
+      stop();
+      start();
+    });
+  });
+
+  let touchStartX = 0;
+  let touchEndX = 0;
+  stage.addEventListener("touchstart", (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  stage.addEventListener("touchend", (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    const diff = touchEndX - touchStartX;
+    if (Math.abs(diff) > 40) {
+      if (diff < 0) {
+        stepNext();
+      } else {
+        stepPrev();
+      }
+      stop();
+      start();
+    }
+  }, { passive: true });
+
+  function start() {
+    if (!timer) {
+      timer = window.setInterval(stepNext, 4600);
+    }
+  }
+
+  function stop() {
+    if (timer) {
+      clearInterval(timer);
+      timer = null;
+    }
+  }
+
+  stage.addEventListener("mouseenter", stop);
+  stage.addEventListener("mouseleave", start);
+
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          start();
+        } else {
+          stop();
+        }
+      });
+    }, { threshold: 0.15 });
+    observer.observe(stage);
+  } else {
+    start();
+  }
+}
+
+// Inicialização sob demanda do Footer retrátil
+export function setupCollapsibleFooter() {
+  const btn = document.getElementById('btnToggleFooter');
+  const drawer = document.getElementById('footerExpandedContent');
+  const label = document.getElementById('footerBtnLabel');
+
+  if (!btn || !drawer) return;
+
+  btn.addEventListener('click', () => {
+    const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+    const nextState = !isExpanded;
+
+    btn.setAttribute('aria-expanded', String(nextState));
+    btn.classList.toggle('active', nextState);
+    
+    if (nextState) {
+      drawer.hidden = false;
+      drawer.classList.add('is-open');
+      if (label) label.textContent = 'Recolher rodapé';
+    } else {
+      drawer.classList.remove('is-open');
+      if (label) label.textContent = 'Ver dados legais & mapa';
+      setTimeout(() => {
+        if (!btn.classList.contains('active')) {
+          drawer.hidden = true;
+        }
+      }, 200);
+    }
+  });
+}

@@ -63,70 +63,75 @@
         <div class="morph-slide is-active" id="slide-diff-0" role="tabpanel" aria-labelledby="step-dot-0">
           <img
             src="/branding/illustrations/fisio_ref_simple.webp"
-            srcset="/branding/illustrations/fisio_ref_simple-300.webp 300w, /branding/illustrations/fisio_ref_simple.webp 600w"
-            sizes="(max-width: 640px) 296px, 600px"
+            srcset="/branding/illustrations/fisio_ref_simple-300.webp 300w, /branding/illustrations/fisio_ref_simple-450.webp 450w, /branding/illustrations/fisio_ref_simple.webp 600w"
+            sizes="(max-width: 480px) 296px, (max-width: 768px) 340px, 600px"
             alt="Muito Fácil de Aprender"
             class="morph-character-img"
             data-title="MUITO FACIL DE APRENDER"
             width="600"
             height="600"
-            loading="eager"
+            loading="lazy"
+            decoding="async"
           />
         </div>
         <!-- 2. Todos os Dados em um Só Lugar -->
         <div class="morph-slide" id="slide-diff-1" role="tabpanel" aria-labelledby="step-dot-1" aria-hidden="true">
           <img
             src="/branding/illustrations/fisio_ref_speed.webp"
-            srcset="/branding/illustrations/fisio_ref_speed-300.webp 300w, /branding/illustrations/fisio_ref_speed.webp 600w"
-            sizes="(max-width: 640px) 296px, 600px"
+            srcset="/branding/illustrations/fisio_ref_speed-300.webp 300w, /branding/illustrations/fisio_ref_speed-450.webp 450w, /branding/illustrations/fisio_ref_speed.webp 600w"
+            sizes="(max-width: 480px) 296px, (max-width: 768px) 340px, 600px"
             alt="Todos os Dados em um Só Lugar"
             class="morph-character-img"
             data-title="TODOS OS DADOS EM UM SÓ LUGAR"
             width="600"
             height="600"
             loading="lazy"
+            decoding="async"
           />
         </div>
         <!-- 3. Agendamentos Simplificados -->
         <div class="morph-slide" id="slide-diff-2" role="tabpanel" aria-labelledby="step-dot-2" aria-hidden="true">
           <img
             src="/branding/illustrations/fisio_ref_stonks.webp"
-            srcset="/branding/illustrations/fisio_ref_stonks-300.webp 300w, /branding/illustrations/fisio_ref_stonks.webp 600w"
-            sizes="(max-width: 640px) 296px, 600px"
+            srcset="/branding/illustrations/fisio_ref_stonks-300.webp 300w, /branding/illustrations/fisio_ref_stonks-450.webp 450w, /branding/illustrations/fisio_ref_stonks.webp 600w"
+            sizes="(max-width: 480px) 296px, (max-width: 768px) 340px, 600px"
             alt="Agendamentos Simplificados"
             class="morph-character-img img-stonks"
             data-title="AGENDAMENTOS SIMPLIFICADOS"
             width="600"
             height="600"
             loading="lazy"
+            decoding="async"
           />
         </div>
         <!-- 4. Livre de Papéis -->
         <div class="morph-slide" id="slide-diff-3" role="tabpanel" aria-labelledby="step-dot-3" aria-hidden="true">
           <img
             src="/branding/illustrations/fisio_ref_nopaper.webp"
-            srcset="/branding/illustrations/fisio_ref_nopaper-300.webp 300w, /branding/illustrations/fisio_ref_nopaper.webp 600w"
-            sizes="(max-width: 640px) 296px, 600px"
+            srcset="/branding/illustrations/fisio_ref_nopaper-300.webp 300w, /branding/illustrations/fisio_ref_nopaper-450.webp 450w, /branding/illustrations/fisio_ref_nopaper.webp 600w"
+            sizes="(max-width: 480px) 296px, (max-width: 768px) 340px, 600px"
             alt="Livre de Papéis"
             class="morph-character-img"
             data-title="LIVRE DE PAPEIS"
             width="600"
             height="600"
             loading="lazy"
+            decoding="async"
           />
         </div>
         <!-- 5. Estrutura Completa para Gestão de Equipes -->
         <div class="morph-slide" id="slide-diff-4" role="tabpanel" aria-labelledby="step-dot-4" aria-hidden="true">
           <img
             src="/branding/illustrations/fisio_ref_organized.webp"
-            srcset="/branding/illustrations/fisio_ref_organized-300.webp 300w, /branding/illustrations/fisio_ref_organized.webp 600w"
-            sizes="(max-width: 640px) 296px, 600px"
+            srcset="/branding/illustrations/fisio_ref_organized-300.webp 300w, /branding/illustrations/fisio_ref_organized-450.webp 450w, /branding/illustrations/fisio_ref_organized.webp 600w"
+            sizes="(max-width: 480px) 296px, (max-width: 768px) 340px, 600px"
             alt="Estrutura Completa para Gestão de Equipes"
             class="morph-character-img"
             data-title="ESTRUTURA COMPLETA PARA GESTÃO DE EQUIPES"
             width="600"
             height="600"
             loading="lazy"
+            decoding="async"
           />
         </div>
       </div>
@@ -145,160 +150,6 @@
 
   </div>
 </section>
-
-<script>
-  // Transição sincronizada de carrossel com slide, setas e dots
-  function initCharacterMorph() {
-    const stage = document.getElementById("characterMorphStage");
-    const titleEl = document.getElementById("showcaseMainTitle");
-    const dots = document.querySelectorAll<HTMLElement>(".step-dot");
-    const prevBtn = document.getElementById("carouselPrevBtn");
-    const nextBtn = document.getElementById("carouselNextBtn");
-    if (!stage) return;
-
-    const slides = stage.querySelectorAll<HTMLElement>(".morph-slide");
-    if (slides.length < 2) return;
-
-    let currentIndex = 0;
-    let timer: number | null = null;
-
-    function goToIndex(nextIndex: number, direction: 'next' | 'prev' = 'next') {
-      if (nextIndex === currentIndex) return;
-      const prevSlide = slides[currentIndex];
-      const nextSlide = slides[nextIndex];
-      const nextImg = nextSlide.querySelector<HTMLImageElement>(".morph-character-img");
-
-      prevSlide.classList.remove("is-active", "slide-from-left", "slide-from-right");
-      prevSlide.classList.add(direction === 'next' ? "slide-to-left" : "slide-to-right");
-
-      setTimeout(() => {
-        prevSlide.classList.remove("slide-to-left", "slide-to-right");
-      }, 500);
-
-      currentIndex = nextIndex;
-      nextSlide.classList.remove("slide-to-left", "slide-to-right");
-      nextSlide.classList.add("is-active", direction === 'next' ? "slide-from-right" : "slide-from-left");
-
-      // Atualiza dots indicadores e painéis ARIA
-      dots.forEach((dot, idx) => {
-        const isCurrent = idx === currentIndex;
-        dot.classList.toggle("active", isCurrent);
-        dot.setAttribute("aria-selected", String(isCurrent));
-      });
-
-      slides.forEach((slide, idx) => {
-        const isCurrent = idx === currentIndex;
-        slide.setAttribute("aria-hidden", String(!isCurrent));
-      });
-
-      // Transição suave com fade do Título
-      if (titleEl && nextImg?.dataset.title) {
-        titleEl.style.opacity = "0";
-        titleEl.style.transform = "translate3d(0, -6px, 0)";
-      }
-
-      setTimeout(() => {
-        if (titleEl && nextImg?.dataset.title) {
-          titleEl.textContent = nextImg.dataset.title;
-          titleEl.style.opacity = "1";
-          titleEl.style.transform = "translate3d(0, 0, 0)";
-        }
-      }, 160);
-    }
-
-    function stepNext() {
-      const next = (currentIndex + 1) % slides.length;
-      goToIndex(next, 'next');
-    }
-
-    function stepPrev() {
-      const prev = (currentIndex - 1 + slides.length) % slides.length;
-      goToIndex(prev, 'prev');
-    }
-
-    // Clique nas setas do carrossel
-    prevBtn?.addEventListener("click", () => {
-      stepPrev();
-      stop();
-      start();
-    });
-
-    nextBtn?.addEventListener("click", () => {
-      stepNext();
-      stop();
-      start();
-    });
-
-    // Clique interativo nos dots indicadores
-    dots.forEach((dot) => {
-      dot.addEventListener("click", () => {
-        const targetIdx = parseInt(dot.getAttribute("data-index") || "0", 10);
-        goToIndex(targetIdx, targetIdx > currentIndex ? 'next' : 'prev');
-        stop();
-        start();
-      });
-    });
-
-    // Suporte a Touch Swipe
-    let touchStartX = 0;
-    let touchEndX = 0;
-    stage.addEventListener("touchstart", (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
-
-    stage.addEventListener("touchend", (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      const diff = touchEndX - touchStartX;
-      if (Math.abs(diff) > 40) {
-        if (diff < 0) {
-          stepNext();
-        } else {
-          stepPrev();
-        }
-        stop();
-        start();
-      }
-    }, { passive: true });
-
-    function start() {
-      if (!timer) {
-        timer = window.setInterval(stepNext, 4600);
-      }
-    }
-
-    function stop() {
-      if (timer) {
-        clearInterval(timer);
-        timer = null;
-      }
-    }
-
-    // Pausa suave no hover
-    stage.addEventListener("mouseenter", stop);
-    stage.addEventListener("mouseleave", start);
-
-    if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            start();
-          } else {
-            stop();
-          }
-        });
-      }, { threshold: 0.15 });
-      observer.observe(stage);
-    } else {
-      start();
-    }
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initCharacterMorph);
-  } else {
-    initCharacterMorph();
-  }
-</script>
 
 <style>
   /* Seção em Tema Claro Puro, Aberto e Sem Cartão Escuro */
