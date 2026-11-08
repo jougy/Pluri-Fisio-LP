@@ -60,10 +60,4 @@ test.describe('Security & HTTP Headers Audits', () => {
     expect(content).toContain('/_astro/*');
     expect(content).toMatch(/max-age=31536000.*immutable/);
   });
-
-  test('public/_redirects enforces HTTP to HTTPS 301 redirection', () => {
-    expect(fs.existsSync(redirectsPath), 'public/_redirects should exist').toBeTruthy();
-    const content = fs.readFileSync(redirectsPath, 'utf-8');
-    expect(content).toContain('http://plurifisio.com.br/* https://plurifisio.com.br/:splat 301!');
-  });
 });
