@@ -122,44 +122,6 @@
   </div>
 </footer>
 
-<script>
-  function setupCollapsibleFooter() {
-    const btn = document.getElementById('btnToggleFooter');
-    const drawer = document.getElementById('footerExpandedContent');
-    const label = document.getElementById('footerBtnLabel');
-
-    if (!btn || !drawer) return;
-
-    btn.addEventListener('click', () => {
-      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
-      const nextState = !isExpanded;
-
-      btn.setAttribute('aria-expanded', String(nextState));
-      btn.classList.toggle('active', nextState);
-      
-      if (nextState) {
-        drawer.hidden = false;
-        drawer.classList.add('is-open');
-        if (label) label.textContent = 'Recolher rodapé';
-      } else {
-        drawer.classList.remove('is-open');
-        if (label) label.textContent = 'Ver dados legais & mapa';
-        setTimeout(() => {
-          if (!btn.classList.contains('active')) {
-            drawer.hidden = true;
-          }
-        }, 200);
-      }
-    });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupCollapsibleFooter);
-  } else {
-    setupCollapsibleFooter();
-  }
-</script>
-
 <style>
   .compact-footer {
     width: 100%;

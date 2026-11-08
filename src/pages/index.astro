@@ -51,7 +51,9 @@ import Footer from '../components/Footer.astro';
     setupWorkflowResponsiveCarousel, 
     setupSmoothAnchors, 
     setupModal,
-    setupMetaPixelTracking
+    setupMetaPixelTracking,
+    setupPlatformCarousel,
+    setupCollapsibleFooter
   } from '../scripts/home-interactions';
   import { setupPricing } from '../scripts/pricing-bento';
   import { setupTrafficAttribution } from '../scripts/traffic-attribution';
@@ -62,6 +64,8 @@ import Footer from '../components/Footer.astro';
     initialized = true;
     setupTrafficAttribution();
     setupPricing();
+    setupPlatformCarousel();
+    setupCollapsibleFooter();
     setupWorkflowAccordion();
     setupWorkflowResponsiveCarousel();
     setupSmoothAnchors();
