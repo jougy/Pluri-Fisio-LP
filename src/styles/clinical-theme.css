@@ -6,35 +6,22 @@
 
 :root {
   --radius: 1.25rem;
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
 
   --background: oklch(0.985 0.006 235);
   --foreground: oklch(0.2 0.02 255);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.2 0.02 255);
-  --primary: oklch(0.55 0.21 258);
-  --primary-foreground: oklch(0.99 0.005 230);
-  --secondary: oklch(0.93 0.03 235);
-  --secondary-foreground: oklch(0.22 0.04 258);
-  --muted: oklch(0.94 0.02 235);
   --muted-foreground: oklch(0.38 0.05 255);
   --border: oklch(0.9 0.025 238);
   
   --sand: oklch(0.94 0.035 232);
   --clay: oklch(0.55 0.21 258);
-  --sage: oklch(0.68 0.15 222);
   --ink: oklch(0.28 0.09 262);
   --bone: oklch(0.985 0.008 235);
 
   --font-display: "Figtree", ui-rounded, -apple-system, BlinkMacSystemFont, sans-serif;
   --font-sans: "Figtree", ui-rounded, -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: "Figtree", ui-rounded, -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-accessible: "Figtree", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 *, *::before, *::after {
@@ -91,14 +78,7 @@ ul, ol {
 }
 
 /* Typography utilities */
-.t-display {
-  font-family: var(--font-display);
-  font-weight: 600;
-  line-height: 1.02;
-  letter-spacing: 0.005em;
-  word-spacing: 0.08em;
-  font-size: clamp(2.3rem, 7.8vmin, 6.4rem);
-}
+
 
 .t-title {
   font-family: var(--font-display);
@@ -109,12 +89,7 @@ ul, ol {
   font-size: clamp(1.8rem, 5.1vmin, 4rem);
 }
 
-.t-lead {
-  font-size: clamp(0.95rem, 2.1vmin, 1.4rem);
-  line-height: 1.6;
-  letter-spacing: 0.01em;
-  word-spacing: 0.08em;
-}
+
 
 .t-small {
   font-size: clamp(0.78rem, 1.6vmin, 1rem);
@@ -155,10 +130,7 @@ ul, ol {
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-.btn-primary-hoverable:hover {
-  opacity: 0.88;
-  transform: translateY(-1px);
-}
+
 
 .btn-clay {
   display: inline-flex;
@@ -198,38 +170,6 @@ ul, ol {
   transform: translateY(-1px);
 }
 
-.btn-ghost {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  min-height: 2.75rem;
-  padding: 0 clamp(1.1rem, 2.4vmin, 2rem);
-  border-radius: 999px;
-  border: 1px solid var(--ink);
-  color: var(--ink);
-  font-weight: 500;
-  transition: background 0.2s ease, color 0.2s ease;
-}
-
-.btn-ghost:hover {
-  background: var(--ink);
-  color: var(--bone);
-}
-
-/* Hero animations & visuals */
-.hero-aurora {
-  position: relative;
-  isolation: isolate;
-  background:
-    radial-gradient(circle at 20% 20%, oklch(0.94 0.04 235 / 65%) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, oklch(0.96 0.02 255 / 60%) 0%, transparent 50%),
-    var(--bone);
-  overflow: hidden;
-  content-visibility: visible;
-}
-
-
 .sr-only {
   position: absolute;
   width: 1px;
@@ -242,11 +182,7 @@ ul, ol {
   border: 0;
 }
 
-/* Content-visibility for below-the-fold viewport sections */
-.viewport-section:not(:first-of-type) {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 100vh;
-}
+
 
 /* Accessibility: Respect user preference for reduced motion */
 @media (prefers-reduced-motion: reduce) {
