@@ -52,9 +52,70 @@ function sriAndCspIntegration() {
             return match;
           });
 
-          // 2. Extract hashes from all inline <style> tags
+          // 2. Extract and split Critical vs Non-Critical (below-the-fold) CSS
+          // Below-the-fold components and modals (Platform, Workflow, Pricing, Modal, Footer)
+          // are separated into a deferred external stylesheet to eliminate unused CSS in initial fold!
           const styleMatches = [...html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/gi)];
-          const styleHashes = styleMatches.map(m => {
+          if (styleMatches.length > 0) {
+            const fullCss = styleMatches[0][1];
+            
+            // Helper to parse CSS blocks respecting nested braces (@media, @keyframes)
+            const parseCssBlocks = (css) => {
+              const blocks = [];
+              let i = 0;
+              const n = css.length;
+              while (i < n) {
+                const brace = css.indexOf('{', i);
+                if (brace === -1) break;
+                let depth = 1;
+                let j = brace + 1;
+                while (j < n && depth > 0) {
+                  if (css[j] === '{') depth++;
+                  else if (css[j] === '}') depth--;
+                  j++;
+                }
+                blocks.push(css.slice(i, j));
+                i = j;
+              }
+              return blocks;
+            };
+
+            const allBlocks = parseCssBlocks(fullCss);
+            const critBlocks = [];
+            const deferBlocks = [];
+
+            for (const block of allBlocks) {
+              const cids = [...block.matchAll(/data-astro-cid-([a-z0-9]+)/g)].map(m => m[1]);
+              // If block contains elements from below-fold or modal components, defer it
+              if (cids.length > 0 && cids.some(cid => cid !== 'ckidf7ss' && cid !== 'ssxvyu24')) {
+                deferBlocks.push(block);
+              } else {
+                critBlocks.push(block);
+              }
+            }
+
+            const criticalCss = critBlocks.join('');
+            const deferredCss = deferBlocks.join('');
+
+            // Write deferred CSS chunk with content hash
+            const deferHash = crypto.createHash('md5').update(deferredCss).digest('hex').slice(0, 8);
+            const deferFilename = `deferred.${deferHash}.css`;
+            const astroAssetsDir = path.join(distDir, '_astro');
+            if (!fs.existsSync(astroAssetsDir)) {
+              fs.mkdirSync(astroAssetsDir, { recursive: true });
+            }
+            fs.writeFileSync(path.join(astroAssetsDir, deferFilename), deferredCss, 'utf-8');
+
+            // Replace full inlined <style> with critical <style> + deferred <link>
+            const deferredLink = `<link rel="stylesheet" href="/_astro/${deferFilename}" media="print" onload="this.media='all'" />`;
+            const replacement = `<style>${criticalCss}</style>\n    ${deferredLink}`;
+            html = html.replace(styleMatches[0][0], replacement);
+            logger.info(`Separated CSS: Critical inline (${(criticalCss.length / 1024).toFixed(2)} KiB), Deferred external (${(deferredCss.length / 1024).toFixed(2)} KiB saved from initial load).`);
+          }
+
+          // Extract hashes from all remaining inline <style> tags
+          const finalStyleMatches = [...html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/gi)];
+          const styleHashes = finalStyleMatches.map(m => {
             const h = crypto.createHash('sha256').update(m[1]).digest('base64');
             return `'sha256-${h}'`;
           });
