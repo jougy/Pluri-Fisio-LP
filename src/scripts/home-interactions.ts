@@ -144,6 +144,7 @@ export function setupMetaPixelTracking() {
   const globalWin = window as unknown as {
     __metaPixelTrackingInitialized?: boolean;
     fbq?: (...args: unknown[]) => void;
+    __sendMetaEvent?: (eventName: string, customData?: Record<string, unknown>, isCustom?: boolean) => void;
   };
 
   if (globalWin.__metaPixelTrackingInitialized) {
@@ -151,7 +152,44 @@ export function setupMetaPixelTracking() {
   }
   globalWin.__metaPixelTrackingInitialized = true;
 
-  const getFbq = () => globalWin.fbq;
+  // Helper unificado de disparo com deduplicação CAPI + Pixel
+  const trackEvent = (eventName: string, customData?: Record<string, unknown>, isCustom: boolean = false) => {
+    if (typeof globalWin.__sendMetaEvent === "function") {
+      globalWin.__sendMetaEvent(eventName, customData, isCustom);
+      return;
+    }
+
+    const eventId = typeof crypto !== "undefined" && crypto.randomUUID ? crypto.randomUUID() : `evt_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`;
+    const fbq = globalWin.fbq;
+    if (fbq) {
+      if (isCustom) {
+        fbq("trackCustom", eventName, customData || {}, { eventID: eventId });
+      } else {
+        fbq("track", eventName, customData || {}, { eventID: eventId });
+      }
+    }
+
+    try {
+      const payload = {
+        eventName,
+        eventId,
+        eventSourceUrl: window.location.href,
+        customData: customData || {}
+      };
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon("/api/meta-capi", new Blob([JSON.stringify(payload)], { type: "application/json" }));
+      } else {
+        fetch("/api/meta-capi", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+          keepalive: true
+        }).catch(() => {});
+      }
+    } catch {
+      // Ignora erro de rede em tracking
+    }
+  };
 
   // 1 & 2: Eventos de Clique (Lead, Click_Cta_Cadastro, intencao_ciclo_planos, Contact, InitiateCheckout)
   document.addEventListener("click", (e) => {
@@ -159,9 +197,6 @@ export function setupMetaPixelTracking() {
       'a[data-pixel-event], button[data-pixel-event], a.plan-cta-btn, a.free-card-cta, .enterprise-primary-btn, a[href*="/auth/cadastro"]'
     );
     if (!target) return;
-
-    const fbq = getFbq();
-    if (!fbq) return;
 
     const explicitEvent = target.getAttribute("data-pixel-event");
     const isFreeTrial = explicitEvent === "Lead" || explicitEvent === "StartTrial" || target.classList.contains("free-card-cta") || target.closest(".bento-trial") !== null;
@@ -171,7 +206,7 @@ export function setupMetaPixelTracking() {
 
     // Trigger: Contato WhatsApp / Enterprise
     if (explicitEvent === "Contact" || target.getAttribute("data-contact-channel") === "whatsapp_enterprise") {
-      fbq("track", "Contact", {
+      trackEvent("Contact", {
         content_name: "Contato Enterprise WhatsApp",
         channel: "whatsapp"
       });
@@ -180,7 +215,7 @@ export function setupMetaPixelTracking() {
 
     // Regra: Botões de teste gratuito disparam StartTrial (evento padrão Meta sem valor zerado para evitar erro no Gerenciador)
     if (isFreeTrial) {
-      fbq("track", "StartTrial", {
+      trackEvent("StartTrial", {
         content_name: target.getAttribute("data-plan-name") || "Teste Gratuito 7 Dias",
         content_category: "Trial"
       });
@@ -188,12 +223,12 @@ export function setupMetaPixelTracking() {
 
     // Regra: Todos os botões que levam para a página de cadastro devem disparar click_cta_cadastro
     if (isAuthCadastro || isFreeTrial || isPlanCta || isEnterprise) {
-      fbq("trackCustom", "click_cta_cadastro", {
+      trackEvent("click_cta_cadastro", {
         content_name: isFreeTrial ? (target.getAttribute("data-plan-name") || "Teste Gratuito") : target.getAttribute("data-plan-name") || "Cadastro",
         content_category: isFreeTrial ? "Trial" : "Plano Pago",
         plan_id: target.getAttribute("data-plan-id") || (isFreeTrial ? "free_trial" : "cadastro"),
         status: "intent"
-      });
+      }, true);
     }
 
     // InitiateCheckout para compra de planos pagos
@@ -207,7 +242,7 @@ export function setupMetaPixelTracking() {
       const priceMatch = priceText.match(/[\d,.]+/);
       const parsedValue = priceMatch ? parseFloat(priceMatch[0].replace(".", "").replace(",", ".")) : 0;
 
-      fbq("track", "InitiateCheckout", {
+      trackEvent("InitiateCheckout", {
         content_name: `Plano ${planName}`,
         content_ids: [planId],
         content_type: "product",
@@ -219,7 +254,7 @@ export function setupMetaPixelTracking() {
 
     // Trigger Enterprise Checkout
     if (isEnterprise) {
-      fbq("track", "InitiateCheckout", {
+      trackEvent("InitiateCheckout", {
         content_name: "Plano Enterprise",
         content_ids: ["enterprise"],
         content_type: "product",
@@ -239,13 +274,10 @@ export function setupMetaPixelTracking() {
         if (entry.isIntersecting && !plansViewed) {
           plansViewed = true;
           plansObserver.disconnect();
-          const fbq = getFbq();
-          if (fbq) {
-            fbq("track", "ViewContent", {
-              content_name: "Secao_Planos",
-              content_category: "Precos_e_Assinaturas"
-            });
-          }
+          trackEvent("ViewContent", {
+            content_name: "Secao_Planos",
+            content_category: "Precos_e_Assinaturas"
+          });
         }
       });
     }, { threshold: 0.35 });
@@ -262,13 +294,10 @@ export function setupMetaPixelTracking() {
     modalViewed = true;
     if (modalMutationObserver) modalMutationObserver.disconnect();
     btnOpenModal?.removeEventListener("click", trackModalOpen);
-    const fbq = getFbq();
-    if (fbq) {
-      fbq("track", "ViewContent", {
-        content_name: "Modal_Funcionalidades_Clinicas",
-        content_category: "Diferenciais_e_Recursos"
-      });
-    }
+    trackEvent("ViewContent", {
+      content_name: "Modal_Funcionalidades_Clinicas",
+      content_category: "Diferenciais_e_Recursos"
+    });
   };
 
   btnOpenModal?.addEventListener("click", trackModalOpen);
@@ -291,12 +320,9 @@ export function setupMetaPixelTracking() {
   audienceButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const audience = btn.getAttribute("data-audience") || "prof";
-      const fbq = getFbq();
-      if (fbq) {
-        fbq("trackCustom", "Interacao_Audience_Planos", {
-          audience_selected: audience
-        });
-      }
+      trackEvent("Interacao_Audience_Planos", {
+        audience_selected: audience
+      }, true);
     });
   });
 
@@ -304,12 +330,9 @@ export function setupMetaPixelTracking() {
   cycleButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const cycle = btn.getAttribute("data-cycle") || "mensal";
-      const fbq = getFbq();
-      if (fbq) {
-        fbq("trackCustom", "intencao_ciclo_planos", {
-          cycle_selected: cycle
-        });
-      }
+      trackEvent("intencao_ciclo_planos", {
+        cycle_selected: cycle
+      }, true);
     });
   });
 
@@ -318,12 +341,9 @@ export function setupMetaPixelTracking() {
   window.setTimeout(() => {
     if (!timer30sTracked) {
       timer30sTracked = true;
-      const fbq = getFbq();
-      if (fbq) {
-        fbq("trackCustom", "Tempo_Qualificado_30s", {
-          page: window.location.pathname
-        });
-      }
+      trackEvent("Tempo_Qualificado_30s", {
+        page: window.location.pathname
+      }, true);
     }
   }, 30000);
 
@@ -349,12 +369,9 @@ export function setupMetaPixelTracking() {
       scrollDeepTracked = true;
       window.removeEventListener("scroll", checkScrollDepth);
       if (snapContainer) snapContainer.removeEventListener("scroll", checkScrollDepth);
-      const fbq = getFbq();
-      if (fbq) {
-        fbq("trackCustom", "Scroll_Profundo_70", {
-          page: window.location.pathname
-        });
-      }
+      trackEvent("Scroll_Profundo_70", {
+        page: window.location.pathname
+      }, true);
     }
   };
 
