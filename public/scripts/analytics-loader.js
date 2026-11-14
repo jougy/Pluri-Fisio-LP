@@ -1,3 +1,44 @@
+// Helper para disparar evento do Meta Pixel e enviar simultaneamente para a Conversions API (CAPI)
+// com o mesmo eventID para garantir deduplicação perfeita (> 75%)
+function sendMetaEvent(eventName, customData, isCustom) {
+	try {
+		var eventId = typeof crypto !== "undefined" && crypto.randomUUID ? crypto.randomUUID() : "evt_" + Date.now() + "_" + Math.random().toString(36).slice(2, 11);
+		
+		// 1. Dispara no navegador via Pixel (fbq) com o eventID
+		if (typeof window.fbq === "function") {
+			if (isCustom) {
+				window.fbq("trackCustom", eventName, customData || {}, { eventID: eventId });
+			} else {
+				window.fbq("track", eventName, customData || {}, { eventID: eventId });
+			}
+		}
+
+		// 2. Envia para o endpoint Cloudflare Pages Function (Meta CAPI server-side)
+		var payload = {
+			eventName: eventName,
+			eventId: eventId,
+			eventSourceUrl: window.location.href,
+			customData: customData || {}
+		};
+
+		if (navigator.sendBeacon) {
+			var blob = new Blob([JSON.stringify(payload)], { type: "application/json" });
+			navigator.sendBeacon("/api/meta-capi", blob);
+		} else {
+			fetch("/api/meta-capi", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(payload),
+				keepalive: true
+			}).catch(function() {});
+		}
+	} catch (e) {
+		// Silently catch to not break analytics
+	}
+}
+
+window.__sendMetaEvent = sendMetaEvent;
+
 window.dataLayer = window.dataLayer || [];
 function gtag() {
 	dataLayer.push(arguments);
@@ -44,7 +85,7 @@ function loadAnalyticsScripts() {
 		s.parentNode.insertBefore(t, s);
 	}(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
 	fbq("init", "1073846021935349");
-	fbq("track", "PageView");
+	sendMetaEvent("PageView");
 }
 // Carrega analíticos estritamente após a primeira interação real do usuário
 // Evita download de JS de terceiros (Meta Pixel / GA4 / Clarity) durante auditorias do Lighthouse e carregamento inicial
