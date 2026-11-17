@@ -537,6 +537,56 @@ export function setupPlatformCarousel() {
   }
 }
 
+// Inicialização do índice lateral retrátil com ScrollSpy baseado em IntersectionObserver
+export function setupSectionIndexNav() {
+  const nav = document.getElementById("sectionIndexNav");
+  if (!nav) return;
+
+  const links = Array.from(nav.querySelectorAll<HTMLAnchorElement>(".index-nav-link"));
+  if (links.length === 0) return;
+
+  const sectionMap = new Map<string, HTMLElement>();
+  links.forEach((link) => {
+    const targetId = link.getAttribute("data-target-section");
+    if (targetId) {
+      const el = document.getElementById(targetId);
+      if (el) sectionMap.set(targetId, el);
+    }
+  });
+
+  const setActive = (activeId: string) => {
+    links.forEach((link) => {
+      const targetId = link.getAttribute("data-target-section");
+      const isCurrent = targetId === activeId;
+      link.setAttribute("aria-current", isCurrent ? "true" : "false");
+    });
+
+    // Seção escura (#como-funciona): ativa o tema claro com glow
+    const isDarkSection = activeId === "como-funciona";
+    nav.classList.toggle("theme-light-glow", isDarkSection);
+  };
+
+  // Observador com threshold balanceado para detectar a seção mais proeminente no viewport
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActive(entry.target.id);
+        }
+      });
+    },
+    {
+      root: null,
+      rootMargin: "-20% 0px -50% 0px", // Margem superior e inferior para focar na seção visível central
+      threshold: 0,
+    }
+  );
+
+  sectionMap.forEach((sectionEl) => {
+    observer.observe(sectionEl);
+  });
+}
+
 // Inicialização sob demanda do Footer retrátil
 export function setupCollapsibleFooter() {
   const btn = document.getElementById('btnToggleFooter');

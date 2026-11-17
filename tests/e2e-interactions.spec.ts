@@ -6,6 +6,35 @@ test.describe('E2E Key Clinical Funnel & Interactions', () => {
     await page.waitForLoadState('domcontentloaded');
   });
 
+  test('page loads with critical CSS computed styles (not unstyled HTML)', async ({ page }) => {
+    // Valida que o container principal ou hero tem estilos calculados aplicados (não display/background/font padrão do browser)
+    const heroBtn = page.locator('a.hero-btn[href="#planos"]').first();
+    await expect(heroBtn).toBeVisible();
+
+    const bgColor = await heroBtn.evaluate((el) => window.getComputedStyle(el).backgroundColor);
+    // heroBtn tem fundo estilizado (não transparente ou branco padrão)
+    expect(bgColor).not.toBe('rgba(0, 0, 0, 0)');
+    expect(bgColor).not.toBe('transparent');
+
+    const heroSection = page.locator('#lancamento');
+    const heroDisplay = await heroSection.evaluate((el) => window.getComputedStyle(el).display);
+    expect(heroDisplay).not.toBe('inline');
+
+    // Valida que as regras CSS estão ativas no documento (document.styleSheets não está vazio nem zerado)
+    const rulesCount = await page.evaluate(() => {
+      let count = 0;
+      for (const sheet of Array.from(document.styleSheets)) {
+        try {
+          count += sheet.cssRules ? sheet.cssRules.length : 0;
+        } catch {
+          // Cross-origin sheets
+        }
+      }
+      return count;
+    });
+    expect(rulesCount).toBeGreaterThan(100);
+  });
+
   test('hero section renders primary CTA and leads to pricing', async ({ page }) => {
     const heroBtn = page.locator('a.hero-btn[href="#planos"]');
     await expect(heroBtn).toBeVisible();

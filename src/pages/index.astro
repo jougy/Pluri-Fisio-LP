@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import HeaderNav from '../components/home/HeaderNav.astro';
+import SectionIndexNav from '../components/home/SectionIndexNav.astro';
 import HeroSection from '../components/home/HeroSection.astro';
 import PlatformSection from '../components/home/PlatformSection.astro';
 import WorkflowSection from '../components/home/WorkflowSection.astro';
@@ -22,6 +23,9 @@ import Footer from '../components/Footer.astro';
 
   <!-- Header Fixo -->
   <HeaderNav />
+
+  <!-- Índice Lateral Retrátil com Scroll Spy -->
+  <SectionIndexNav />
 
   <!-- Main Container com Snap de Página Inteira (100svh) -->
   <main id="conteudo" class="snap-main-container">
@@ -53,7 +57,8 @@ import Footer from '../components/Footer.astro';
     setupModal,
     setupMetaPixelTracking,
     setupPlatformCarousel,
-    setupCollapsibleFooter
+    setupCollapsibleFooter,
+    setupSectionIndexNav
   } from '../scripts/home-interactions';
   import { setupPricing } from '../scripts/pricing-bento';
   import { setupTrafficAttribution } from '../scripts/traffic-attribution';
@@ -66,6 +71,7 @@ import Footer from '../components/Footer.astro';
     setupPricing();
     setupPlatformCarousel();
     setupCollapsibleFooter();
+    setupSectionIndexNav();
     setupWorkflowAccordion();
     setupWorkflowResponsiveCarousel();
     setupSmoothAnchors();

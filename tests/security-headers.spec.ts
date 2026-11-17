@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import * as fs from 'fs';
 import * as path from 'path';
+import * as crypto from 'crypto';
 
 test.describe('Security & HTTP Headers Audits', () => {
   const headersPath = path.resolve(process.cwd(), 'public/_headers');
@@ -78,6 +79,26 @@ test.describe('Security & HTTP Headers Audits', () => {
       for (const tag of scriptTags) {
         expect(tag).toContain('integrity="sha384-');
         expect(tag).toContain('crossorigin="anonymous"');
+      }
+    }
+  });
+
+  test('enforces CSS integrity and prevents CSP-blocked inline stylesheet hacks', () => {
+    const distHtmlPath = path.resolve(process.cwd(), 'dist/index.html');
+    if (fs.existsSync(distHtmlPath)) {
+      const html = fs.readFileSync(distHtmlPath, 'utf-8');
+      
+      // 1. Proibir inline event handler em link de stylesheet (ex: onload="this.media='all'")
+      expect(html).not.toMatch(/<link[^>]*rel=["']stylesheet["'][^>]*onload=/i);
+      
+      // 2. Garantir que os hashes das tags <style> no HTML coincidam com o CSP de _headers
+      const content = fs.readFileSync(headersPath, 'utf-8');
+      const styleMatches = [...html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/gi)];
+      expect(styleMatches.length).toBeGreaterThan(0);
+      
+      for (const m of styleMatches) {
+        const hash = 'sha256-' + crypto.createHash('sha256').update(m[1]).digest('base64');
+        expect(content, `CSP style-src must include hash ${hash}`).toContain(hash);
       }
     }
   });

@@ -1,0 +1,223 @@
+---
+// SectionIndexNav.astro - Índice lateral retrátil com scroll spy (inspiração minimalista / editorial)
+interface Props {
+  className?: string;
+}
+
+const { className = '' } = Astro.props;
+
+const sections = [
+  { id: 'lancamento', label: 'Início', ariaLabel: 'Ir para o início' },
+  { id: 'plataforma', label: 'A Plataforma', ariaLabel: 'Ir para a seção A Plataforma' },
+  { id: 'como-funciona', label: 'Como Funciona', ariaLabel: 'Ir para a seção Como Funciona' },
+  { id: 'planos', label: 'Planos', ariaLabel: 'Ir para a seção Planos & Preços' },
+];
+---
+
+<nav 
+  id="sectionIndexNav"
+  class:list={['section-index-nav', className]}
+  aria-label="Índice de Seções da Página"
+>
+  <ul class="index-nav-list" role="list">
+    {sections.map((section, idx) => (
+      <li class="index-nav-item">
+        <a 
+          href={`#${section.id}`}
+          class="index-nav-link"
+          data-target-section={section.id}
+          aria-label={section.ariaLabel}
+          aria-current={idx === 0 ? 'true' : 'false'}
+        >
+          <span class="index-nav-label">{section.label}</span>
+          <span class="index-nav-dot" aria-hidden="true">
+            <span class="index-nav-dot-inner"></span>
+          </span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  .section-index-nav {
+    position: fixed;
+    right: clamp(1rem, 2.5vw, 2.5rem);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 45;
+    pointer-events: none; /* Deixa cliques passarem pela área não clicável */
+    user-select: none;
+    -webkit-user-select: none;
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .index-nav-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0.5rem 0;
+    list-style: none;
+    pointer-events: auto;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+
+  .index-nav-item {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .index-nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    text-decoration: none;
+    padding: 0.25rem 0.15rem;
+    cursor: pointer;
+    outline: none;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .index-nav-link:focus-visible {
+    outline: 2px solid var(--accent, #00875a);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+
+  .index-nav-label {
+    font-family: var(--font-primary, system-ui, sans-serif);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-light, #64748b);
+    opacity: 0;
+    transform: translateX(8px);
+    pointer-events: none;
+    white-space: nowrap;
+    transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease;
+  }
+
+  .index-nav-dot {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 9999px;
+    transition: background-color 0.25s ease;
+  }
+
+  .index-nav-dot-inner {
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background-color: #cbd5e1;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  /* Estado: Hover na lista ou no link específico */
+  .section-index-nav:hover .index-nav-label {
+    opacity: 0.65;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+
+  .index-nav-link:hover .index-nav-label {
+    opacity: 1 !important;
+    color: var(--ink, #0f172a);
+    transform: translateX(0);
+  }
+
+  .index-nav-link:hover .index-nav-dot-inner {
+    background-color: var(--ink, #0f172a);
+    transform: scale(1.3);
+  }
+
+  /* Estado Ativo (Seção atual selecionada pelo scroll spy) */
+  .index-nav-link[aria-current="true"] .index-nav-label {
+    opacity: 1 !important;
+    color: var(--ink, #0a2540);
+    font-weight: 700;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+
+  .index-nav-link[aria-current="true"] .index-nav-dot {
+    background-color: rgba(14, 116, 144, 0.12); /* Halo sutil ao redor da bolinha ativa */
+  }
+
+  .index-nav-link[aria-current="true"] .index-nav-dot-inner {
+    width: 8px;
+    height: 8px;
+    background-color: #032b43; /* Azul escuro corporativo idêntico à referência */
+    box-shadow: 0 0 0 3px rgba(3, 43, 67, 0.15);
+    transform: scale(1.15);
+  }
+
+  /* =========================================================================
+     Tema Claro com Glow para Seções Escuras (ex: Seção 3 - Como Funciona)
+     ========================================================================= */
+  .section-index-nav.theme-light-glow .index-nav-label {
+    color: rgba(226, 232, 240, 0.7);
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+  }
+
+  .section-index-nav.theme-light-glow .index-nav-dot-inner {
+    background-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
+  }
+
+  .section-index-nav.theme-light-glow:hover .index-nav-label {
+    opacity: 0.8;
+  }
+
+  .section-index-nav.theme-light-glow .index-nav-link:hover .index-nav-label {
+    color: #ffffff !important;
+    text-shadow: 0 0 16px rgba(255, 255, 255, 0.6);
+  }
+
+  .section-index-nav.theme-light-glow .index-nav-link:hover .index-nav-dot-inner {
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    transform: scale(1.3);
+  }
+
+  .section-index-nav.theme-light-glow .index-nav-link[aria-current="true"] .index-nav-label {
+    color: #ffffff !important;
+    font-weight: 700;
+    text-shadow: 0 0 14px rgba(255, 255, 255, 0.75), 0 0 24px rgba(56, 189, 248, 0.5);
+  }
+
+  .section-index-nav.theme-light-glow .index-nav-link[aria-current="true"] .index-nav-dot {
+    background-color: rgba(56, 189, 248, 0.2);
+  }
+
+  .section-index-nav.theme-light-glow .index-nav-link[aria-current="true"] .index-nav-dot-inner {
+    background-color: #ffffff;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.9), 0 0 20px rgba(56, 189, 248, 0.8);
+    transform: scale(1.2);
+  }
+
+  /* Em telas touch / mobile pequenas (onde o espaço lateral é escasso), esconde suavemente para não sobrepor conteúdo */
+  @media (max-width: 768px) {
+    .section-index-nav {
+      display: none;
+    }
+  }
+
+  /* Redução de movimento para usuários com preferência de acessibilidade */
+  @media (prefers-reduced-motion: reduce) {
+    .section-index-nav,
+    .index-nav-label,
+    .index-nav-dot-inner {
+      transition: none !important;
+    }
+  }
+</style>
