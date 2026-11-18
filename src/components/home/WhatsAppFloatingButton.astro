@@ -1,0 +1,237 @@
+---
+// WhatsAppFloatingButton.astro - Botão flutuante chamativo e pulsante do WhatsApp
+interface Props {
+  phone?: string;
+  message?: string;
+  className?: string;
+}
+
+const {
+  phone = '5511960474566',
+  message = 'vim do site, gostaria de conversar com alguem sobre mais informações.',
+  className = ''
+} = Astro.props;
+
+const encodedMessage = encodeURIComponent(message);
+const whatsappUrl = `https://wa.me/${phone}?text=${encodedMessage}`;
+---
+
+<aside 
+  class:list={['whatsapp-floating-wrapper', className]}
+  aria-label="Atendimento rápido pelo WhatsApp"
+>
+  <a
+    href={whatsappUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="whatsapp-btn"
+    aria-label="Conversar pelo WhatsApp com nosso time"
+  >
+    <!-- Anéis de onda pulsante contínua -->
+    <span class="pulse-ring ring-1" aria-hidden="true"></span>
+    <span class="pulse-ring ring-2" aria-hidden="true"></span>
+
+    <!-- Tooltip / Badge no hover -->
+    <span class="whatsapp-tooltip">
+      Fale conosco no WhatsApp
+    </span>
+
+    <!-- Círculo principal com o ícone oficial -->
+    <span class="whatsapp-icon-circle">
+      <svg 
+        class="whatsapp-svg" 
+        viewBox="0 0 32 32" 
+        fill="currentColor" 
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <path d="M16 2C8.268 2 2 8.268 2 16c0 2.652.736 5.132 2.012 7.252L2.096 29.24a1 1 0 0 0 1.22 1.22l6.236-1.876A13.916 13.916 0 0 0 16 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.6c-2.316 0-4.484-.664-6.316-1.816a1 1 0 0 0-.756-.124l-4.524 1.36 1.4-4.372a1 1 0 0 0-.136-.836C4.464 20.008 3.8 18.064 3.8 16c0-6.728 5.472-12.2 12.2-12.2 6.728 0 12.2 5.472 12.2 12.2 0 6.728-5.472 12.2-12.2 12.2zm7.1-9.156c-.392-.196-2.316-1.144-2.676-1.272-.356-.132-.616-.196-.876.196-.256.392-1.004 1.272-1.232 1.532-.228.26-.456.292-.848.096-.392-.196-1.656-.612-3.156-1.948-1.168-1.04-1.956-2.324-2.184-2.716-.228-.392-.024-.604.172-.8.176-.176.392-.456.588-.684.196-.228.26-.392.392-.652.132-.26.068-.488-.032-.684-.1-.196-.876-2.108-1.2-2.888-.316-.76-.64-.656-.876-.668-.228-.012-.488-.012-.748-.012-.26 0-.684.096-1.04.488-.36.392-1.372 1.34-1.372 3.268 0 1.928 1.404 3.792 1.6 4.052.196.26 2.76 4.216 6.688 5.912.936.404 1.664.644 2.232.828.936.296 1.788.256 2.464.156.752-.112 2.316-.948 2.64-1.864.328-.916.328-1.704.228-1.868-.096-.164-.356-.26-.748-.456z"/>
+      </svg>
+    </span>
+  </a>
+</aside>
+
+<style>
+  .whatsapp-floating-wrapper {
+    position: fixed;
+    bottom: clamp(1.25rem, 3vw, 2.25rem);
+    right: clamp(1.25rem, 3vw, 2.25rem);
+    z-index: 50;
+    pointer-events: auto;
+  }
+
+  .whatsapp-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Anéis pulsantes chamativos */
+  .pulse-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    margin-top: -30px;
+    margin-left: -30px;
+    border-radius: 50%;
+    background-color: #25D366;
+    pointer-events: none;
+    z-index: 1;
+    animation: whatsapp-pulse 2.4s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+  }
+
+  .ring-1 {
+    animation-delay: 0s;
+  }
+
+  .ring-2 {
+    animation-delay: 0.8s;
+  }
+
+  @keyframes whatsapp-pulse {
+    0% {
+      transform: scale(0.95);
+      opacity: 0.75;
+    }
+    50% {
+      opacity: 0.35;
+    }
+    100% {
+      transform: scale(1.85);
+      opacity: 0;
+    }
+  }
+
+  /* Círculo do botão */
+  .whatsapp-icon-circle {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #2ae771, #20ba59);
+    color: #ffffff;
+    box-shadow: 
+      0 4px 18px rgba(37, 211, 102, 0.45),
+      0 10px 24px rgba(0, 0, 0, 0.16);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+    animation: subtle-heartbeat 3.2s ease-in-out infinite;
+  }
+
+  @keyframes subtle-heartbeat {
+    0%, 100% {
+      transform: scale(1);
+    }
+    45% {
+      transform: scale(1.06);
+    }
+    55% {
+      transform: scale(1);
+    }
+    65% {
+      transform: scale(1.04);
+    }
+  }
+
+  .whatsapp-svg {
+    width: 34px;
+    height: 34px;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
+  }
+
+  /* Hover & Focus state */
+  .whatsapp-btn:hover .whatsapp-icon-circle,
+  .whatsapp-btn:focus-visible .whatsapp-icon-circle {
+    transform: scale(1.12);
+    box-shadow: 
+      0 6px 26px rgba(37, 211, 102, 0.65),
+      0 12px 28px rgba(0, 0, 0, 0.22);
+  }
+
+  .whatsapp-btn:focus-visible {
+    outline: 2px solid #25D366;
+    outline-offset: 4px;
+    border-radius: 50%;
+  }
+
+  /* Tooltip informativo */
+  .whatsapp-tooltip {
+    position: absolute;
+    right: calc(100% + 14px);
+    top: 50%;
+    transform: translateY(-50%) translateX(10px);
+    background: #0f172a;
+    color: #f8fafc;
+    padding: 7px 14px;
+    border-radius: 9999px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    z-index: 3;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .whatsapp-tooltip::after {
+    content: '';
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent #0f172a;
+  }
+
+  .whatsapp-btn:hover .whatsapp-tooltip,
+  .whatsapp-btn:focus-visible .whatsapp-tooltip {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+
+  /* Respeito à preferência de redução de movimento */
+  @media (prefers-reduced-motion: reduce) {
+    .pulse-ring {
+      animation: none;
+      display: none;
+    }
+    .whatsapp-icon-circle {
+      animation: none;
+    }
+  }
+
+  /* Mobile: ajusta tamanho do botão */
+  @media (max-width: 640px) {
+    .pulse-ring {
+      width: 54px;
+      height: 54px;
+      margin-top: -27px;
+      margin-left: -27px;
+    }
+    .whatsapp-icon-circle {
+      width: 54px;
+      height: 54px;
+    }
+    .whatsapp-svg {
+      width: 30px;
+      height: 30px;
+    }
+    .whatsapp-tooltip {
+      display: none; /* Em telas móveis touch não exibe tooltip hover */
+    }
+  }
+</style>
